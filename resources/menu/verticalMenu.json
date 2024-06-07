@@ -113,10 +113,9 @@
           "slug": "laporan-tagihan-perbulan"
         },
         {
-          "url": "layouts/blank",
+          "url": "laporan/tunggakan",
           "name": "Tunggakan",
-          "slug": "layouts-blank",
-          "target": "_blank"
+          "slug": "laporan-tunggakan"
         }
       ]
     },
