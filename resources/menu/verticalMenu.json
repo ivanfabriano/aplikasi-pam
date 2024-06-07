@@ -90,15 +90,9 @@
           "slug": "datamaster-kelola-pelanggan"
         },
         {
-          "url": "layouts/fluid",
-          "name": "Kelola Agen",
-          "slug": "layouts-fluid"
-        },
-        {
-          "url": "layouts/blank",
+          "url": "datamaster/kelola-petugas",
           "name": "Kelola Petugas",
-          "slug": "layouts-blank",
-          "target": "_blank"
+          "slug": "datamaster-kelola-petugas"
         }
       ]
     },

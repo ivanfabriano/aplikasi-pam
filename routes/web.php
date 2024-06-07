@@ -49,6 +49,7 @@ use App\Http\Controllers\menu_admins\KelolaPenggunaan;
 use App\Http\Controllers\menu_admins\KelolaTarif;
 use App\Http\Controllers\menu_admins\KelolaDenda;
 use App\Http\Controllers\menu_admins\KelolaPelanggan;
+use App\Http\Controllers\menu_admins\KelolaPetugas;
 use App\Http\Controllers\menu_admins\LaporanTagihanPerbulan;
 use App\Http\Controllers\menu_admins\LaporanTunggakan;
 
@@ -62,6 +63,7 @@ Route::get('/menu-agent/riwayat-pembayaran', [RiwayatPembayaran::class, 'index']
 Route::get('/datamaster/kelola-tarif', [KelolaTarif::class, 'index'])->name('datamaster-kelola-tarif');
 Route::get('/datamaster/kelola-denda', [KelolaDenda::class, 'index'])->name('datamaster-kelola-denda');
 Route::get('/datamaster/kelola-pelanggan', [KelolaPelanggan::class, 'index'])->name('datamaster-kelola-pelanggan');
+Route::get('/datamaster/kelola-petugas', [KelolaPetugas::class, 'index'])->name('datamaster-kelola-petugas');
 
 Route::get('/laporan/tagihan-perbulan', [LaporanTagihanPerbulan::class, 'index'])->name('laporan-tagihan-perbulan');
 Route::get('/laporan/tunggakan', [LaporanTunggakan::class, 'index'])->name('laporan-tunggakan');
