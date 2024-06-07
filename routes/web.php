@@ -69,7 +69,11 @@ Route::post('/datamaster/tambah-tarif', [KelolaTarif::class, 'store'])->name('da
 Route::delete('/datamaster/hapus-tarif/{id}', [KelolaTarif::class, 'destroy'])->name('datamaster-hapus-tarif');
 Route::put('/datamaster/ubah-tarif/{id}', [KelolaTarif::class, 'update'])->name('datamaster-ubah-tarif');
 
-Route::get('/datamaster/kelola-denda', [KelolaDenda::class, 'index'])->name('datamaster-kelola-denda');
+Route::get('/datamaster/kelola-denda/{id?}', [KelolaDenda::class, 'index'])->name('datamaster-kelola-denda');
+Route::post('/datamaster/tambah-denda', [KelolaDenda::class, 'store'])->name('datamaster-tambah-denda');
+Route::delete('/datamaster/hapus-denda/{id}', [KelolaDenda::class, 'destroy'])->name('datamaster-hapus-denda');
+Route::put('/datamaster/ubah-denda/{id}', [KelolaDenda::class, 'update'])->name('datamaster-ubah-denda');
+
 Route::get('/datamaster/kelola-pelanggan', [KelolaPelanggan::class, 'index'])->name('datamaster-kelola-pelanggan');
 Route::get('/datamaster/kelola-petugas', [KelolaPetugas::class, 'index'])->name('datamaster-kelola-petugas');
 

@@ -18,9 +18,6 @@
                             <h5 class="card-title">Data Tarif</h5>
                             <h6 class="card-subtitle text-muted">Informasi detail data tarif</h6>
                         </div>
-                        @php
-                            $tarif_id = null;
-                        @endphp
                         <div class="card-body">
                             @if (!$initial_tarif)
                                 <form method="POST" action="{{ route('datamaster-tambah-tarif') }}">
