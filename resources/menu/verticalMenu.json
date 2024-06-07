@@ -61,13 +61,45 @@
       "menuHeader": "Menu Agen"
     },
     {
-      "name": "Riwayat Pembayaran",
+      "name": "Cek Tagihan",
       "icon": "menu-icon tf-icons mdi mdi-table",
-      "slug": "riwayat-pembayaran",
-      "url": "menu-agent/riwayat-pembayaran"
+      "slug": "cek-tagihan",
+      "url": "menu-agent/cek-tagihan"
     },
     {
       "menuHeader": "Menu Admin"
+    },
+    {
+      "name": "Pengelolaan",
+      "icon": "menu-icon tf-icons mdi mdi-form-select",
+      "slug": "pengelolaan",
+      "submenu": [
+        {
+          "url": "pengelolaan/input-penggunan",
+          "name": "Input Penggunaan",
+          "slug": "pengelolaan-input-penggunaan"
+        },
+        {
+          "url": "pengelolaan/daftar-penggunaan",
+          "name": "Daftar Penggunaan",
+          "slug": "pengelolaan-daftar-penggunaan"
+        },
+        {
+          "url": "pengelolaan/daftar-tagihan",
+          "name": "Daftar Tagihan",
+          "slug": "pengelolaan-daftar-tagihan"
+        },
+        {
+          "url": "pengelolaan/daftar-tunggakan",
+          "name": "Daftar Tunggakan",
+          "slug": "pengelolaan-daftar-tunggakan"
+        },
+        {
+          "url": "pengelolaan/riwayat-transaksi",
+          "name": "Riwayat Transaksi",
+          "slug": "pengelolaan-riwayat-transaksi"
+        }
+      ]
     },
     {
       "name": "Data Dasar",
@@ -93,45 +125,6 @@
           "url": "datamaster/kelola-petugas",
           "name": "Kelola Petugas",
           "slug": "datamaster-kelola-petugas"
-        }
-      ]
-    },
-    {
-      "name": "Laporan",
-      "icon": "menu-icon tf-icons mdi mdi-form-select",
-      "slug": "laporan",
-      "submenu": [
-        {
-          "url": "laporan/tagihan-perbulan",
-          "name": "Tagihan Perbulan",
-          "slug": "laporan-tagihan-perbulan"
-        },
-        {
-          "url": "laporan/tunggakan",
-          "name": "Tunggakan",
-          "slug": "laporan-tunggakan"
-        }
-      ]
-    },
-    {
-      "name": "Transaksi",
-      "icon": "menu-icon tf-icons mdi mdi-star-outline",
-      "slug": "transaksi",
-      "submenu": [
-        {
-          "url": "layouts/without-menu",
-          "name": "Daftar Tagihan",
-          "slug": "layouts-without-menu"
-        },
-        {
-          "url": "transaksi/kelola-penggunaan",
-          "name": "Kelola Penggunaan",
-          "slug": "transaksi-kelola-penggunaan"
-        },
-        {
-          "url": "layouts/container",
-          "name": "Daftar Penggunaan",
-          "slug": "layouts-container"
         }
       ]
     },

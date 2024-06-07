@@ -14,7 +14,8 @@
             <div class="row">
                 <div class="col mt-3">
                     <div class="card">
-                        <h5 class="card-header">Daftar Tunggakan Pelanggan Lebih Dari 3 Bulan</h5>
+                        <h5 class="card-header">Daftar Tunggakan Pelanggan <span class="text-muted">[Lebih Dari 3
+                                Bulan]</span></h5>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>

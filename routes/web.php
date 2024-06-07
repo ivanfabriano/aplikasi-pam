@@ -44,7 +44,8 @@ use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\form_layouts\HorizontalForm;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 
-use App\Http\Controllers\menu_agents\RiwayatPembayaran;
+use App\Http\Controllers\menu_agents\CekTagihan;
+
 use App\Http\Controllers\menu_admins\KelolaPenggunaan;
 use App\Http\Controllers\menu_admins\KelolaTarif;
 use App\Http\Controllers\menu_admins\KelolaDenda;
@@ -52,12 +53,13 @@ use App\Http\Controllers\menu_admins\KelolaPelanggan;
 use App\Http\Controllers\menu_admins\KelolaPetugas;
 use App\Http\Controllers\menu_admins\LaporanTagihanPerbulan;
 use App\Http\Controllers\menu_admins\LaporanTunggakan;
+use App\Http\Controllers\menu_admins\RiwayatTransaksi;
 
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
 //  Menu agen route
-Route::get('/menu-agent/riwayat-pembayaran', [RiwayatPembayaran::class, 'index'])->name('riwayat-pembayaran');
+Route::get('/menu-agent/cek-tagihan', [CekTagihan::class, 'index'])->name('cek-tagihan');
 
 //  Menu admin route
 Route::get('/datamaster/kelola-tarif', [KelolaTarif::class, 'index'])->name('datamaster-kelola-tarif');
@@ -65,10 +67,11 @@ Route::get('/datamaster/kelola-denda', [KelolaDenda::class, 'index'])->name('dat
 Route::get('/datamaster/kelola-pelanggan', [KelolaPelanggan::class, 'index'])->name('datamaster-kelola-pelanggan');
 Route::get('/datamaster/kelola-petugas', [KelolaPetugas::class, 'index'])->name('datamaster-kelola-petugas');
 
-Route::get('/laporan/tagihan-perbulan', [LaporanTagihanPerbulan::class, 'index'])->name('laporan-tagihan-perbulan');
-Route::get('/laporan/tunggakan', [LaporanTunggakan::class, 'index'])->name('laporan-tunggakan');
+Route::get('/pengelolaan/input-penggunan', [KelolaPenggunaan::class, 'index'])->name('pengelolaan-input-penggunaan');
+Route::get('/pengelolaan/daftar-tagihan', [LaporanTagihanPerbulan::class, 'index'])->name('pengelolaan-daftar-tagihan');
+Route::get('/pengelolaan/daftar-tunggakan', [LaporanTunggakan::class, 'index'])->name('pengelolaan-daftar-tunggakan');
+Route::get('/pengelolaan/riwayat-transaksi', [RiwayatTransaksi::class, 'index'])->name('pengelolaan-riwayat-transaksi');
 
-Route::get('/transaksi/kelola-penggunaan', [KelolaPenggunaan::class, 'index'])->name('transaksi-kelola-penggunaan');
 
 // layout
 Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');

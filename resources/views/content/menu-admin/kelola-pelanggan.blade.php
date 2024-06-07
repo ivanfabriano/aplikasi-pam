@@ -58,9 +58,25 @@
                         <div>
                             <div class="card-body">
                                 <div class="d-flex gap-2">
-                                    <input type="text" class="form-control" id="defaultFormControlInput"
-                                        placeholder="Cari berdasarkan ID Pelanggan"
-                                        aria-describedby="defaultFormControlHelp" />
+                                    <div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault"> Filter Telat
+                                                Bayar</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating form-floating-outline" style="width: 100%">
+                                        <input class="form-control" list="datalistOptions" id="exampleDataList"
+                                            placeholder="Masukan ID atau Nama Pelanggan">
+                                        <datalist id="datalistOptions">
+                                            <option value="San Francisco"></option>
+                                            <option value="New York"></option>
+                                            <option value="Seattle"></option>
+                                            <option value="Los Angeles"></option>
+                                            <option value="Chicago"></option>
+                                        </datalist>
+                                        <label for="exampleDataList">Cari Data Pelanggan</label>
+                                    </div>
                                     <button type="submit" class="btn btn-primary">Cari</button>
                                 </div>
                             </div>
