@@ -45,6 +45,7 @@ use App\Http\Controllers\form_layouts\HorizontalForm;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 
 use App\Http\Controllers\menu_agents\CekTagihan;
+use App\Http\Controllers\menu_agents\PembayaranTagihan;
 
 use App\Http\Controllers\menu_admins\KelolaPenggunaan;
 use App\Http\Controllers\menu_admins\KelolaTarif;
@@ -60,9 +61,14 @@ Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
 //  Menu agen route
 Route::get('/menu-agent/cek-tagihan', [CekTagihan::class, 'index'])->name('cek-tagihan');
+Route::get('/pembayaran-tagihan', [PembayaranTagihan::class, 'index'])->name('pembayaran-tagihan');
 
 //  Menu admin route
-Route::get('/datamaster/kelola-tarif', [KelolaTarif::class, 'index'])->name('datamaster-kelola-tarif');
+Route::get('/datamaster/kelola-tarif/{id?}', [KelolaTarif::class, 'index'])->name('datamaster-kelola-tarif');
+Route::post('/datamaster/tambah-tarif', [KelolaTarif::class, 'store'])->name('datamaster-tambah-tarif');
+Route::delete('/datamaster/hapus-tarif/{id}', [KelolaTarif::class, 'destroy'])->name('datamaster-hapus-tarif');
+Route::put('/datamaster/ubah-tarif/{id}', [KelolaTarif::class, 'update'])->name('datamaster-ubah-tarif');
+
 Route::get('/datamaster/kelola-denda', [KelolaDenda::class, 'index'])->name('datamaster-kelola-denda');
 Route::get('/datamaster/kelola-pelanggan', [KelolaPelanggan::class, 'index'])->name('datamaster-kelola-pelanggan');
 Route::get('/datamaster/kelola-petugas', [KelolaPetugas::class, 'index'])->name('datamaster-kelola-petugas');

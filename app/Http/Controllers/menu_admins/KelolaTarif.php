@@ -3,31 +3,70 @@
 namespace App\Http\Controllers\menu_admins;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tarif;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 
 class KelolaTarif extends Controller
 {
-    public function index()
+    public function index($id = null)
     {
-        $users = collect([
-            ['no' => 1, 'id_customer' => '2019115145520', 'name' => 'Untung', 'no_meter' => '405', 'price' => '3000'],
-            ['no' => 2, 'id_customer' => '2019115145445', 'name' => 'Budi', 'no_meter' => '203', 'price' => '3000']
-        ]);
+        $tarifs = Tarif::all();
+        $initial_tarif = null;
+        if ($id) {
+            $initial_tarif = Tarif::find($id);
+        }
 
-        $perPage = 10;
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $currentItems = $users->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        return view('content.menu-admin.kelola-tarif', compact('tarifs', 'initial_tarif'));
+    }
 
-        $paginatedUsers = new LengthAwarePaginator(
-            $currentItems,
-            $users->count(),
-            $perPage,
-            $currentPage,
-            ['path' => LengthAwarePaginator::resolveCurrentPath()]
-        );
+    public function store(Request $request)
+    {
+        $golongan = $request->input('golongan');
+        $abonemen = $request->input('abonemen');
+        $tarif = $request->input('tarif');
 
+        $tarif_data = new Tarif();
+        $tarif_data->kode_tarif = $golongan . '/' . $tarif;
+        $tarif_data->golongan = $golongan;
+        $tarif_data->abonemen = $abonemen;
+        $tarif_data->tarif = $tarif;
+        $tarif_data->save();
 
-        return view('content.menu-admin.kelola-tarif', compact('paginatedUsers'));
+        return redirect()->route('datamaster-kelola-tarif')->with('success', 'Data tarif berhasil disimpan.');
+    }
+
+    public function destroy($id)
+    {
+        $tarif = Tarif::find($id);
+
+        if ($tarif) {
+            $tarif->delete();
+            return redirect()->route('datamaster-kelola-tarif')->with('success', 'Data tarif berhasil dihapus.');
+        }
+
+        return redirect()->route('datamaster-kelola-tarif')->with('error', 'Data tarif tidak ditemukan.');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $golongan = $request->input('golongan');
+        $abonemen = $request->input('abonemen');
+        $tarif = $request->input('tarif');
+
+        $tarif_data = Tarif::find($id);
+
+        if ($tarif_data) {
+            $tarif_data->kode_tarif = $golongan . '/' . $tarif;
+            $tarif_data->golongan = $golongan;
+            $tarif_data->abonemen = $abonemen;
+            $tarif_data->tarif = $tarif;
+
+            $tarif_data->save();
+
+            return redirect()->route('datamaster-kelola-tarif')->with('success', 'Data berhasil diperbarui.');
+        } else {
+            return redirect()->route('datamaster-kelola-tarif')->with('error', 'Data tidak ditemukan.');
+        }
     }
 }
