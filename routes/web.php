@@ -63,18 +63,24 @@ Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 Route::get('/menu-agent/cek-tagihan', [CekTagihan::class, 'index'])->name('cek-tagihan');
 Route::get('/pembayaran-tagihan', [PembayaranTagihan::class, 'index'])->name('pembayaran-tagihan');
 
-//  Menu admin route
+//  ROUTE KELOLA TARIF
 Route::get('/datamaster/kelola-tarif/{id?}', [KelolaTarif::class, 'index'])->name('datamaster-kelola-tarif');
 Route::post('/datamaster/tambah-tarif', [KelolaTarif::class, 'store'])->name('datamaster-tambah-tarif');
 Route::delete('/datamaster/hapus-tarif/{id}', [KelolaTarif::class, 'destroy'])->name('datamaster-hapus-tarif');
 Route::put('/datamaster/ubah-tarif/{id}', [KelolaTarif::class, 'update'])->name('datamaster-ubah-tarif');
 
+// ROUTE KELOLA DENDA
 Route::get('/datamaster/kelola-denda/{id?}', [KelolaDenda::class, 'index'])->name('datamaster-kelola-denda');
 Route::post('/datamaster/tambah-denda', [KelolaDenda::class, 'store'])->name('datamaster-tambah-denda');
 Route::delete('/datamaster/hapus-denda/{id}', [KelolaDenda::class, 'destroy'])->name('datamaster-hapus-denda');
 Route::put('/datamaster/ubah-denda/{id}', [KelolaDenda::class, 'update'])->name('datamaster-ubah-denda');
 
-Route::get('/datamaster/kelola-pelanggan', [KelolaPelanggan::class, 'index'])->name('datamaster-kelola-pelanggan');
+// ROUTE KELOLA PELANGGAN
+Route::get('/datamaster/kelola-pelanggan/{id?}', [KelolaPelanggan::class, 'index'])->name('datamaster-kelola-pelanggan');
+Route::post('/datamaster/tambah-pelanggan', [KelolaPelanggan::class, 'store'])->name('datamaster-tambah-pelanggan');
+Route::delete('/datamaster/hapus-pelanggan/{id}', [KelolaPelanggan::class, 'destroy'])->name('datamaster-hapus-pelanggan');
+Route::put('/datamaster/ubah-pelanggan/{id}', [KelolaPelanggan::class, 'update'])->name('datamaster-ubah-pelanggan');
+
 Route::get('/datamaster/kelola-petugas', [KelolaPetugas::class, 'index'])->name('datamaster-kelola-petugas');
 
 Route::get('/pengelolaan/input-penggunan', [KelolaPenggunaan::class, 'index'])->name('pengelolaan-input-penggunaan');

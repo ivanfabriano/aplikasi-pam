@@ -19,36 +19,99 @@
                             <h6 class="card-subtitle text-muted">Informasi detail data pelanggan</h6>
                         </div>
                         <div class="card-body">
-                            <form>
-                                <div class="form-floating form-floating-outline mb-4">
-                                    <input type="text" class="form-control" id="basic-default-company"
-                                        placeholder="Masukan ID Pelanggan" />
-                                    <label for="basic-default-company">ID Pelanggan</label>
-                                </div>
-                                <div class="form-floating form-floating-outline mb-4">
-                                    <input type="text" class="form-control" id="basic-default-company"
-                                        placeholder="Masukan No Meter" />
-                                    <label for="basic-default-company">No Meter</label>
-                                </div>
-                                <div class="form-floating form-floating-outline mb-4">
-                                    <input type="text" class="form-control" id="basic-default-company"
-                                        placeholder="Masukan Nama Pelanggan" />
-                                    <label for="basic-default-company">Nama Pelanggan</label>
-                                </div>
-                                <div class="form-floating form-floating-outline mb-4">
-                                    <textarea class="form-control h-px-100" id="exampleFormControlTextarea1" placeholder="Masukan Alamat Pelanggan"></textarea>
-                                    <label for="exampleFormControlTextarea1">Alamat Pelanggan</label>
-                                </div>
-                                <div class="form-floating form-floating-outline mb-4">
-                                    <input class="form-control" list="datalistOptions" id="exampleDataList"
-                                        placeholder="Pilih Jenis Tarif">
-                                    <datalist id="datalistOptions">
-                                        <option value="Sendangguwo/3000"></option>
-                                    </datalist>
-                                    <label for="exampleDataList">Jenis Tarif</label>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </form>
+                            @if (!$initial_pelanggan)
+                                <form method="POST" action="{{ route('datamaster-tambah-pelanggan') }}">
+                                    @csrf
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company" readonly
+                                            value="{{ $last_id_pelanggan }}" name="id_pelanggan"
+                                            placeholder="Masukan ID Pelanggan" />
+                                        <label for="basic-default-company">ID Pelanggan</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company"
+                                            name="no_meter" placeholder="Masukan No Meter" />
+                                        <label for="basic-default-company">No Meter</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company"
+                                            name="nama_pelanggan" placeholder="Masukan Nama Pelanggan" />
+                                        <label for="basic-default-company">Nama Pelanggan</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <textarea class="form-control h-px-100" id="exampleFormControlTextarea1" placeholder="Masukan Alamat Pelanggan"
+                                            name="alamat_pelanggan"></textarea>
+                                        <label for="exampleFormControlTextarea1">Alamat Pelanggan</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company"
+                                            name="tenggang" placeholder="Masukan Hari Tenggang" />
+                                        <label for="basic-default-company">Tenggang Hari Ke</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input class="form-control" list="datalistOptions" id="exampleDataList"
+                                            name="jenis_tarif" placeholder="Pilih Jenis Tarif">
+                                        <datalist id="datalistOptions">
+                                            @foreach ($tarifs as $tarif)
+                                                <option value="{{ $tarif->kode_tarif }}"></option>
+                                            @endforeach
+                                        </datalist>
+                                        <label for="exampleDataList">Jenis Tarif</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </form>
+                            @else
+                                <form method="POST"
+                                    action="{{ route('datamaster-ubah-pelanggan', $initial_pelanggan->id) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company" readonly
+                                            value="{{ $initial_pelanggan->id_pelanggan }}" name="id_pelanggan"
+                                            placeholder="Masukan ID Pelanggan" />
+                                        <label for="basic-default-company">ID Pelanggan</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company"
+                                            value="{{ $initial_pelanggan->no_meter }}" name="no_meter"
+                                            placeholder="Masukan No Meter" />
+                                        <label for="basic-default-company">No Meter</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company"
+                                            value="{{ $initial_pelanggan->nama_pelanggan }}" name="nama_pelanggan"
+                                            placeholder="Masukan Nama Pelanggan" />
+                                        <label for="basic-default-company">Nama Pelanggan</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <textarea class="form-control h-px-100" id="exampleFormControlTextarea1" placeholder="Masukan Alamat Pelanggan"
+                                            name="alamat_pelanggan">{{ $initial_pelanggan->alamat_pelanggan }}</textarea>
+                                        <label for="exampleFormControlTextarea1">Alamat Pelanggan</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company"
+                                            value="{{ $initial_pelanggan->tenggang }}" name="tenggang"
+                                            placeholder="Masukan Hari Tenggang" />
+                                        <label for="basic-default-company">Tenggang Hari Ke</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input class="form-control" list="datalistOptions" id="exampleDataList"
+                                            value="{{ $initial_pelanggan->jenis_tarif }}" name="jenis_tarif"
+                                            placeholder="Pilih Jenis Tarif">
+                                        <datalist id="datalistOptions">
+                                            @foreach ($tarifs as $tarif)
+                                                <option value="{{ $tarif->kode_tarif }}"></option>
+                                            @endforeach
+                                        </datalist>
+                                        <label for="exampleDataList">Jenis Tarif</label>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-warning">Ubah</button>
+                                        <button type="button" class="btn btn-danger"
+                                            onclick="location.href='{{ route('datamaster-kelola-pelanggan') }}'">Batal</button>
+                                    </div>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -65,19 +128,24 @@
                                                 Bayar</label>
                                         </div>
                                     </div>
-                                    <div class="form-floating form-floating-outline" style="width: 100%">
-                                        <input class="form-control" list="datalistOptions" id="exampleDataList"
-                                            placeholder="Masukan ID atau Nama Pelanggan">
-                                        <datalist id="datalistOptions">
-                                            <option value="San Francisco"></option>
-                                            <option value="New York"></option>
-                                            <option value="Seattle"></option>
-                                            <option value="Los Angeles"></option>
-                                            <option value="Chicago"></option>
-                                        </datalist>
-                                        <label for="exampleDataList">Cari Data Pelanggan</label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                    <form class="d-flex gap-2" action="{{ route('datamaster-kelola-pelanggan') }}"
+                                        method="GET" style="width: 100%">
+                                        <div class="form-floating form-floating-outline" style="width: 100%">
+                                            <input class="form-control" list="identitaspelanggan" id="exampleDataList"
+                                                name="id_name_filter" placeholder="Masukan ID atau Nama Pelanggan">
+                                            <datalist id="identitaspelanggan">
+                                                @foreach ($list_pelanggans as $list_pelanggan)
+                                                    <option
+                                                        value="{{ $list_pelanggan->id_pelanggan }}-{{ $list_pelanggan->nama_pelanggan }}">
+                                                    </option>
+                                                @endforeach
+                                            </datalist>
+                                            <label for="exampleDataList">Cari Data Pelanggan</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Cari</button>
+                                        <button type="button" class="btn btn-warning"
+                                            onclick="location.href='{{ route('datamaster-kelola-pelanggan') }}'">Reset</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -96,27 +164,48 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2019115145520</td>
-                                        <td>R405</td>
-                                        <td>Untung</td>
-                                        <td>Semarang</td>
-                                        <td>20</td>
-                                        <td>Sendangguwo/3000</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="mdi mdi-pencil-outline me-1"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                                            class="mdi mdi-trash-can-outline me-1"></i> Delete</a>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($pelanggans as $pelanggan)
+                                        <tr>
+                                            <td>{{ $no }}</td>
+                                            <td>{{ $pelanggan->id_pelanggan }}</td>
+                                            <td>{{ $pelanggan->no_meter }}</td>
+                                            <td>{{ $pelanggan->nama_pelanggan }}</td>
+                                            <td>{{ $pelanggan->alamat_pelanggan }}</td>
+                                            <td>Hari ke-{{ $pelanggan->tenggang }}</td>
+                                            <td>{{ $pelanggan->jenis_tarif }}</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                        data-bs-toggle="dropdown"><i
+                                                            class="mdi mdi-dots-vertical"></i></button>
+                                                    <div class="dropdown-menu p-2">
+                                                        <div class="d-flex gap-1">
+                                                            <form
+                                                                action="{{ route('datamaster-kelola-pelanggan', $pelanggan->id) }}">
+                                                                @method('GET')
+                                                                <button type="sumbit"
+                                                                    class="btn btn-warning">Edit</button>
+                                                            </form>
+                                                            <form method="POST"
+                                                                action="{{ route('datamaster-hapus-pelanggan', $pelanggan->id) }}"
+                                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn btn-danger">Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                        @php
+                                            $no++;
+                                        @endphp
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
