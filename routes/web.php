@@ -83,7 +83,10 @@ Route::put('/datamaster/ubah-pelanggan/{id}', [KelolaPelanggan::class, 'update']
 
 Route::get('/datamaster/kelola-petugas', [KelolaPetugas::class, 'index'])->name('datamaster-kelola-petugas');
 
+// ROUTE KELOLA PENGGUNAAN
 Route::get('/pengelolaan/input-penggunan', [KelolaPenggunaan::class, 'index'])->name('pengelolaan-input-penggunaan');
+Route::post('/pengelolaan/tambah-penggunan', [KelolaPenggunaan::class, 'store'])->name('pengelolaan-tambah-penggunaan');
+
 Route::get('/pengelolaan/daftar-tagihan', [LaporanTagihanPerbulan::class, 'index'])->name('pengelolaan-daftar-tagihan');
 Route::get('/pengelolaan/daftar-tunggakan', [LaporanTunggakan::class, 'index'])->name('pengelolaan-daftar-tunggakan');
 Route::get('/pengelolaan/riwayat-transaksi', [RiwayatTransaksi::class, 'index'])->name('pengelolaan-riwayat-transaksi');
