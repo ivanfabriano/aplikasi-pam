@@ -121,18 +121,22 @@
                         <div>
                             <div class="card-body">
                                 <div class="d-flex gap-2">
-                                    <div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                            <label class="form-check-label" for="flexSwitchCheckDefault"> Filter Telat
-                                                Bayar</label>
-                                        </div>
-                                    </div>
                                     <form class="d-flex gap-2" action="{{ route('datamaster-kelola-pelanggan') }}"
                                         method="GET" style="width: 100%">
+                                        <div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" name="telat_bayar"
+                                                    {{ request()->get('telat_bayar') == 'on' ? 'checked' : '' }}
+                                                    id="flexSwitchCheckDefault">
+                                                <label class="form-check-label" for="flexSwitchCheckDefault"> Telat
+                                                    Bayar</label>
+                                            </div>
+                                        </div>
+
                                         <div class="form-floating form-floating-outline" style="width: 100%">
                                             <input class="form-control" list="identitaspelanggan" id="exampleDataList"
-                                                name="id_name_filter" placeholder="Masukan ID atau Nama Pelanggan">
+                                                value="{{ request()->get('id_name_filter') }}" name="id_name_filter"
+                                                placeholder="Masukan ID atau Nama Pelanggan">
                                             <datalist id="identitaspelanggan">
                                                 @foreach ($list_pelanggans as $list_pelanggan)
                                                     <option
@@ -168,7 +172,7 @@
                                         $no = 1;
                                     @endphp
                                     @foreach ($pelanggans as $pelanggan)
-                                        <tr>
+                                        <tr class="{{ $pelanggan->tertunggak ? 'table-danger' : '' }}">
                                             <td>{{ $no }}</td>
                                             <td>{{ $pelanggan->id_pelanggan }}</td>
                                             <td>{{ $pelanggan->no_meter }}</td>

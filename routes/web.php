@@ -61,7 +61,8 @@ Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
 //  Menu agen route
 Route::get('/menu-agent/cek-tagihan', [CekTagihan::class, 'index'])->name('cek-tagihan');
-Route::get('/pembayaran-tagihan', [PembayaranTagihan::class, 'index'])->name('pembayaran-tagihan');
+Route::get('/pembayaran-tagihan/{id_pembayaran}', [PembayaranTagihan::class, 'index'])->name('pembayaran-tagihan');
+Route::put('/update-tagihan/{id_pembayaran}', [PembayaranTagihan::class, 'update'])->name('update-tagihan');
 
 //  ROUTE KELOLA TARIF
 Route::get('/datamaster/kelola-tarif/{id?}', [KelolaTarif::class, 'index'])->name('datamaster-kelola-tarif');

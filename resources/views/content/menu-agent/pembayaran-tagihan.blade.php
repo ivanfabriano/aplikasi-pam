@@ -13,53 +13,114 @@
         <div class="col-xl">
             <div class="card mb-4" style="width: 500px">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Form Pengelolaan Penggunaan</h5>
+                    <h5 class="mb-0">Form Pembayaran</h5>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form method="POST" action="{{ route('update-tagihan', $info_tagihan->id) }}">
+                        @csrf
+                        @method('PUT')
                         <div class="form-floating form-floating-outline mb-4">
-                            <input class="form-control" list="datalistOptions" id="exampleDataList"
-                                placeholder="Type to search...">
-                            <datalist id="datalistOptions">
-                                <option value="San Francisco"></option>
-                                <option value="New York"></option>
-                                <option value="Seattle"></option>
-                                <option value="Los Angeles"></option>
-                                <option value="Chicago"></option>
-                            </datalist>
-                            <label for="exampleDataList">ID Pelanggan</label>
+                            <input type="text" class="form-control" id="basic-default-company" name="id_pelanggan"
+                                placeholder="Masukan ID Pelanggan" readonly value="{{ $info_tagihan->id_pelanggan }}" />
+                            <label for="basic-default-company">ID Pelanggan</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
+                            <input type="text" class="form-control" id="basic-default-company" name="no_meter"
+                                placeholder="Masukan No Meter" value="{{ $info_tagihan->no_meter }}" />
                             <label for="basic-default-company">Nomor Meter</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
+                            <input type="text" class="form-control" id="basic-default-company" name="nama_pelanggan"
+                                placeholder="Masukan Nama Pelanggan" readonly value="{{ $info_tagihan->nama_pelanggan }}" />
                             <label for="basic-default-company">Nama Pelanggan</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
+                            <input type="text" class="form-control" id="basic-default-company" name="bulan_tagihan"
+                                placeholder="Masukan Bulan Tagihan" readonly value="{{ $info_tagihan->bulan_tagihan }}" />
                             <label for="basic-default-company">Bulan Penggunaan</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input class="form-control" type="number" placeholder="18" id="html5-number-input" />
+                            <input class="form-control" type="number" placeholder="18" id="html5-number-input"
+                                name="meter_awal" readonly value="{{ $info_tagihan->meter_awal }}" />
                             <label for="html5-number-input">Meter Awal</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input class="form-control" type="number" placeholder="18" id="html5-number-input" />
+                            <input class="form-control" type="number" placeholder="18" id="html5-number-input"
+                                name="meter_akhir" readonly value="{{ $info_tagihan->meter_akhir }}" />
                             <label for="html5-number-input">Meter Akhir</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input class="form-control" type="date" id="html5-date-input" />
-                            <label for="html5-date-input">Tanggal Pengecekan</label>
+                            <input class="form-control" type="number" placeholder="18" id="html5-number-input" readonly
+                                value="{{ $info_tagihan->meter_akhir - $info_tagihan->meter_awal }}" />
+                            <label for="html5-number-input">Jumlah Meterr</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input class="form-control" type="number" placeholder="18" id="html5-number-input"
+                                name="tarif" readonly value="{{ number_format($info_tagihan->tarif, 0, ',', '.') }}" />
+                            <label for="html5-number-input">Tarif/M<sup>3</sup></label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input class="form-control" type="number" placeholder="18" id="html5-number-input"
+                                name="jumlah_bayar" readonly
+                                value="{{ number_format($info_tagihan->jumlah_bayar, 0, ',', '.') }}" />
+                            <label for="html5-number-input">Jumlah Bayar</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input class="form-control" type="number" placeholder="18" id="html5-number-input"
+                                name="biaya_admin" readonly
+                                value="{{ number_format($info_tagihan->biaya_admin, 0, ',', '.') }}" />
+                            <label for="html5-number-input">Biaya Admin</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input class="form-control" type="number" placeholder="18" id="html5-number-input"
+                                name="denda" readonly value="{{ number_format($info_tagihan->denda, 0, ',', '.') }}" />
+                            <label for="html5-number-input">Denda</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input class="form-control" type="number" placeholder="18" id="total_akhir"
+                                name="total_akhir" readonly
+                                value="{{ number_format($info_tagihan->total_akhir, 0, ',', '.') }}" />
+                            <label for="total_akhir">Total Akhir</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input class="form-control" type="text" placeholder="18" id="bayar"
+                                oninput="formatCurrency(this); hitungKembalian()" name="bayar" />
+                            <label for="bayar">Bayar</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input class="form-control" type="text" placeholder="18" id="kembali" readonly
+                                name="kembali" />
+                            <label for="kembali">Kembalian</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Bayar</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <!--/ Layout Demo -->
+
+    <script>
+        function formatCurrency(inputElement) {
+            var value = inputElement.value.replace(/\D/g, '');
+
+            var formattedValue = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+
+            inputElement.value = formattedValue;
+        }
+
+        function hitungKembalian() {
+            var totalAkhir = document.getElementById('total_akhir').value.replace(/\D/g, '');;
+            var bayar = document.getElementById('bayar').value.replace(/\D/g, '');
+
+            var kembalian = bayar - totalAkhir;
+
+            var formattedKembalian = kembalian.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+
+            document.getElementById('kembali').value = formattedKembalian
+        }
+    </script>
+
 
 
 @endsection

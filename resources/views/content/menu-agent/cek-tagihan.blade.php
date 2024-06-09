@@ -102,7 +102,12 @@
                                                     <td>Rp. {{ number_format($tagihan->tarif, 0, ',', '.') }}</td>
                                                     <td>Rp. {{ number_format($tagihan->jumlah_bayar, 0, ',', '.') }}
                                                     </td>
-                                                    <td><button type="button" class="btn btn-primary">Bayar</button>
+                                                    <td>
+                                                        <form
+                                                            action="{{ route('pembayaran-tagihan', $tagihan->id_pembayaran) }}">
+                                                            @method('GET')
+                                                            <button type="sumbit" class="btn btn-primary">BAYAR</button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                                 @php
