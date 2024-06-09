@@ -71,6 +71,7 @@ class KelolaPenggunaan extends Controller
         $cek_tagihan_data->biaya_admin = $tarif->abonemen;
         $cek_tagihan_data->bayar = 0;
         $cek_tagihan_data->kembali = 0;
+        $cek_tagihan_data->petugas = 'Ivan Fabriano';
         $cek_tagihan_data->total_akhir = (($meter_akhir - $meter_awal) * $tarif->tarif) + $tarif->abonemen;
         $cek_tagihan_data->save();
 
