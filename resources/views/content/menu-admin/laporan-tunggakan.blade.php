@@ -32,44 +32,33 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2019115145520</td>
-                                        <td>Untung</td>
-                                        <td>Semarang</td>
-                                        <td>7 Bulan</td>
-                                        <td>
-                                            <div class="d-flex flex-wrap gap-1">
-                                                <span class="badge bg-info">Januari</span>
-                                                <span class="badge bg-info">Februari</span>
-                                                <span class="badge bg-info">Maret</span>
-                                                <span class="badge bg-info">April</span>
-                                                <span class="badge bg-info">Mei</span>
-                                                <span class="badge bg-info">Juni</span>
-                                                <span class="badge bg-info">Juli</span>
-                                            </div>
-                                        </td>
-                                        <td>20</td>
-                                        <td>Rp. 3.000</td>
-                                        <td>Rp. 36.000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>2019115145521</td>
-                                        <td>Budi</td>
-                                        <td>Semarang</td>
-                                        <td>3 Bulan</td>
-                                        <td>
-                                            <div class="d-flex flex-wrap gap-1">
-                                                <span class="badge bg-info">Januari</span>
-                                                <span class="badge bg-info">Februari</span>
-                                                <span class="badge bg-info">Maret</span>
-                                            </div>
-                                        </td>
-                                        <td>20</td>
-                                        <td>Rp. 4.000</td>
-                                        <td>Rp. 40.000</td>
-                                    </tr>
+                                    @php
+                                        $no = 1;
+                                        $total_bayar = 0;
+                                    @endphp
+                                    @foreach ($list_tagihan as $tagihan)
+                                        <tr>
+                                            <td>{{ $no }}</td>
+                                            <td>{{ $tagihan->id_pelanggan }}</td>
+                                            <td>{{ $tagihan->nama_pelanggan }}</td>
+                                            <td>{{ $tagihan->alamat_pelanggan }}</td>
+                                            <td>{{ $tagihan->banyak_tunggakan }} Bulan</td>
+                                            <td>
+                                                <div class="d-flex flex-wrap gap-1">
+                                                    @foreach ($tagihan->bulan_tertunggak as $bulan)
+                                                        <span class="badge bg-info">{{ $bulan }}</span>
+                                                    @endforeach
+                                                </div>
+                                            </td>
+                                            <td>{{ $tagihan->jumlah_meter }}</td>
+                                            <td>Rp. {{ number_format($tagihan->tarif, 0, ',', '.') }}</td>
+                                            <td>Rp. {{ number_format($tagihan->jumlah_bayar, 0, ',', '.') }}</td>
+                                        </tr>
+                                        @php
+                                            $no++;
+                                            $total_bayar += $tagihan->jumlah_bayar;
+                                        @endphp
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
