@@ -90,8 +90,8 @@ Route::post('/pengelolaan/tambah-penggunan', [KelolaPenggunaan::class, 'store'])
 
 Route::get('/pengelolaan/daftar-tagihan', [LaporanTagihanPerbulan::class, 'index'])->name('pengelolaan-daftar-tagihan');
 Route::get('/pengelolaan/daftar-tunggakan', [LaporanTunggakan::class, 'index'])->name('pengelolaan-daftar-tunggakan');
-Route::get('/pengelolaan/riwayat-transaksi', [RiwayatTransaksi::class, 'index'])->name('pengelolaan-riwayat-transaksi');
 
+Route::get('/pengelolaan/riwayat-transaksi/{id_pelanggan?}', [RiwayatTransaksi::class, 'index'])->name('pengelolaan-riwayat-transaksi');
 
 // layout
 Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');

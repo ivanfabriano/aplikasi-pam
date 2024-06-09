@@ -61,7 +61,11 @@
                                         <p>: {{ $info_pelanggan->jenis_tarif }}</p>
                                     </div>
                                     <div class="mt-3">
-                                        <button type="button" class="btn btn-primary">Lihat Riwayat Transaksi</button>
+                                        <form
+                                            action="{{ route('pengelolaan-riwayat-transaksi', $info_pelanggan->id_pelanggan) }}">
+                                            @method('GET')
+                                            <button type="sumbit" class="btn btn-primary">Lihat Riwayat Transaksi</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -134,15 +138,54 @@
                     </div>
                 </div>
             @else
-                <div class="card mt-3 text-center" style="width: 100%;">
-                    <div class="card-body d-flex flex-column justify-content-center align-items-center py-5">
-                        <h3 class="card-title">Tidak Ada Tagihan</h3>
-                        <p style="width: 600px;">Mohon maaf saat ini pelanggan
-                            <b>{{ $info_pelanggan->nama_pelanggan }}</b>
-                            dengan ID Pelanggan
-                            <b>{{ $info_pelanggan->id_pelanggan }}</b>
-                            tidak memiliki tagihan yang belum terbayarkan
-                        </p>
+                <div class="row">
+                    <div class="col-4">
+                        @if ($info_pelanggan)
+                            <div class="card h-100 mt-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Detail Pelanggan</h5>
+                                    <h6 class="card-subtitle text-muted">Informasi detail pelanggan</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <p style="width: 150px">ID Pelanggan</p>
+                                        <p>: {{ $info_pelanggan->id_pelanggan }}</p>
+                                    </div>
+                                    <div class="d-flex">
+                                        <p style="width: 150px">Nama</p>
+                                        <p>: {{ $info_pelanggan->nama_pelanggan }}</p>
+                                    </div>
+                                    <div class="d-flex">
+                                        <p style="width: 150px">No Meter</p>
+                                        <p>: {{ $info_pelanggan->no_meter }}</p>
+                                    </div>
+                                    <div class="d-flex">
+                                        <p style="width: 150px">Tarif</p>
+                                        <p>: {{ $info_pelanggan->jenis_tarif }}</p>
+                                    </div>
+                                    <div class="mt-3">
+                                        <form
+                                            action="{{ route('pengelolaan-riwayat-transaksi', $info_pelanggan->id_pelanggan) }}">
+                                            @method('GET')
+                                            <button type="sumbit" class="btn btn-primary">Lihat Riwayat Transaksi</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-8">
+                        <div class="card mt-3 text-center" style="width: 100%;">
+                            <div class="card-body d-flex flex-column justify-content-center align-items-center py-5">
+                                <h3 class="card-title">Tidak Ada Tagihan</h3>
+                                <p style="width: 600px;">Mohon maaf saat ini pelanggan
+                                    <b>{{ $info_pelanggan->nama_pelanggan }}</b>
+                                    dengan ID Pelanggan
+                                    <b>{{ $info_pelanggan->id_pelanggan }}</b>
+                                    tidak memiliki tagihan yang belum terbayarkan
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endif
