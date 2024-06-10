@@ -63,8 +63,7 @@
                                     </div>
                                     <div class="form-floating form-floating-outline mb-4">
                                         <input type="text" class="form-control" id="basic-default-company" required
-                                            name="password" value="{{ $initial_user->password }}"
-                                            placeholder="Masukan Password Petugas" />
+                                            name="password" placeholder="Masukan Password Petugas" />
                                         <label for="basic-default-company">Password<span
                                                 style="color: red;">*</span></label>
                                     </div>
@@ -102,7 +101,6 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Username</th>
-                                        <th>Password</th>
                                         <th>No Telepon</th>
                                         <th>Role</th>
                                         <th>Actions</th>
@@ -116,7 +114,6 @@
                                         <tr>
                                             <td>{{ $no }}</td>
                                             <td>{{ $user->username }}</td>
-                                            <td>{{ $user->password }}</td>
                                             <td>{{ $user->no_telepon }}</td>
                                             <td>{!! $user->role == 'Admin'
                                                 ? '<span style="width: 70px;" class="badge rounded-pill bg-success">Admin</span>'

@@ -62,7 +62,7 @@ class KelolaAkun extends Controller
 
         if ($user) {
             $user->username = $username;
-            $user->password = $password;
+            $user->password = Hash::make($password);
             $user->no_telepon = $no_telepon;
             $user->role = $role;
 
