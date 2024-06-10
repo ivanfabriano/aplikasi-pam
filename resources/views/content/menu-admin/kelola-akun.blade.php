@@ -15,8 +15,8 @@
                 <div class="col-4">
                     <div class="card h-100 mt-3">
                         <div class="card-body">
-                            <h5 class="card-title">Data Petugas</h5>
-                            <h6 class="card-subtitle text-muted">Informasi detail data petugas</h6>
+                            <h5 class="card-title">Data Akun</h5>
+                            <h6 class="card-subtitle text-muted">Informasi detail data akun</h6>
                         </div>
                         <div class="card-body">
                             <form>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-8 mt-3">
                     <div class="card">
-                        <h5 class="card-header">Daftar Petugas</h5>
+                        <h5 class="card-header">Daftar Akun</h5>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>

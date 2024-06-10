@@ -46,6 +46,11 @@ class KelolaPenggunaan extends Controller
 
     public function store(Request $request)
     {
+        $namaBulanIndonesia = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+
         $id_pelanggan = $request->input('id_pelanggan');
         $id_pelanggan = explode('-', $id_pelanggan)[0];
         $no_meter = $request->input('no_meter');
@@ -58,12 +63,15 @@ class KelolaPenggunaan extends Controller
         $pelanggan = Pelanggan::firstWhere('id_pelanggan', $id_pelanggan);
         $tarif = Tarif::firstWhere('kode_tarif', $pelanggan->jenis_tarif);
 
+        $current_date = Carbon::parse($tanggal_pengecekan);
+        $next_month_date = $current_date->addMonth();
+        $nama_bulan_berikutnya = $namaBulanIndonesia[$next_month_date->month - 1];
+
         $cek_tagihan_data = new CekTagihan();
         $cek_tagihan_data->id_pembayaran = str_pad(mt_rand(0, 999999999), 9, '0', STR_PAD_LEFT);;
         $cek_tagihan_data->id_pelanggan = $id_pelanggan;
         $cek_tagihan_data->nama_pelanggan = $nama_pelanggan;
-        $cek_tagihan_data->waktu_bayar = $currentDate = Carbon::now('Asia/Jakarta');
-        $cek_tagihan_data->bulan_tagihan = $bulan_penggunaan;
+        $cek_tagihan_data->bulan_tagihan = $nama_bulan_berikutnya;
         $cek_tagihan_data->meter_awal = $meter_awal;
         $cek_tagihan_data->meter_akhir = $meter_akhir;
         $cek_tagihan_data->tarif = $tarif->tarif;

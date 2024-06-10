@@ -18,7 +18,7 @@ class LaporanTunggakan extends Controller
             MAX(p.nama_pelanggan) nama_pelanggan,
             MAX(p.alamat_pelanggan) alamat_pelanggan,
             COUNT(*) banyak_tunggakan,
-            JSON_ARRAYAGG(CONCAT(ct.bulan_tagihan, ' ', YEAR(ct.waktu_bayar))) bulan_tertunggak,
+            JSON_ARRAYAGG(CONCAT(ct.bulan_tagihan, ' ', YEAR(ct.created_at))) bulan_tertunggak,
             SUM((ct.meter_akhir-ct.meter_awal)) jumlah_meter,
             MAX(ct.tarif) tarif,
             SUM(ct.jumlah_bayar) jumlah_bayar

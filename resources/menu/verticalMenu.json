@@ -65,9 +65,9 @@
           "slug": "datamaster-kelola-pelanggan"
         },
         {
-          "url": "datamaster/kelola-petugas",
-          "name": "Kelola Petugas",
-          "slug": "datamaster-kelola-petugas"
+          "url": "datamaster/kelola-akun",
+          "name": "Kelola Akun",
+          "slug": "datamaster-kelola-akun"
         }
       ]
     },

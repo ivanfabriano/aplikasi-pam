@@ -99,7 +99,7 @@
                                                 <tr>
                                                     <td>{{ $no }}</td>
                                                     <td>{{ $tagihan->bulan_tagihan }}
-                                                        {{ explode('-', $tagihan->waktu_bayar)[0] }}</td>
+                                                        {{ explode('-', $tagihan->created_at)[0] }}</td>
                                                     <td>{{ $tagihan->meter_awal }}</td>
                                                     <td>{{ $tagihan->meter_akhir }}</td>
                                                     <td>{{ $tagihan->meter_akhir - $tagihan->meter_awal }}</td>
@@ -108,7 +108,8 @@
                                                     </td>
                                                     <td>
                                                         <form
-                                                            action="{{ route('pembayaran-tagihan', $tagihan->id_pembayaran) }}">
+                                                            action="{{ route('pembayaran-tagihan', $tagihan->id_pembayaran) }}"
+                                                            target="_blank">
                                                             @method('GET')
                                                             <button type="sumbit" class="btn btn-primary">BAYAR</button>
                                                         </form>

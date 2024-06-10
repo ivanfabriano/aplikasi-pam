@@ -16,28 +16,30 @@
                     <div class="card h-100 mt-3">
                         <div class="card-body">
                             <h5 class="card-title">Data Denda</h5>
-                            <h6 class="card-subtitle text-muted">Informasi detail data denda</h6>
-                        </div>
-                        <div class="card-body">
+                            <h6 class="card-subtitle text-muted mb-5">Isian dengan tanda <span style="color: red;">*</span>
+                                wajib
+                                diisi</h6>
                             @if (!$initial_denda)
                                 <form method="POST" action="{{ route('datamaster-tambah-denda') }}">
                                     @csrf
                                     <div class="d-flex gap-2">
                                         <div class="form-floating form-floating-outline mb-4">
-                                            <input type="text" class="form-control" id="basic-default-company"
+                                            <input type="text" class="form-control" id="basic-default-company" required
                                                 name="hari_awal" placeholder="Masukan Hari Awal" />
-                                            <label for="basic-default-company">Hari Awal</label>
+                                            <label for="basic-default-company">Hari Awal<span
+                                                    style="color: red;">*</span></label>
                                         </div>
                                         <div class="form-floating form-floating-outline mb-4">
-                                            <input type="text" class="form-control" id="basic-default-company"
+                                            <input type="text" class="form-control" id="basic-default-company" required
                                                 name="hari_akhir" placeholder="Masukan Hari Akhir" />
-                                            <label for="basic-default-company">Hari Akhir</label>
+                                            <label for="basic-default-company">Hari Akhir<span
+                                                    style="color: red;">*</span></label>
                                         </div>
                                     </div>
                                     <div class="form-floating form-floating-outline mb-4">
                                         <input type="text" class="form-control" id="basic-default-company" name="denda"
-                                            placeholder="Masukan Nilai Denda" />
-                                        <label for="basic-default-company">Denda</label>
+                                            required placeholder="Masukan Nilai Denda" />
+                                        <label for="basic-default-company">Denda<span style="color: red;">*</span></label>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
@@ -47,22 +49,25 @@
                                     @method('PUT')
                                     <div class="d-flex gap-2">
                                         <div class="form-floating form-floating-outline mb-4">
-                                            <input type="text" class="form-control" id="basic-default-company"
+                                            <input type="text" class="form-control" id="basic-default-company" required
                                                 value="{{ $initial_denda->hari_awal }}" name="hari_awal"
                                                 placeholder="Masukan Hari Awal" />
-                                            <label for="basic-default-company">Hari Awal</label>
+                                            <label for="basic-default-company">Hari Awal<span
+                                                    style="color: red;">*</span></label>
                                         </div>
                                         <div class="form-floating form-floating-outline mb-4">
-                                            <input type="text" class="form-control" id="basic-default-company"
+                                            <input type="text" class="form-control" id="basic-default-company" required
                                                 value="{{ $initial_denda->hari_akhir }}" name="hari_akhir"
                                                 placeholder="Masukan Hari Akhir" />
-                                            <label for="basic-default-company">Hari Akhir</label>
+                                            <label for="basic-default-company">Hari Akhir<span
+                                                    style="color: red;">*</span></label>
                                         </div>
                                     </div>
                                     <div class="form-floating form-floating-outline mb-4">
                                         <input type="text" class="form-control" id="basic-default-company" name="denda"
-                                            value="{{ $initial_denda->denda }}" placeholder="Masukan Nilai Denda" />
-                                        <label for="basic-default-company">Denda</label>
+                                            required value="{{ $initial_denda->denda }}"
+                                            placeholder="Masukan Nilai Denda" />
+                                        <label for="basic-default-company">Denda<span style="color: red;">*</span></label>
                                     </div>
                                     <div>
                                         <button type="submit" class="btn btn-warning">Ubah</button>
@@ -88,11 +93,14 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
+                                    @php
+                                        $no = 1;
+                                    @endphp
                                     @foreach ($dendas as $denda)
                                         <tr>
-                                            <td>1</td>
+                                            <td>{{ $no }}</td>
                                             <td>{{ $denda->keterlambatan }}</td>
-                                            <td>{{ $denda->denda }}</td>
+                                            <td>Rp. {{ number_format($denda->denda, 0, ',', '.') }}</td>
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <form action="{{ route('datamaster-kelola-denda', $denda->id) }}">
@@ -109,6 +117,9 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        @php
+                                            $no++;
+                                        @endphp
                                     @endforeach
                                 </tbody>
                             </table>

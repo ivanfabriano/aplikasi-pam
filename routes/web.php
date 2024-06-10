@@ -51,16 +51,18 @@ use App\Http\Controllers\menu_admins\KelolaPenggunaan;
 use App\Http\Controllers\menu_admins\KelolaTarif;
 use App\Http\Controllers\menu_admins\KelolaDenda;
 use App\Http\Controllers\menu_admins\KelolaPelanggan;
-use App\Http\Controllers\menu_admins\KelolaPetugas;
+use App\Http\Controllers\menu_admins\KelolaAkun;
 use App\Http\Controllers\menu_admins\LaporanTagihanPerbulan;
 use App\Http\Controllers\menu_admins\LaporanTunggakan;
 use App\Http\Controllers\menu_admins\RiwayatTransaksi;
+use App\Http\Controllers\menu_admins\CetakStruk;
 
 // Main Page Route
 Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
 //  Menu agen route
 Route::get('/menu-agent/cek-tagihan', [CekTagihan::class, 'index'])->name('cek-tagihan');
+Route::get('/menu-agent/cetak-struk', [CetakStruk::class, 'index'])->name('cetak-struk');
 Route::get('/pembayaran-tagihan/{id_pembayaran}', [PembayaranTagihan::class, 'index'])->name('pembayaran-tagihan');
 Route::put('/update-tagihan/{id_pembayaran}', [PembayaranTagihan::class, 'update'])->name('update-tagihan');
 
@@ -82,7 +84,7 @@ Route::post('/datamaster/tambah-pelanggan', [KelolaPelanggan::class, 'store'])->
 Route::delete('/datamaster/hapus-pelanggan/{id}', [KelolaPelanggan::class, 'destroy'])->name('datamaster-hapus-pelanggan');
 Route::put('/datamaster/ubah-pelanggan/{id}', [KelolaPelanggan::class, 'update'])->name('datamaster-ubah-pelanggan');
 
-Route::get('/datamaster/kelola-petugas', [KelolaPetugas::class, 'index'])->name('datamaster-kelola-petugas');
+Route::get('/datamaster/kelola-akun', [KelolaAkun::class, 'index'])->name('datamaster-kelola-akun');
 
 // ROUTE KELOLA PENGGUNAAN
 Route::get('/pengelolaan/input-penggunan', [KelolaPenggunaan::class, 'index'])->name('pengelolaan-input-penggunaan');

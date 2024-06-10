@@ -16,26 +16,28 @@
                     <div class="card h-100 mt-3">
                         <div class="card-body">
                             <h5 class="card-title">Data Tarif</h5>
-                            <h6 class="card-subtitle text-muted">Informasi detail data tarif</h6>
-                        </div>
-                        <div class="card-body">
+                            <h6 class="card-subtitle text-muted mb-5">Isian dengan tanda <span style="color: red;">*</span>
+                                wajib
+                                diisi</h6>
                             @if (!$initial_tarif)
                                 <form method="POST" action="{{ route('datamaster-tambah-tarif') }}">
                                     @csrf
                                     <div class="form-floating form-floating-outline mb-4">
-                                        <input type="text" class="form-control" id="basic-default-company"
+                                        <input type="text" class="form-control" id="basic-default-company" required
                                             name="golongan" placeholder="Masukan Nama Golongan" />
-                                        <label for="basic-default-company">Golongan</label>
+                                        <label for="basic-default-company">Golongan<span
+                                                style="color: red;">*</span></label>
                                     </div>
                                     <div class="form-floating form-floating-outline mb-4">
-                                        <input type="text" class="form-control" id="basic-default-company"
+                                        <input type="text" class="form-control" id="basic-default-company" required
                                             name="abonemen" placeholder="Masukan Abonemen" />
-                                        <label for="basic-default-company">Abonemen</label>
+                                        <label for="basic-default-company">Abonemen<span
+                                                style="color: red;">*</span></label>
                                     </div>
                                     <div class="form-floating form-floating-outline mb-4">
                                         <input type="text" class="form-control" id="basic-default-company" name="tarif"
-                                            placeholder="Masukan Jumlah Tarif" />
-                                        <label for="basic-default-company">Tarif</label>
+                                            required placeholder="Masukan Jumlah Tarif" />
+                                        <label for="basic-default-company">Tarif<span style="color: red;">*</span></label>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
@@ -44,21 +46,24 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-floating form-floating-outline mb-4">
-                                        <input type="text" class="form-control" id="basic-default-company"
+                                        <input type="text" class="form-control" id="basic-default-company" required
                                             value="{{ $initial_tarif->golongan }}" name="golongan"
                                             placeholder="Masukan Nama Golongan" />
-                                        <label for="basic-default-company">Golongan</label>
+                                        <label for="basic-default-company">Golongan<span
+                                                style="color: red;">*</span></label>
                                     </div>
                                     <div class="form-floating form-floating-outline mb-4">
-                                        <input type="text" class="form-control" id="basic-default-company"
+                                        <input type="text" class="form-control" id="basic-default-company" required
                                             value="{{ $initial_tarif->abonemen }}" name="abonemen"
                                             placeholder="Masukan Abonemen" />
-                                        <label for="basic-default-company">Abonemen</label>
+                                        <label for="basic-default-company">Abonemen<span
+                                                style="color: red;">*</span></label>
                                     </div>
                                     <div class="form-floating form-floating-outline mb-4">
                                         <input type="text" class="form-control" id="basic-default-company" name="tarif"
-                                            value="{{ $initial_tarif->tarif }}" placeholder="Masukan Jumlah Tarif" />
-                                        <label for="basic-default-company">Tarif</label>
+                                            required value="{{ $initial_tarif->tarif }}"
+                                            placeholder="Masukan Jumlah Tarif" />
+                                        <label for="basic-default-company">Tarif<span style="color: red;">*</span></label>
                                     </div>
                                     <div>
                                         <button type="submit" class="btn btn-warning">Ubah</button>
@@ -86,13 +91,16 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
+                                    @php
+                                        $no = 1;
+                                    @endphp
                                     @foreach ($tarifs as $tarif)
                                         <tr>
-                                            <td>1</td>
+                                            <td>{{ $no }}</td>
                                             <td>{{ $tarif->kode_tarif }}</td>
                                             <td>{{ $tarif->golongan }}</td>
-                                            <td>{{ $tarif->abonemen }}</td>
-                                            <td>{{ $tarif->tarif }}</td>
+                                            <td>Rp. {{ number_format($tarif->abonemen, 0, ',', '.') }}</td>
+                                            <td>Rp. {{ number_format($tarif->tarif, 0, ',', '.') }}</td>
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <form action="{{ route('datamaster-kelola-tarif', $tarif->id) }}">
@@ -109,6 +117,9 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        @php
+                                            $no++;
+                                        @endphp
                                     @endforeach
                                 </tbody>
                             </table>

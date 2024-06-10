@@ -39,13 +39,14 @@ class PembayaranTagihan extends Controller
         $info_pelanggan = Pelanggan::firstWhere('id_pelanggan', $info_tagihan->id_pelanggan);
         $tanggal = $info_pelanggan->tenggang;
         $bulan =  $bulanIndonesia[$info_tagihan->bulan_tagihan];;
-        $tahun = Carbon::parse($info_tagihan->waktu_bayar)->year;
+        $tahun = Carbon::parse($info_tagihan->created_at)->year;
 
         $tenggang_pembayaran = "$tahun-$bulan-$tanggal";
         $tenggang_date = Carbon::createFromFormat('Y-m-d', $tenggang_pembayaran);
         $current_date = Carbon::now();
 
         $info_tagihan->no_meter = $info_pelanggan->no_meter;
+        $info_tagihan->waktu_bayar = Carbon::now('Asia/Jakarta');
 
         if ($current_date->isBefore($tenggang_date) || $current_date->equalTo($tenggang_date)) {
             $info_tagihan->denda = 0;
@@ -74,6 +75,7 @@ class PembayaranTagihan extends Controller
         $kembali = $request->input('kembali');
 
         $tagihan_data = CekTagihan::find($id);
+        $pelanggan = Pelanggan::firstWhere('id_pelanggan', $tagihan_data->id_pelanggan);
 
         if ($tagihan_data) {
             $tagihan_data->denda = (int) str_replace('.', '', $denda);
@@ -81,10 +83,13 @@ class PembayaranTagihan extends Controller
             $tagihan_data->bayar = (int) str_replace('.', '', $bayar);
             $tagihan_data->kembali = (int) str_replace('.', '', $kembali);
             $tagihan_data->status_bayar = true;
+            $tagihan_data->waktu_bayar = Carbon::now('Asia/Jakarta');
 
             $tagihan_data->save();
 
-            return redirect()->route('cek-tagihan')->with('success', 'Pembayaran berhasil');
+            $tagihan_data->jenis_tarif = $pelanggan->jenis_tarif;
+
+            return redirect()->route('cetak-struk')->with(['success' => 'Pembayaran berhasil', 'tagihan_data' => $tagihan_data]);
         } else {
             return redirect()->route('cek-tagihan')->with('error', 'Pembayaran gagal');
         }
