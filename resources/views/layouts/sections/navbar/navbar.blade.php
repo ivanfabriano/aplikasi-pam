@@ -46,63 +46,34 @@
 
         <!-- User -->
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
-            <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
-                <div class="avatar avatar-online">
-                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+            <div class="d-flex align-items-center">
+                <div style="font-size: 18px" class="mx-2">
+                    {{ auth()->user()->username }}
                 </div>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
-                <li>
-                    <a class="dropdown-item pb-2 mb-1" href="javascript:void(0);">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0 me-2 pe-1">
-                                <div class="avatar avatar-online">
-                                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt
-                                        class="w-px-40 h-auto rounded-circle">
-                                </div>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h6 class="mb-0">John Doe</h6>
-                                <small class="text-muted">Admin</small>
-                            </div>
+                <div>
+                    <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);"
+                        data-bs-toggle="dropdown">
+                        <div class="avatar avatar-online">
+                            <img src="{{ asset('assets/img/avatars/man.png') }}" alt
+                                class="w-px-40 h-auto rounded-circle">
                         </div>
                     </a>
-                </li>
-                <li>
-                    <div class="dropdown-divider my-1"></div>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        <i class="mdi mdi-account-outline me-1 mdi-20px"></i>
-                        <span class="align-middle">My Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        <i class='mdi mdi-cog-outline me-1 mdi-20px'></i>
-                        <span class="align-middle">Settings</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        <span class="d-flex align-items-center align-middle">
-                            <i class="flex-shrink-0 mdi mdi-credit-card-outline me-1 mdi-20px"></i>
-                            <span class="flex-grow-1 align-middle ms-1">Billing</span>
-                            <span
-                                class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <div class="dropdown-divider my-1"></div>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="javascript:void(0);">
-                        <i class='mdi mdi-power me-1 mdi-20px'></i>
-                        <span class="align-middle">Log Out</span>
-                    </a>
-                </li>
-            </ul>
+                    <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
+                        <li>
+                            <div class="dropdown-divider my-1"></div>
+                        </li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button class="dropdown-item" type="submit">
+                                    <i class='mdi mdi-power me-1 mdi-20px'></i>
+                                    <span class="align-middle">Log Out</span>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </li>
         <!--/ User -->
     </ul>

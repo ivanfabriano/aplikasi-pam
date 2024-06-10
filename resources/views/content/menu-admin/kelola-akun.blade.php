@@ -19,24 +19,77 @@
                             <h6 class="card-subtitle text-muted">Informasi detail data akun</h6>
                         </div>
                         <div class="card-body">
-                            <form>
-                                <div class="form-floating form-floating-outline mb-4">
-                                    <input type="text" class="form-control" id="basic-default-company"
-                                        placeholder="Masukan Username Petugas" />
-                                    <label for="basic-default-company">Username</label>
-                                </div>
-                                <div class="form-floating form-floating-outline mb-4">
-                                    <input type="text" class="form-control" id="basic-default-company"
-                                        placeholder="Masukan Password Petugas" />
-                                    <label for="basic-default-company">Password</label>
-                                </div>
-                                <div class="form-floating form-floating-outline mb-4">
-                                    <input type="text" class="form-control" id="basic-default-company"
-                                        placeholder="Masukan Nomor telepon Petugas" />
-                                    <label for="basic-default-company">Nomor Telepon</label>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </form>
+                            @if (!$initial_user)
+                                <form method="POST" action="{{ route('datamaster-tambah-akun') }}">
+                                    @csrf
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company" required
+                                            name="username" placeholder="Masukan Username Petugas" />
+                                        <label for="basic-default-company">Username<span
+                                                style="color: red;">*</span></label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company" required
+                                            name="password" placeholder="Masukan Password Petugas" />
+                                        <label for="basic-default-company">Password<span
+                                                style="color: red;">*</span></label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company"
+                                            name="no_telepon" placeholder="Masukan Nomor telepon Petugas" />
+                                        <label for="basic-default-company">Nomor Telepon</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input class="form-control" list="datalistOptions" id="exampleDataList" required
+                                            name="role" placeholder="Pilih Role Akun">
+                                        <datalist id="datalistOptions">
+                                            <option value="Admin"></option>
+                                            <option value="Petugas"></option>
+                                        </datalist>
+                                        <label for="exampleDataList">Role<span style="color: red;">*</span></label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </form>
+                            @else
+                                <form method="POST" action="{{ route('datamaster-ubah-akun', $initial_user->id) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company" required
+                                            name="username" value="{{ $initial_user->username }}"
+                                            placeholder="Masukan Username Petugas" />
+                                        <label for="basic-default-company">Username<span
+                                                style="color: red;">*</span></label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company" required
+                                            name="password" value="{{ $initial_user->password }}"
+                                            placeholder="Masukan Password Petugas" />
+                                        <label for="basic-default-company">Password<span
+                                                style="color: red;">*</span></label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input type="text" class="form-control" id="basic-default-company"
+                                            name="no_telepon" value="{{ $initial_user->no_telepon }}"
+                                            placeholder="Masukan Nomor telepon Petugas" />
+                                        <label for="basic-default-company">Nomor Telepon</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <input class="form-control" list="datalistOptions" id="exampleDataList" required
+                                            name="role" value="{{ $initial_user->role }}" placeholder="Pilih Role Akun">
+                                        <datalist id="datalistOptions">
+                                            <option value="Admin"></option>
+                                            <option value="Petugas"></option>
+                                        </datalist>
+                                        <label for="exampleDataList">Role<span style="color: red;">*</span></label>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-warning">Ubah</button>
+                                        <button type="button" class="btn btn-danger"
+                                            onclick="location.href='{{ route('datamaster-kelola-akun') }}'">Batal</button>
+                                    </div>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -51,22 +104,43 @@
                                         <th>Username</th>
                                         <th>Password</th>
                                         <th>No Telepon</th>
+                                        <th>Role</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>petugas.ivan</td>
-                                        <td>test123</td>
-                                        <td>088221532894</td>
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <button type="button" class="btn btn-warning">Edit</button>
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td>{{ $no }}</td>
+                                            <td>{{ $user->username }}</td>
+                                            <td>{{ $user->password }}</td>
+                                            <td>{{ $user->no_telepon }}</td>
+                                            <td>{!! $user->role == 'Admin'
+                                                ? '<span style="width: 70px;" class="badge rounded-pill bg-success">Admin</span>'
+                                                : '<span style="width: 70px;" class="badge rounded-pill bg-info">Petugas</span>' !!}</td>
+                                            <td>
+                                                <div class="d-flex gap-2">
+                                                    <form action="{{ route('datamaster-kelola-akun', $user->id) }}">
+                                                        @method('GET')
+                                                        <button type="sumbit" class="btn btn-warning">Edit</button>
+                                                    </form>
+                                                    <form method="POST"
+                                                        action="{{ route('datamaster-hapus-akun', $user->id) }}"
+                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @php
+                                            $no++;
+                                        @endphp
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -11,7 +11,7 @@
     <!-- Layout Demo -->
     <div class="layout-demo-wrapper">
         <div class="col-xl">
-            <div class="card mb-4" style="width: 500px">
+            <div class="card mb-4" style="width: 100%">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Form Input Penggunaan</h5>
                 </div>
