@@ -5,7 +5,7 @@
 
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Container - Layouts')
+@section('title', 'Kelola Pelanggan')
 
 @section('content')
     <!-- Layout Demo -->

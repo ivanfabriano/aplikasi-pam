@@ -18,9 +18,15 @@
             {{-- adding active and open class if child is active --}}
             {{-- menu headers --}}
             @if (isset($menu->menuHeader))
-                <li class="menu-header fw-medium mt-4">
-                    <span class="menu-header-text">{{ __($menu->menuHeader) }}</span>
-                </li>
+                @if (auth()->user()->role == 'Petugas' && $menu->menuHeader == 'Menu Petugas')
+                    <li class="menu-header fw-medium mt-4">
+                        <span class="menu-header-text">{{ __($menu->menuHeader) }}</span>
+                    </li>
+                @elseif (auth()->user()->role == 'Admin' && $menu->menuHeader != 'Menu Petugas')
+                    <li class="menu-header fw-medium mt-4">
+                        <span class="menu-header-text">{{ __($menu->menuHeader) }}</span>
+                    </li>
+                @endif
             @else
                 {{-- active menu method --}}
                 @php
@@ -47,25 +53,48 @@
                     }
                 @endphp
 
-                {{-- main menu --}}
-                <li class="menu-item {{ $activeClass }}">
-                    <a href="{{ isset($menu->url) ? url($menu->url) : 'javascript:void(0);' }}"
-                        class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}"
-                        @if (isset($menu->target) and !empty($menu->target)) target="_blank" @endif>
-                        @isset($menu->icon)
-                            <i class="{{ $menu->icon }}"></i>
-                        @endisset
-                        <div>{{ isset($menu->name) ? __($menu->name) : '' }}</div>
-                        @isset($menu->badge)
-                            <div class="badge bg-{{ $menu->badge[0] }} rounded-pill ms-auto">{{ $menu->badge[1] }}</div>
-                        @endisset
-                    </a>
+                @if (auth()->user()->role == 'Petugas' && $menu->name == 'Form Penggunaan')
+                    <li class="menu-item {{ $activeClass }}">
+                        <a href="{{ isset($menu->url) ? url($menu->url) : 'javascript:void(0);' }}"
+                            class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}"
+                            @if (isset($menu->target) and !empty($menu->target)) target="_blank" @endif>
+                            @isset($menu->icon)
+                                <i class="{{ $menu->icon }}"></i>
+                            @endisset
+                            <div>{{ isset($menu->name) ? __($menu->name) : '' }}</div>
+                            @isset($menu->badge)
+                                <div class="badge bg-{{ $menu->badge[0] }} rounded-pill ms-auto">{{ $menu->badge[1] }}
+                                </div>
+                            @endisset
+                        </a>
 
-                    {{-- submenu --}}
-                    @isset($menu->submenu)
-                        @include('layouts.sections.menu.submenu', ['menu' => $menu->submenu])
-                    @endisset
-                </li>
+                        {{-- submenu --}}
+                        @isset($menu->submenu)
+                            @include('layouts.sections.menu.submenu', ['menu' => $menu->submenu])
+                        @endisset
+                    </li>
+                @elseif (auth()->user()->role == 'Admin' && $menu->name != 'Form Penggunaan')
+                    <li class="menu-item {{ $activeClass }}">
+                        <a href="{{ isset($menu->url) ? url($menu->url) : 'javascript:void(0);' }}"
+                            class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}"
+                            @if (isset($menu->target) and !empty($menu->target)) target="_blank" @endif>
+                            @isset($menu->icon)
+                                <i class="{{ $menu->icon }}"></i>
+                            @endisset
+                            <div>{{ isset($menu->name) ? __($menu->name) : '' }}</div>
+                            @isset($menu->badge)
+                                <div class="badge bg-{{ $menu->badge[0] }} rounded-pill ms-auto">{{ $menu->badge[1] }}
+                                </div>
+                            @endisset
+                        </a>
+
+                        {{-- submenu --}}
+                        @isset($menu->submenu)
+                            @include('layouts.sections.menu.submenu', ['menu' => $menu->submenu])
+                        @endisset
+                    </li>
+                @endif
+                {{-- main menu --}}
             @endif
         @endforeach
     </ul>

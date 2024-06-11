@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Blank layout - Layouts')
+@section('title', 'Cetak Struk')
 
 @section('content')
     <div style="width: 1000px; color:black">
