@@ -157,11 +157,11 @@
                                             <datalist id="identitaspelanggan">
                                                 @foreach ($list_pelanggans as $list_pelanggan)
                                                     <option
-                                                        value="{{ $list_pelanggan->id_pelanggan }}-{{ $list_pelanggan->nama_pelanggan }}">
+                                                        value="{{ $list_pelanggan->no_meter }}-{{ $list_pelanggan->nama_pelanggan }}-{{ $list_pelanggan->alamat_pelanggan }}">
                                                     </option>
                                                 @endforeach
                                             </datalist>
-                                            <label for="exampleDataList">Cari Data Pelanggan</label>
+                                            <label for="exampleDataList">Cari Pelanggan</label>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Cari</button>
                                         <button type="button" class="btn btn-warning"

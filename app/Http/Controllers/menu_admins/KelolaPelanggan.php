@@ -16,10 +16,13 @@ class KelolaPelanggan extends Controller
         $telat_bayar = $request->input('telat_bayar');
         $telat_bayar = $telat_bayar == 'on' ? true : false;
         $id_filter = null;
+        $nama_pelanggan = null;
+        $alamat_pelanggan = null;
 
         if ($id_name_filter) {
-            $id_filter = explode('-', $id_name_filter);
-            $id_filter = $id_filter[0];
+            $id_filter = explode('-', $id_name_filter)[0];
+            $nama_pelanggan = explode('-', $id_name_filter)[1];
+            $alamat_pelanggan = explode('-', $id_name_filter)[2];
         }
 
         $list_pelanggans = Pelanggan::all();
@@ -73,8 +76,18 @@ class KelolaPelanggan extends Controller
         }
 
         if ($id_filter) {
-            $query .= " AND id_pelanggan = :id_filter";
+            $query .= " AND no_meter = :id_filter";
             $bindings['id_filter'] = $id_filter;
+        }
+
+        if ($nama_pelanggan) {
+            $query .= " AND nama_pelanggan = :nama_pelanggan";
+            $bindings['nama_pelanggan'] = $nama_pelanggan;
+        }
+
+        if ($alamat_pelanggan) {
+            $query .= " AND alamat_pelanggan = :alamat_pelanggan";
+            $bindings['alamat_pelanggan'] = $alamat_pelanggan;
         }
 
         $pelanggans = DB::select($query, $bindings);

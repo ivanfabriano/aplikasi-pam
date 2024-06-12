@@ -27,11 +27,11 @@
                                     <datalist id="datalistOptions">
                                         @foreach ($list_pelanggans as $list_pelanggan)
                                             <option
-                                                value="{{ $list_pelanggan->id_pelanggan }}-{{ $list_pelanggan->nama_pelanggan }}">
+                                                value="{{ $list_pelanggan->no_meter }}-{{ $list_pelanggan->nama_pelanggan }}-{{ $list_pelanggan->alamat_pelanggan }}">
                                             </option>
                                         @endforeach
                                     </datalist>
-                                    <label for="exampleDataList">ID Pelanggan [Tekan Tab]<span
+                                    <label for="exampleDataList"> Info Pelanggan [Tekan Tab]<span
                                             style="color: red;">*</span></label>
                                 </div>
                                 <button id="searchButton" type="submit" class="btn btn-primary">Cari</button>
