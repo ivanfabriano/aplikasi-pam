@@ -107,7 +107,6 @@ class KelolaPelanggan extends Controller
         $no_meter = $request->input('no_meter');
         $nama_pelanggan = $request->input('nama_pelanggan');
         $alamat_pelanggan = $request->input('alamat_pelanggan');
-        $tenggang = $request->input('tenggang');
         $jenis_tarif = $request->input('jenis_tarif');
 
         $pelanggan_data = new Pelanggan();
@@ -115,7 +114,7 @@ class KelolaPelanggan extends Controller
         $pelanggan_data->no_meter = $no_meter;
         $pelanggan_data->nama_pelanggan = $nama_pelanggan;
         $pelanggan_data->alamat_pelanggan = $alamat_pelanggan;
-        $pelanggan_data->tenggang = $tenggang;
+        $pelanggan_data->tenggang = 20;
         $pelanggan_data->jenis_tarif = $jenis_tarif;
         $pelanggan_data->save();
 
@@ -140,7 +139,6 @@ class KelolaPelanggan extends Controller
         $no_meter = $request->input('no_meter');
         $nama_pelanggan = $request->input('nama_pelanggan');
         $alamat_pelanggan = $request->input('alamat_pelanggan');
-        $tenggang = $request->input('tenggang');
         $jenis_tarif = $request->input('jenis_tarif');
 
         $pelanggan_data = Pelanggan::find($id);
@@ -150,7 +148,6 @@ class KelolaPelanggan extends Controller
             $pelanggan_data->no_meter = $no_meter;
             $pelanggan_data->nama_pelanggan = $nama_pelanggan;
             $pelanggan_data->alamat_pelanggan = $alamat_pelanggan;
-            $pelanggan_data->tenggang = $tenggang;
             $pelanggan_data->jenis_tarif = $jenis_tarif;
 
             $pelanggan_data->save();

@@ -17,6 +17,29 @@
                         <h5 class="card-header">Riwayat Transaksi Pelanggan <span
                                 class="text-muted">[{{ $info_pelanggan ? $info_pelanggan->id_pelanggan . '-' . $info_pelanggan->nama_pelanggan : 'Semua Pelanggan' }}]</span>
                         </h5>
+                        <div class="card-body">
+                            <div class="d-flex gap-2">
+                                <form class="d-flex gap-2" action="{{ route('pengelolaan-riwayat-transaksi') }}"
+                                    method="GET" style="width: 40%">
+                                    <div class="form-floating form-floating-outline" style="width: 100%">
+                                        <input class="form-control" list="identitaspelanggan" id="exampleDataList"
+                                            value="{{ request()->get('id_name_filter') }}" name="id_name_filter"
+                                            placeholder="Masukan ID atau Nama Pelanggan">
+                                        <datalist id="identitaspelanggan">
+                                            @foreach ($list_pelanggans as $list_pelanggan)
+                                                <option
+                                                    value="{{ $list_pelanggan->no_meter }}-{{ $list_pelanggan->nama_pelanggan }}-{{ $list_pelanggan->alamat_pelanggan }}">
+                                                </option>
+                                            @endforeach
+                                        </datalist>
+                                        <label for="exampleDataList">Cari Pelanggan</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                    <button type="button" class="btn btn-warning"
+                                        onclick="location.href='{{ route('pengelolaan-riwayat-transaksi') }}'">Reset</button>
+                                </form>
+                            </div>
+                        </div>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>

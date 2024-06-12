@@ -124,7 +124,7 @@
                                     kecil</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
-                                <input class="form-control" type="date" id="html5-date-input" required
+                                <input class="form-control" type="date" id="html5-date-input" required readonly
                                     value="{{ $pelanggan ? $pelanggan->work_date : '' }}" name="tanggal_pengecekan" />
                                 <label for="html5-date-input">Tanggal Pengecekan<span style="color: red;">*</span></label>
                             </div>

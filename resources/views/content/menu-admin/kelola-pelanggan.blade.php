@@ -41,17 +41,14 @@
                                         <label for="basic-default-company">Nama Pelanggan<span
                                                 style="color: red;">*</span></label>
                                     </div>
-                                    <div class="form-floating form-floating-outline mb-4">
-                                        <textarea class="form-control h-px-100" id="exampleFormControlTextarea1" placeholder="Masukan Alamat Pelanggan" required
-                                            name="alamat_pelanggan"></textarea>
-                                        <label for="exampleFormControlTextarea1">Alamat Pelanggan<span
-                                                style="color: red;">*</span></label>
-                                    </div>
-                                    <div class="form-floating form-floating-outline mb-4">
-                                        <input type="text" class="form-control" id="basic-default-company" required
-                                            name="tenggang" placeholder="Masukan Hari Tenggang" />
-                                        <label for="basic-default-company">Tenggang Hari Ke<span
-                                                style="color: red;">*</span></label>
+                                    <div class="form-floating form-floating-outline mb-4" style="width: 100%">
+                                        <input class="form-control" list="alamatpelanggan" id="exampleDataList"
+                                            name="alamat_pelanggan" placeholder="Pilih Alamat Pelanggan">
+                                        <datalist id="alamatpelanggan">
+                                            <option value="kedungmundu"></option>
+                                            <option value="sendangguwo"></option>
+                                        </datalist>
+                                        <label for="alamat_pelanggan">Alamat Pelanggan</label>
                                     </div>
                                     <div class="form-floating form-floating-outline mb-4">
                                         <input class="form-control" list="datalistOptions" id="exampleDataList" required
@@ -91,18 +88,15 @@
                                         <label for="basic-default-company">Nama Pelanggan<span
                                                 style="color: red;">*</span></label>
                                     </div>
-                                    <div class="form-floating form-floating-outline mb-4">
-                                        <textarea class="form-control h-px-100" id="exampleFormControlTextarea1" placeholder="Masukan Alamat Pelanggan" required
-                                            name="alamat_pelanggan">{{ $initial_pelanggan->alamat_pelanggan }}</textarea>
-                                        <label for="exampleFormControlTextarea1">Alamat Pelanggan<span
-                                                style="color: red;">*</span></label>
-                                    </div>
-                                    <div class="form-floating form-floating-outline mb-4">
-                                        <input type="text" class="form-control" id="basic-default-company" required
-                                            value="{{ $initial_pelanggan->tenggang }}" name="tenggang"
-                                            placeholder="Masukan Hari Tenggang" />
-                                        <label for="basic-default-company">Tenggang Hari Ke<span
-                                                style="color: red;">*</span></label>
+                                    <div class="form-floating form-floating-outline mb-4" style="width: 100%">
+                                        <input class="form-control" list="alamatpelanggan" id="exampleDataList"
+                                            value="{{ $initial_pelanggan->alamat_pelanggan }}" name="alamat_pelanggan"
+                                            placeholder="Pilih Alamat Pelanggan">
+                                        <datalist id="alamatpelanggan">
+                                            <option value="kedungmundu"></option>
+                                            <option value="sendangguwo"></option>
+                                        </datalist>
+                                        <label for="alamat_pelanggan">Alamat Pelanggan</label>
                                     </div>
                                     <div class="form-floating form-floating-outline mb-4">
                                         <input class="form-control" list="datalistOptions" id="exampleDataList" required
