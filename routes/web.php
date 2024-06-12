@@ -68,3 +68,4 @@ Route::get('/pengelolaan/daftar-tagihan', [LaporanTagihanPerbulan::class, 'index
 Route::get('/pengelolaan/daftar-tunggakan', [LaporanTunggakan::class, 'index'])->name('pengelolaan-daftar-tunggakan')->middleware('auth');
 
 Route::get('/pengelolaan/riwayat-transaksi/{id_pelanggan?}', [RiwayatTransaksi::class, 'index'])->name('pengelolaan-riwayat-transaksi')->middleware('auth');
+Route::put('/pengelolaan/rollback-transaksi/{id_pelanggan}', [RiwayatTransaksi::class, 'rollback'])->name('pengelolaan-rollback-transaksi')->middleware('auth');

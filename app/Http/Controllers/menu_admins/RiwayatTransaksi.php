@@ -52,4 +52,23 @@ class RiwayatTransaksi extends Controller
 
         return view('content.menu-admin.riwayat-transaksi', compact('list_tagihan', 'info_pelanggan', 'list_pelanggans'));
     }
+
+    public function rollback($id)
+    {
+        $info_tagihan = CekTagihan::find($id);
+
+        if ($info_tagihan) {
+            $info_tagihan->waktu_bayar = null;
+            $info_tagihan->bayar = 0;
+            $info_tagihan->kembali = 0;
+            $info_tagihan->denda = 0;
+            $info_tagihan->status_bayar = false;
+
+            $info_tagihan->save();
+
+            return redirect()->route('pengelolaan-riwayat-transaksi')->with('success', 'Pembayaran berhasil di-rollback.');
+        } else {
+            return redirect()->route('pengelolaan-riwayat-transaksi')->with('error', 'Data tidak ditemukan.');
+        }
+    }
 }

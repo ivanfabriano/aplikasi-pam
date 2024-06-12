@@ -57,6 +57,7 @@
                                         <th>Bayar</th>
                                         <th>Kembali</th>
                                         <th>Petugas</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
@@ -79,6 +80,15 @@
                                             <td>Rp. {{ number_format($tagihan->bayar, 0, ',', '.') }}</td>
                                             <td>Rp. {{ number_format($tagihan->kembali, 0, ',', '.') }}</td>
                                             <td>{{ $tagihan->petugas }}</td>
+                                            <td>
+                                                <form method="POST"
+                                                    action="{{ route('pengelolaan-rollback-transaksi', $tagihan->id) }}"
+                                                    onsubmit="return confirm('Apakah Anda yakin ingin rollback transaksi ini?');">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-danger">Rollback</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                         @php
                                             $no++;
