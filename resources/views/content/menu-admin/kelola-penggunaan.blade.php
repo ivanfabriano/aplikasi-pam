@@ -31,9 +31,10 @@
                                             </option>
                                         @endforeach
                                     </datalist>
-                                    <label for="exampleDataList">ID Pelanggan<span style="color: red;">*</span></label>
+                                    <label for="exampleDataList">ID Pelanggan [Tekan Tab]<span
+                                            style="color: red;">*</span></label>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Cari</button>
+                                <button id="searchButton" type="submit" class="btn btn-primary">Cari</button>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input type="text" class="form-control" id="basic-default-company" readonly
@@ -137,6 +138,15 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('exampleDataList').addEventListener('keydown', function(event) {
+            if (event.key === 'Tab') {
+                event.preventDefault(); // Mencegah default behavior Tab
+                document.getElementById('searchButton').click(); // Klik tombol Cari
+            }
+        });
+    </script>
+
     <!--/ Layout Demo -->
 
 
