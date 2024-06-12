@@ -32,6 +32,11 @@
           "slug": "pengelolaan-input-penggunaan"
         },
         {
+          "url": "pengelolaan/daftar-penggunaan",
+          "name": "Daftar Penggunaan",
+          "slug": "pengelolaan-daftar-penggunaan"
+        },
+        {
           "url": "pengelolaan/daftar-tagihan",
           "name": "Daftar Tagihan",
           "slug": "pengelolaan-daftar-tagihan"

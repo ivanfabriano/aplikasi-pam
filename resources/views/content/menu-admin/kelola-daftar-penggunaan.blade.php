@@ -5,7 +5,7 @@
 
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Daftar Tagihan')
+@section('title', 'Daftar Penggunaan')
 
 @section('content')
     <!-- Layout Demo -->
@@ -17,15 +17,6 @@
                         <h5 class="card-header">Daftar Tagihan Perbulan</h5>
                         <form action="{{ route('pengelolaan-daftar-tagihan') }}" method="GET">
                             <div class="d-flex card-body align-items-center gap-3">
-                                <div>
-                                    <div class="form-check form-switch mb-2">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-                                            {{ request()->get('status_bayar') == 'on' ? 'checked' : '' }}
-                                            name="status_bayar">
-                                        <label class="form-check-label" for="flexSwitchCheckDefault"> Filter Sudah
-                                            Dibayar</label>
-                                    </div>
-                                </div>
                                 <div>
                                     <div class="form-floating form-floating-outline">
                                         <input class="form-control" list="datalistOptions" id="exampleDataList"
@@ -56,10 +47,6 @@
                         @if ($list_tagihan)
                             <div class="table-responsive text-nowrap">
                                 <div class="mx-3">
-                                    <p>Filter diterapkan untuk Bulan {{ request()->get('bulan_tagihan') }}
-                                        {{ request()->get('tahun_tagihan') }}
-                                        [{{ request()->get('status_bayar') == 'on' ? 'Sudah Dibayar' : 'Belum Dibayar' }}]
-                                    </p>
                                 </div>
                                 <table class="table">
                                     <thead>
@@ -68,10 +55,11 @@
                                             <th>ID Pelanggan</th>
                                             <th>Nama Pelanggan</th>
                                             <th>Bulan Tagihan</th>
-                                            <th>Jumlah Meter</th>
-                                            <th>Jumlah Bayar</th>
-                                            <th>Status</th>
+                                            <th>Meter Awal</th>
+                                            <th>Meter Akhir</th>
+                                            <th>Tanggal Cek</th>
                                             <th>Petugas</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
@@ -84,13 +72,17 @@
                                                 <td>{{ $tagihan->id_pelanggan }}</td>
                                                 <td>{{ $tagihan->nama_pelanggan }}</td>
                                                 <td>{{ $tagihan->bulan_tagihan }}</td>
-                                                <td>{{ $tagihan->meter_akhir - $tagihan->meter_awal }}</td>
-                                                <td>Rp. {{ number_format($tagihan->jumlah_bayar, 0, ',', '.') }}</td>
-                                                <td>{!! $tagihan->status_bayar
-                                                    ? '<span class="badge rounded-pill bg-success">Sudah dibayar</span>'
-                                                    : '<span class="badge rounded-pill bg-danger">Belum dibayar</span>' !!}
-                                                </td>
+                                                <td>{{ $tagihan->meter_awal }}</td>
+                                                <td>{{ $tagihan->meter_akhir }}</td>
+                                                <td>{{ $tagihan->tanggal_pengecekan }}</td>
                                                 <td>{{ $tagihan->petugas }}</td>
+                                                <td>
+                                                    <form
+                                                        action="{{ route('pengelolaan-input-penggunaan', $tagihan->id_penggunaan) }}">
+                                                        @method('GET')
+                                                        <button type="sumbit" class="btn btn-warning">Edit</button>
+                                                    </form>
+                                                </td>
                                             </tr>
                                             @php
                                                 $no++;

@@ -12,7 +12,9 @@ class CekTagihan extends Controller
     public function index(Request $request)
     {
         $id_pelanggan = $request->input('id_pelanggan');
-        $id_filter = null;
+        $no_meter = null;
+        $nama_pelanggan = null;
+        $alamat_pelanggan = null;
         $list_tagihan = null;
         $info_pelanggan = null;
 
@@ -21,16 +23,22 @@ class CekTagihan extends Controller
         $pelanggans = Pelanggan::all();
 
         if ($id_pelanggan) {
-            $id_filter = explode('-', $id_pelanggan);
-            $id_filter = $id_filter[0];
+            $no_meter = explode('-', $id_pelanggan)[0];
+            $nama_pelanggan = explode('-', $id_pelanggan)[1];
+            $alamat_pelanggan = explode('-', $id_pelanggan)[2];
         }
 
-        if ($id_filter) {
-            $list_tagihan = ModelsCekTagihan::where('status_bayar', false)
-                ->where('id_pelanggan', $id_filter)
-                ->get();
+        if ($no_meter && $nama_pelanggan && $alamat_pelanggan) {
+            $info_pelanggan = Pelanggan::where('no_meter', $no_meter)
+                ->where('nama_pelanggan', $nama_pelanggan)
+                ->where('alamat_pelanggan', $alamat_pelanggan)
+                ->first();
 
-            $info_pelanggan = Pelanggan::firstWhere('id_pelanggan', $id_filter);
+            if ($info_pelanggan) {
+                $list_tagihan = ModelsCekTagihan::where('status_bayar', false)
+                    ->where('id_pelanggan', $info_pelanggan->id_pelanggan)
+                    ->get();
+            }
         }
 
         return view('content.menu-agent.cek-tagihan', compact('list_tagihan', 'info_pelanggan', 'pelanggans'));

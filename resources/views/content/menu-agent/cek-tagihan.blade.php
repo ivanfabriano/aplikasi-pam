@@ -13,7 +13,7 @@
         <div clas="bg-white w-100" style="width: 100%">
             <div class="card h-100" style="width: 32%">
                 <div class="card-body">
-                    <h5 class="card-title">Cari ID Pelanggan</h5>
+                    <h5 class="card-title">Cari Data Pelanggan</h5>
                     <form action="{{ route('cek-tagihan') }}" method="GET">
                         <div class="d-flex gap-2 mt-1">
                             <div class="form-floating form-floating-outline" style="width: 100%">
@@ -21,7 +21,8 @@
                                     name="id_pelanggan" placeholder="Masukan ID atau Nama Pelanggan">
                                 <datalist id="identitaspelanggan">
                                     @foreach ($pelanggans as $pelanggan)
-                                        <option value="{{ $pelanggan->id_pelanggan }}-{{ $pelanggan->nama_pelanggan }}">
+                                        <option
+                                            value="{{ $pelanggan->no_meter }}-{{ $pelanggan->nama_pelanggan }}-{{ $pelanggan->alamat_pelanggan }}">
                                         </option>
                                     @endforeach
                                 </datalist>

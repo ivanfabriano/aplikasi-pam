@@ -16,6 +16,7 @@ use App\Http\Controllers\menu_admins\LaporanTunggakan;
 use App\Http\Controllers\menu_admins\RiwayatTransaksi;
 use App\Http\Controllers\menu_admins\CetakStruk;
 use App\Http\Controllers\menu_admins\HomePage;
+use App\Http\Controllers\menu_admins\KelolaDaftarPenggunaan;
 
 // Main Page Route
 Route::get('/', [HomePage::class, 'index'])->name('home-page')->middleware('auth');
@@ -60,11 +61,13 @@ Route::delete('/datamaster/hapus-akun/{id}', [KelolaAkun::class, 'destroy'])->na
 Route::put('/datamaster/ubah-akun/{id}', [KelolaAkun::class, 'update'])->name('datamaster-ubah-akun')->middleware('auth');
 
 // ROUTE KELOLA PENGGUNAAN
-Route::get('/pengelolaan/input-penggunan', [KelolaPenggunaan::class, 'index'])->name('pengelolaan-input-penggunaan')->middleware('auth');
+Route::get('/pengelolaan/input-penggunan/{id?}', [KelolaPenggunaan::class, 'index'])->name('pengelolaan-input-penggunaan')->middleware('auth');
+Route::put('/pengelolaan/ubah-penggunan/{id}', [KelolaPenggunaan::class, 'update'])->name('pengelolaan-ubah-penggunaan')->middleware('auth');
 Route::post('/pengelolaan/tambah-penggunan', [KelolaPenggunaan::class, 'store'])->name('pengelolaan-tambah-penggunaan')->middleware('auth');
 Route::post('/pengelolaan/reset-penggunan/{id}', [KelolaPenggunaan::class, 'reset'])->name('pengelolaan-reset-penggunaan')->middleware('auth');
 
 Route::get('/pengelolaan/daftar-tagihan', [LaporanTagihanPerbulan::class, 'index'])->name('pengelolaan-daftar-tagihan')->middleware('auth');
+Route::get('/pengelolaan/daftar-penggunaan', [KelolaDaftarPenggunaan::class, 'index'])->name('pengelolaan-daftar-penggunaan')->middleware('auth');
 Route::get('/pengelolaan/daftar-tunggakan', [LaporanTunggakan::class, 'index'])->name('pengelolaan-daftar-tunggakan')->middleware('auth');
 
 Route::get('/pengelolaan/riwayat-transaksi/{id_pelanggan?}', [RiwayatTransaksi::class, 'index'])->name('pengelolaan-riwayat-transaksi')->middleware('auth');

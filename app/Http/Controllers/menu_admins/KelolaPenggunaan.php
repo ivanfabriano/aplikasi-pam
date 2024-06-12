@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class KelolaPenggunaan extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $id = null)
     {
         $months = [
             'Januari' => 1, 'Februari' => 2, 'Maret' => 3, 'April' => 4,
@@ -26,6 +26,7 @@ class KelolaPenggunaan extends Controller
         $alamat_pelanggan = null;
         $pelanggan = null;
         $last_record_penggunaan = null;
+        $edit_data = null;
 
         Carbon::setLocale('id');
         $currentMonth = Carbon::now()->translatedFormat('F');
@@ -61,7 +62,11 @@ class KelolaPenggunaan extends Controller
             $pelanggan->meter_awal = $last_record_penggunaan ? $last_record_penggunaan->meter_akhir : 0;
         }
 
-        return view('content.menu-admin.kelola-penggunaan', compact('pelanggan', 'list_pelanggans'));
+        if ($id) {
+            $edit_data = Penggunaan::find($id);
+        }
+
+        return view('content.menu-admin.kelola-penggunaan', compact('pelanggan', 'list_pelanggans', 'edit_data'));
     }
 
     public function store(Request $request)
@@ -105,6 +110,7 @@ class KelolaPenggunaan extends Controller
 
         $penggunaan_data = new Penggunaan();
         $penggunaan_data->id_pelanggan = $id_pelanggan;
+        $penggunaan_data->id_pembayaran = $cek_tagihan_data->id_pembayaran;
         $penggunaan_data->no_meter = $no_meter;
         $penggunaan_data->nama_pelanggan = $nama_pelanggan;
         $penggunaan_data->bulan_penggunaan = $bulan_penggunaan;
@@ -115,6 +121,36 @@ class KelolaPenggunaan extends Controller
         $penggunaan_data->save();
 
         return redirect()->route('pengelolaan-input-penggunaan')->with('success', 'Data penggunaan berhasil disimpan.');
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $id_pelanggan = $request->input('id_pelanggan');
+        $id_pelanggan = explode('-', $id_pelanggan)[0];
+        $meter_awal = $request->input('meter_awal');
+        $meter_akhir = $request->input('meter_akhir');
+        $tanggal_pengecekan = $request->input('tanggal_pengecekan');
+
+        $pelanggan = Pelanggan::firstWhere('id_pelanggan', $id_pelanggan);
+        $tarif = Tarif::firstWhere('kode_tarif', $pelanggan->jenis_tarif);
+
+        $penggunaan_data = Penggunaan::firstWhere('id', $id);
+        $penggunaan_data->meter_awal = $meter_awal;
+        $penggunaan_data->meter_akhir = $meter_akhir;
+        $penggunaan_data->tanggal_pengecekan = $tanggal_pengecekan;
+        $penggunaan_data->petugas = 'Ivan Fabriano';
+        $penggunaan_data->save();
+
+        $cek_tagihan_data = CekTagihan::firstWhere('id_pembayaran', $penggunaan_data->id_pembayaran);
+        $cek_tagihan_data->meter_awal = $meter_awal;
+        $cek_tagihan_data->meter_akhir = $meter_akhir;
+        $cek_tagihan_data->jumlah_bayar = ($meter_akhir - $meter_awal) * $tarif->tarif;
+        $cek_tagihan_data->petugas = 'Ivan Fabriano';
+        $cek_tagihan_data->total_akhir = (($meter_akhir - $meter_awal) * $tarif->tarif) + $tarif->abonemen;
+        $cek_tagihan_data->save();
+
+        return redirect()->route('pengelolaan-daftar-penggunaan')->with('success', 'Data penggunaan berhasil diubah.');
     }
 
     public function reset($id)
