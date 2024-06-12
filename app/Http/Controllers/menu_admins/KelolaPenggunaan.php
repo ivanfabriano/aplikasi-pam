@@ -22,6 +22,8 @@ class KelolaPenggunaan extends Controller
 
         $id_pelanggan = $request->input('id_pelanggan');
         $id_filter = null;
+        $nama_pelanggan = null;
+        $alamat_pelanggan = null;
         $pelanggan = null;
         $last_record_penggunaan = null;
 
@@ -29,24 +31,32 @@ class KelolaPenggunaan extends Controller
         $currentMonth = Carbon::now()->translatedFormat('F');
 
         if ($id_pelanggan) {
-            $id_filter = explode('-', $id_pelanggan);
-            $id_filter = $id_filter[0];
+            $id_filter = explode('-', $id_pelanggan)[0];
+            $nama_pelanggan = explode('-', $id_pelanggan)[1];
+            $alamat_pelanggan = explode('-', $id_pelanggan)[2];
         }
+        $current_date_now = Carbon::now()->toDateString();
 
         $list_pelanggans = Pelanggan::all();
 
         if ($id_filter) {
-            $pelanggan = Pelanggan::firstWhere('id_pelanggan', $id_filter);
+            $pelanggan = Pelanggan::where('no_meter', $id_filter)
+                ->where('nama_pelanggan', $nama_pelanggan)
+                ->where('alamat_pelanggan', $alamat_pelanggan)
+                ->first();
 
-            $last_record_penggunaan = Penggunaan::where('id_pelanggan', $id_filter)
+            $last_record_penggunaan = Penggunaan::where('id_pelanggan', $pelanggan->id_pelanggan)
                 ->orderBy('id', 'desc')
                 ->first();
 
-            $currentMonthIndex = $months[ucfirst(strtolower($last_record_penggunaan->bulan_penggunaan))];
-            $current_date = Carbon::createFromDate(null, $currentMonthIndex, 1);
-            $nextMonthDate = $current_date->addMonth();
-            $nextMonth = $nextMonthDate->translatedFormat('F');
+            if ($last_record_penggunaan) {
+                $currentMonthIndex = $months[ucfirst(strtolower($last_record_penggunaan->bulan_penggunaan))];
+                $current_date = Carbon::createFromDate(null, $currentMonthIndex, 1);
+                $nextMonthDate = $current_date->addMonth();
+                $nextMonth = $nextMonthDate->translatedFormat('F');
+            }
 
+            $pelanggan->work_date = $current_date_now;
             $pelanggan->bulan_penggunaan = $last_record_penggunaan ? $nextMonth : $currentMonth;
             $pelanggan->meter_awal = $last_record_penggunaan ? $last_record_penggunaan->meter_akhir : 0;
         }

@@ -112,26 +112,29 @@
                                         style="color: red;">*</span></label>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
-                                <input class="form-control" type="number" placeholder="18" id="html5-number-input"
-                                    required readonly name="meter_awal"
-                                    value="{{ $pelanggan ? $pelanggan->meter_awal : '' }}" />
-                                <label for="html5-number-input">Meter Awal<span style="color: red;">*</span></label>
+                                <input class="form-control" type="number" placeholder="18" id="meter_awal" required
+                                    readonly name="meter_awal" value="{{ $pelanggan ? $pelanggan->meter_awal : '' }}" />
+                                <label for="meter_awal">Meter Awal<span style="color: red;">*</span></label>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
-                                <input class="form-control" type="number" placeholder="18" id="html5-number-input"
-                                    required name="meter_akhir" />
-                                <label for="html5-number-input">Meter Akhir<span style="color: red;">*</span></label>
+                                <input class="form-control" type="number" placeholder="18" id="meter_akhir" required
+                                    name="meter_akhir" />
+                                <label for="meter_akhir">Meter Akhir<span style="color: red;">*</span></label>
+                                <div id="error-message" style="color: red; display: none;">Meter Akhir tidak boleh lebih
+                                    kecil</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input class="form-control" type="date" id="html5-date-input" required
-                                    name="tanggal_pengecekan" />
+                                    value="{{ $pelanggan ? $pelanggan->work_date : '' }}" name="tanggal_pengecekan" />
                                 <label for="html5-date-input">Tanggal Pengecekan<span style="color: red;">*</span></label>
                             </div>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                            @if ($pelanggan)
-                                <button type="button" class="btn btn-danger"
-                                    onclick="location.href='{{ route('pengelolaan-input-penggunaan') }}'">Batal</button>
-                            @endif
+                            <div class="d-flex gap-2">
+                                <button id="simpanbutton" type="submit" class="btn btn-primary">Simpan</button>
+                                @if ($pelanggan)
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="location.href='{{ route('pengelolaan-input-penggunaan') }}'">Batal</button>
+                                @endif
+                            </div>
                         </form>
                     @endif
                 </div>
@@ -144,6 +147,28 @@
                 event.preventDefault(); // Mencegah default behavior Tab
                 document.getElementById('searchButton').click(); // Klik tombol Cari
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var meterAwalInput = document.getElementById('meter_awal');
+            var meterAkhirInput = document.getElementById('meter_akhir');
+            var errorMessage = document.getElementById('error-message');
+            var simpanButton = document.getElementById('simpanbutton');
+
+            meterAkhirInput.addEventListener('input', function() {
+                var meterAwal = parseFloat(meterAwalInput.value);
+                var meterAkhir = parseFloat(meterAkhirInput.value);
+
+                if (meterAkhir < meterAwal) {
+                    errorMessage.style.display = 'block';
+                    simpanButton.classList.add('d-none');
+                    simpanButton.classList.removw('d-block');
+                } else {
+                    errorMessage.style.display = 'none';
+                    simpanButton.classList.add('d-block');
+                    simpanButton.classList.remove('d-none');
+                }
+            });
         });
     </script>
 
