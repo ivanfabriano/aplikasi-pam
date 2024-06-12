@@ -36,7 +36,7 @@
                 <div></div>
             @elseif (!is_null($list_tagihan) && !$list_tagihan->isEmpty())
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-3">
                         @if ($info_pelanggan)
                             <div class="card h-100 mt-3">
                                 <div class="card-body">
@@ -71,7 +71,7 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-8 mt-3">
+                    <div class="col-9 mt-3">
                         @if ($list_tagihan)
                             <div class="card">
                                 <h5 class="card-header">Detail Tagihan <span class="text-muted">[Belum Terbayar]</span>
@@ -81,7 +81,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Bulan</th>
+                                                <th>Bulan Tagihan</th>
                                                 <th>Meter Awal</th>
                                                 <th>Meter Akhir</th>
                                                 <th>M<sup>3</sup></th>
@@ -140,7 +140,7 @@
                 </div>
             @else
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-3">
                         @if ($info_pelanggan)
                             <div class="card h-100 mt-3">
                                 <div class="card-body">
@@ -175,7 +175,7 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-8">
+                    <div class="col-9">
                         <div class="card mt-3 text-center" style="width: 100%;">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center py-5">
                                 <h3 class="card-title">Tidak Ada Tagihan</h3>

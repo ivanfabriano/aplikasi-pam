@@ -121,6 +121,13 @@
                                             onclick="location.href='{{ route('datamaster-kelola-pelanggan') }}'">Batal</button>
                                     </div>
                                 </form>
+                                <form method="POST"
+                                    action="{{ route('pengelolaan-reset-penggunaan', $initial_pelanggan->id) }}"
+                                    onsubmit="return confirm('Apakah Anda yakin ingin mereset meter?');">
+                                    @csrf
+                                    @method('POST')
+                                    <button type="submit" class="btn btn-success mt-2">Reset Meter</button>
+                                </form>
                             @endif
                         </div>
                     </div>

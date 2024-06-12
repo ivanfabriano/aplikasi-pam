@@ -23,7 +23,7 @@ class Login extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('cek-tagihan');
+            return redirect()->intended('/');
         };
 
         return back()->withErrors([

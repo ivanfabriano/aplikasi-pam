@@ -62,6 +62,7 @@ Route::put('/datamaster/ubah-akun/{id}', [KelolaAkun::class, 'update'])->name('d
 // ROUTE KELOLA PENGGUNAAN
 Route::get('/pengelolaan/input-penggunan', [KelolaPenggunaan::class, 'index'])->name('pengelolaan-input-penggunaan')->middleware('auth');
 Route::post('/pengelolaan/tambah-penggunan', [KelolaPenggunaan::class, 'store'])->name('pengelolaan-tambah-penggunaan')->middleware('auth');
+Route::post('/pengelolaan/reset-penggunan/{id}', [KelolaPenggunaan::class, 'reset'])->name('pengelolaan-reset-penggunaan')->middleware('auth');
 
 Route::get('/pengelolaan/daftar-tagihan', [LaporanTagihanPerbulan::class, 'index'])->name('pengelolaan-daftar-tagihan')->middleware('auth');
 Route::get('/pengelolaan/daftar-tunggakan', [LaporanTunggakan::class, 'index'])->name('pengelolaan-daftar-tunggakan')->middleware('auth');

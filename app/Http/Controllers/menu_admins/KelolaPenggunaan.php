@@ -14,6 +14,12 @@ class KelolaPenggunaan extends Controller
 {
     public function index(Request $request)
     {
+        $months = [
+            'Januari' => 1, 'Februari' => 2, 'Maret' => 3, 'April' => 4,
+            'Mei' => 5, 'Juni' => 6, 'Juli' => 7, 'Agustus' => 8,
+            'September' => 9, 'Oktober' => 10, 'November' => 11, 'Desember' => 12
+        ];
+
         $id_pelanggan = $request->input('id_pelanggan');
         $id_filter = null;
         $pelanggan = null;
@@ -29,7 +35,6 @@ class KelolaPenggunaan extends Controller
 
         $list_pelanggans = Pelanggan::all();
 
-
         if ($id_filter) {
             $pelanggan = Pelanggan::firstWhere('id_pelanggan', $id_filter);
 
@@ -37,7 +42,12 @@ class KelolaPenggunaan extends Controller
                 ->orderBy('id', 'desc')
                 ->first();
 
-            $pelanggan->bulan_penggunaan = $last_record_penggunaan ? $last_record_penggunaan->bulan_penggunaan : $currentMonth;
+            $currentMonthIndex = $months[ucfirst(strtolower($last_record_penggunaan->bulan_penggunaan))];
+            $current_date = Carbon::createFromDate(null, $currentMonthIndex, 1);
+            $nextMonthDate = $current_date->addMonth();
+            $nextMonth = $nextMonthDate->translatedFormat('F');
+
+            $pelanggan->bulan_penggunaan = $last_record_penggunaan ? $nextMonth : $currentMonth;
             $pelanggan->meter_awal = $last_record_penggunaan ? $last_record_penggunaan->meter_akhir : 0;
         }
 
@@ -95,5 +105,26 @@ class KelolaPenggunaan extends Controller
         $penggunaan_data->save();
 
         return redirect()->route('pengelolaan-input-penggunaan')->with('success', 'Data penggunaan berhasil disimpan.');
+    }
+
+    public function reset($id)
+    {
+        $pelanggan = Pelanggan::find($id);
+
+        $now = Carbon::now();
+        $monthName = $now->translatedFormat('F');
+
+        $penggunaan_data = new Penggunaan();
+        $penggunaan_data->id_pelanggan = $pelanggan->id_pelanggan;
+        $penggunaan_data->no_meter = $pelanggan->no_meter;
+        $penggunaan_data->nama_pelanggan = $pelanggan->nama_pelanggan;
+        $penggunaan_data->bulan_penggunaan = $monthName;
+        $penggunaan_data->meter_awal = 0;
+        $penggunaan_data->meter_akhir = 0;
+        $penggunaan_data->tanggal_pengecekan = Carbon::now();
+        $penggunaan_data->petugas = "Sistem reset";
+        $penggunaan_data->save();
+
+        return redirect()->route('datamaster-kelola-pelanggan')->with('success', 'Data penggunaan berhasil disimpan.');
     }
 }

@@ -2,7 +2,7 @@
 
     <!-- ! Hide app brand if navbar-full -->
     <div class="app-brand demo">
-        <a href="{{ url('/') }}" class="app-brand-link">
+        <a href="{{ url('/') }}" class="app-brand-link mt-3">
             <img src="{{ asset('assets/img/logos/logo.png') }}" alt="Logo" width="180px">
         </a>
 
