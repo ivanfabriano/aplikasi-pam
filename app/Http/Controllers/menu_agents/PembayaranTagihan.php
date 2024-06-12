@@ -88,6 +88,7 @@ class PembayaranTagihan extends Controller
             $tagihan_data->save();
 
             $tagihan_data->jenis_tarif = $pelanggan->jenis_tarif;
+            $tagihan_data->no_meter = $pelanggan->no_meter;
 
             return redirect()->route('cetak-struk')->with(['success' => 'Pembayaran berhasil', 'tagihan_data' => $tagihan_data]);
         } else {

@@ -3,7 +3,7 @@
 @section('title', 'Cetak Struk')
 
 @section('content')
-    <div style="width: 1000px; color:black">
+    <div style="width: 1000px; color:black; font-size: 20px;">
         <div class="row">
             <div class="col-12 text-center">
                 <h3>SUMBERTIRTA</h3>
@@ -32,7 +32,7 @@
                 NAMA
             </div>
             <div class="col-6">
-                : {{ session('tagihan_data')->nama_pelanggan }}
+                : {{ session('tagihan_data')->no_meter }} | {{ session('tagihan_data')->nama_pelanggan }}
             </div>
             <div class="col">
                 BL/TH
@@ -113,11 +113,19 @@
         </div>
         <div class="row mt-3">
             <div class="col-12 text-center">
-                <p>Untuk menghindari denda dan pemutusan, bayarlag pada tanggal 1 s/d 20 tiap bulannya <br>
+                <p>Untuk menghindari denda dan pemutusan, bayarlah pada tanggal 1 s/d 20 tiap bulannya <br>
                     Rincian Tagihan dapat menghubungi kami <br>
                     TERIMA KASIH
                 </p>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                window.print();
+            }, 1500);
+        });
+    </script>
 @endsection
