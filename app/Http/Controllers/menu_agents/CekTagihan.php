@@ -12,6 +12,11 @@ class CekTagihan extends Controller
     public function index(Request $request)
     {
         $id_pelanggan = $request->input('id_pelanggan');
+
+        if ($id_pelanggan && substr_count($id_pelanggan, '-') != 2) {
+            return redirect()->route('cek-tagihan')->with('error', 'Mohon masukan informasi pelanggan lagi.');
+        }
+
         $no_meter = null;
         $nama_pelanggan = null;
         $alamat_pelanggan = null;

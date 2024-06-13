@@ -13,6 +13,11 @@ class RiwayatTransaksi extends Controller
     {
         $list_tagihan = CekTagihan::where('status_bayar', true)->get();
         $id_name_filter = $request->input('id_name_filter');
+
+        if ($id_name_filter && substr_count($id_name_filter, '-') != 2) {
+            return redirect()->route('pengelolaan-riwayat-transaksi')->with('error', 'Mohon masukan informasi pelanggan lagi.');
+        }
+
         $id_filter = null;
         $nama_pelanggan = null;
         $alamat_pelanggan = null;

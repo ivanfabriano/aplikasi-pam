@@ -16,6 +16,11 @@ class LaporanTagihanPerbulan extends Controller
         $status_bayar = $request->input('status_bayar');
         $status_bayar = $status_bayar == 'on' ? true : false;
         $filter_pelanggan = $request->input('filter_pelanggan');
+
+        if ($filter_pelanggan && substr_count($filter_pelanggan, '-') != 2) {
+            return redirect()->route('pengelolaan-daftar-tagihan')->with('error', 'Mohon masukan informasi pelanggan lagi.');
+        }
+
         $list_tagihan = null;
         $no_meter = null;
         $nama_pelanggan = null;

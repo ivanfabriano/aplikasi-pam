@@ -12,6 +12,11 @@ class KelolaDaftarPenggunaan extends Controller
     public function index(Request $request)
     {
         $filter_pelanggan = $request->input('filter_pelanggan');
+
+        if ($filter_pelanggan && substr_count($filter_pelanggan, '-') != 2) {
+            return redirect()->route('pengelolaan-daftar-penggunaan')->with('error', 'Mohon masukan informasi pelanggan lagi.');
+        }
+
         $list_tagihan = null;
         $no_meter = null;
         $nama_pelanggan = null;
