@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col mt-3">
                     <div class="card">
-                        <h5 class="card-header">Daftar Tagihan Perbulan</h5>
+                        <h5 class="card-header">Daftar Penggunaan</h5>
                         <form action="{{ route('pengelolaan-daftar-penggunaan') }}" method="GET">
                             <div class="d-flex card-body align-items-center gap-3">
                                 <div>

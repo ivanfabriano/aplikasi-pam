@@ -58,7 +58,7 @@
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input class="form-control" type="number" placeholder="18" id="meter_awal" required
-                                    readonly name="meter_awal" value="{{ $edit_data ? $edit_data->meter_awal : '' }}" />
+                                    name="meter_awal" value="{{ $edit_data ? $edit_data->meter_awal : '' }}" />
                                 <label for="meter_awal">Meter Awal<span style="color: red;">*</span></label>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">

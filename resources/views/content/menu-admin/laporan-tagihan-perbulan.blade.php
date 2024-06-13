@@ -77,8 +77,7 @@
                                             $no = 1;
                                         @endphp
                                         @foreach ($list_tagihan as $tagihan)
-                                            <tr
-                                                class="{{ $tagihan->meter_awal == $tagihan->meter_akhir ? 'table-danger' : '' }}">
+                                            <tr>
                                                 <td>{{ $no }}</td>
                                                 <td>{{ $tagihan->id_pelanggan }}</td>
                                                 <td>{{ $tagihan->nama_pelanggan }}</td>

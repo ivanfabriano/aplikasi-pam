@@ -18,6 +18,7 @@ class KelolaPelanggan extends Controller
         $id_filter = null;
         $nama_pelanggan = null;
         $alamat_pelanggan = null;
+        $last_id_pelanggan = 1;
 
         if ($id_name_filter) {
             $id_filter = explode('-', $id_name_filter)[0];
@@ -28,8 +29,10 @@ class KelolaPelanggan extends Controller
         $list_pelanggans = Pelanggan::all();
 
         $last_pelanggan = Pelanggan::orderBy('id_pelanggan', 'desc')->first();
-        $last_id_pelanggan = $last_pelanggan->id_pelanggan + 1;
 
+        if ($last_pelanggan) {
+            $last_id_pelanggan = $last_pelanggan->id_pelanggan + 1;
+        }
 
         DB::statement("SET @bulan_indonesia := 'Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember'");
         DB::statement("SET @kode_bulan := '01,02,03,04,05,06,07,08,09,10,11,12'");

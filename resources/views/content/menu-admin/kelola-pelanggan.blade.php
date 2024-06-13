@@ -41,24 +41,24 @@
                                         <label for="basic-default-company">Nama Pelanggan<span
                                                 style="color: red;">*</span></label>
                                     </div>
-                                    <div class="form-floating form-floating-outline mb-4" style="width: 100%">
-                                        <input class="form-control" list="alamatpelanggan" id="exampleDataList"
-                                            name="alamat_pelanggan" placeholder="Pilih Alamat Pelanggan">
-                                        <datalist id="alamatpelanggan">
-                                            <option value="kedungmundu"></option>
-                                            <option value="sendangguwo"></option>
-                                        </datalist>
-                                        <label for="alamat_pelanggan">Alamat Pelanggan</label>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <select class="form-select" id="exampleFormControlSelect1" name="alamat_pelanggan"
+                                            aria-label="Pilih alamat pelanggan">
+                                            <option selected>Pilih alamat</option>
+                                            <option value="kedungmundu">kedungmundu</option>
+                                            <option value="sendangguwo">sendangguwo</option>
+                                        </select>
+                                        <label for="exampleFormControlSelect1">Pilih Alamat</label>
                                     </div>
                                     <div class="form-floating form-floating-outline mb-4">
-                                        <input class="form-control" list="datalistOptions" id="exampleDataList" required
-                                            name="jenis_tarif" placeholder="Pilih Jenis Tarif">
-                                        <datalist id="datalistOptions">
+                                        <select class="form-select" id="exampleFormControlSelect1" name="jenis_tarif"
+                                            aria-label="Pilih Jenis Tarif">
+                                            <option selected>Pilih jenis tarif</option>
                                             @foreach ($tarifs as $tarif)
-                                                <option value="{{ $tarif->kode_tarif }}"></option>
+                                                <option value="{{ $tarif->kode_tarif }}">{{ $tarif->kode_tarif }}</option>
                                             @endforeach
-                                        </datalist>
-                                        <label for="exampleDataList">Jenis Tarif<span style="color: red;">*</span></label>
+                                        </select>
+                                        <label for="exampleFormControlSelect1">Pilih Jenis Tarif</label>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
@@ -88,15 +88,18 @@
                                         <label for="basic-default-company">Nama Pelanggan<span
                                                 style="color: red;">*</span></label>
                                     </div>
-                                    <div class="form-floating form-floating-outline mb-4" style="width: 100%">
-                                        <input class="form-control" list="alamatpelanggan" id="exampleDataList"
-                                            value="{{ $initial_pelanggan->alamat_pelanggan }}" name="alamat_pelanggan"
-                                            placeholder="Pilih Alamat Pelanggan">
-                                        <datalist id="alamatpelanggan">
-                                            <option value="kedungmundu"></option>
-                                            <option value="sendangguwo"></option>
-                                        </datalist>
-                                        <label for="alamat_pelanggan">Alamat Pelanggan</label>
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        <select class="form-select" id="exampleFormControlSelect1" name="alamat_pelanggan"
+                                            aria-label="Pilih alamat pelanggan">
+                                            <option selected>Pilih alamat</option>
+                                            <option
+                                                {{ $initial_pelanggan->alamat_pelanggan == 'kedungmundu' ? 'selected' : '' }}
+                                                value="kedungmundu">kedungmundu</option>
+                                            <option
+                                                {{ $initial_pelanggan->alamat_pelanggan == 'sendangguwo' ? 'selected' : '' }}
+                                                value="sendangguwo">sendangguwo</option>
+                                        </select>
+                                        <label for="exampleFormControlSelect1">Pilih Alamat</label>
                                     </div>
                                     <div class="form-floating form-floating-outline mb-4">
                                         <input class="form-control" list="datalistOptions" id="exampleDataList" required
@@ -104,7 +107,9 @@
                                             placeholder="Pilih Jenis Tarif">
                                         <datalist id="datalistOptions">
                                             @foreach ($tarifs as $tarif)
-                                                <option value="{{ $tarif->kode_tarif }}"></option>
+                                                <option
+                                                    {{ $initial_pelanggan->jenis_tarif == '$tarif->kode_tarif' ? 'selected' : '' }}
+                                                    value="{{ $tarif->kode_tarif }}"></option>
                                             @endforeach
                                         </datalist>
                                         <label for="exampleDataList">Jenis Tarif<span style="color: red;">*</span></label>
