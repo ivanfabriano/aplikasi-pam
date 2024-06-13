@@ -21,6 +21,11 @@ class KelolaPenggunaan extends Controller
         ];
 
         $id_pelanggan = $request->input('id_pelanggan');
+
+        if ($id_pelanggan && substr_count($id_pelanggan, '-') != 2) {
+            return redirect()->route('pengelolaan-input-penggunaan')->with('error', 'Mohon masukan informasi pelanggan lagi.');
+        }
+
         $id_filter = null;
         $nama_pelanggan = null;
         $alamat_pelanggan = null;
@@ -64,6 +69,10 @@ class KelolaPenggunaan extends Controller
 
         if ($id) {
             $edit_data = Penggunaan::find($id);
+            if ($edit_data) {
+                $info_pelanggan = Pelanggan::where('id_pelanggan', $edit_data->id_pelanggan)->first();
+                $edit_data->alamat_pelanggan = $info_pelanggan->alamat_pelanggan;
+            }
         }
 
         return view('content.menu-admin.kelola-penggunaan', compact('pelanggan', 'list_pelanggans', 'edit_data'));
@@ -77,7 +86,13 @@ class KelolaPenggunaan extends Controller
         ];
 
         $id_pelanggan = $request->input('id_pelanggan');
-        $id_pelanggan = explode('-', $id_pelanggan)[0];
+
+        if ($id_pelanggan) {
+            $id_filter = explode('-', $id_pelanggan)[0];
+            $nama_pelanggan = explode('-', $id_pelanggan)[1];
+            $alamat_pelanggan = explode('-', $id_pelanggan)[2];
+        }
+
         $no_meter = $request->input('no_meter');
         $nama_pelanggan = $request->input('nama_pelanggan');
         $bulan_penggunaan = $request->input('bulan_penggunaan');
@@ -85,7 +100,11 @@ class KelolaPenggunaan extends Controller
         $meter_akhir = $request->input('meter_akhir');
         $tanggal_pengecekan = $request->input('tanggal_pengecekan');
 
-        $pelanggan = Pelanggan::firstWhere('id_pelanggan', $id_pelanggan);
+        $pelanggan = Pelanggan::where('no_meter', $id_filter)
+            ->where('nama_pelanggan', $nama_pelanggan)
+            ->where('alamat_pelanggan', $alamat_pelanggan)
+            ->first();
+
         $tarif = Tarif::firstWhere('kode_tarif', $pelanggan->jenis_tarif);
 
         $current_date = Carbon::parse($tanggal_pengecekan);
@@ -94,8 +113,8 @@ class KelolaPenggunaan extends Controller
 
         $cek_tagihan_data = new CekTagihan();
         $cek_tagihan_data->id_pembayaran = str_pad(mt_rand(0, 999999999), 9, '0', STR_PAD_LEFT);;
-        $cek_tagihan_data->id_pelanggan = $id_pelanggan;
-        $cek_tagihan_data->nama_pelanggan = $nama_pelanggan;
+        $cek_tagihan_data->id_pelanggan = $pelanggan->id_pelanggan;
+        $cek_tagihan_data->nama_pelanggan = $pelanggan->nama_pelanggan;
         $cek_tagihan_data->bulan_tagihan = $nama_bulan_berikutnya;
         $cek_tagihan_data->meter_awal = $meter_awal;
         $cek_tagihan_data->meter_akhir = $meter_akhir;
@@ -109,10 +128,10 @@ class KelolaPenggunaan extends Controller
         $cek_tagihan_data->save();
 
         $penggunaan_data = new Penggunaan();
-        $penggunaan_data->id_pelanggan = $id_pelanggan;
+        $penggunaan_data->id_pelanggan = $pelanggan->id_pelanggan;
         $penggunaan_data->id_pembayaran = $cek_tagihan_data->id_pembayaran;
-        $penggunaan_data->no_meter = $no_meter;
-        $penggunaan_data->nama_pelanggan = $nama_pelanggan;
+        $penggunaan_data->no_meter = $pelanggan->no_meter;
+        $penggunaan_data->nama_pelanggan = $pelanggan->nama_pelanggan;
         $penggunaan_data->bulan_penggunaan = $bulan_penggunaan;
         $penggunaan_data->meter_awal = $meter_awal;
         $penggunaan_data->meter_akhir = $meter_akhir;
@@ -127,12 +146,22 @@ class KelolaPenggunaan extends Controller
     {
 
         $id_pelanggan = $request->input('id_pelanggan');
-        $id_pelanggan = explode('-', $id_pelanggan)[0];
+
+        if ($id_pelanggan) {
+            $id_filter = explode('-', $id_pelanggan)[0];
+            $nama_pelanggan = explode('-', $id_pelanggan)[1];
+            $alamat_pelanggan = explode('-', $id_pelanggan)[2];
+        }
+
         $meter_awal = $request->input('meter_awal');
         $meter_akhir = $request->input('meter_akhir');
         $tanggal_pengecekan = $request->input('tanggal_pengecekan');
 
-        $pelanggan = Pelanggan::firstWhere('id_pelanggan', $id_pelanggan);
+        $pelanggan = Pelanggan::where('no_meter', $id_filter)
+            ->where('nama_pelanggan', $nama_pelanggan)
+            ->where('alamat_pelanggan', $alamat_pelanggan)
+            ->first();
+
         $tarif = Tarif::firstWhere('kode_tarif', $pelanggan->jenis_tarif);
 
         $penggunaan_data = Penggunaan::firstWhere('id', $id);

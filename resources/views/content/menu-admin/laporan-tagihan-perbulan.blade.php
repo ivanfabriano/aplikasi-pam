@@ -36,7 +36,8 @@
                                                 $no = 1;
                                             @endphp
                                             @foreach ($pelanggans as $pelanggan)
-                                                <option value="{{ $pelanggan->no_meter }}-{{ $pelanggan->nama_pelanggan }}">
+                                                <option
+                                                    value="{{ $pelanggan->no_meter }}-{{ $pelanggan->nama_pelanggan }}-{{ $pelanggan->alamat_pelanggan }}">
                                                 </option>
                                                 @php
                                                     $no++;
@@ -56,10 +57,7 @@
                         @if ($list_tagihan)
                             <div class="table-responsive text-nowrap">
                                 <div class="mx-3">
-                                    <p>Filter diterapkan untuk Bulan {{ request()->get('bulan_tagihan') }}
-                                        {{ request()->get('tahun_tagihan') }}
-                                        [{{ request()->get('status_bayar') == 'on' ? 'Sudah Dibayar' : 'Belum Dibayar' }}]
-                                    </p>
+                                    <p style="color: red;">Jumlah bayar yang tertera sudah termasuk biaya admin</p>
                                 </div>
                                 <table class="table">
                                     <thead>
@@ -79,13 +77,16 @@
                                             $no = 1;
                                         @endphp
                                         @foreach ($list_tagihan as $tagihan)
-                                            <tr>
+                                            <tr
+                                                class="{{ $tagihan->meter_awal == $tagihan->meter_akhir ? 'table-danger' : '' }}">
                                                 <td>{{ $no }}</td>
                                                 <td>{{ $tagihan->id_pelanggan }}</td>
                                                 <td>{{ $tagihan->nama_pelanggan }}</td>
                                                 <td>{{ $tagihan->bulan_tagihan }}</td>
                                                 <td>{{ $tagihan->meter_akhir - $tagihan->meter_awal }}</td>
-                                                <td>Rp. {{ number_format($tagihan->jumlah_bayar, 0, ',', '.') }}</td>
+                                                <td>Rp.
+                                                    {{ number_format($tagihan->jumlah_bayar + $tagihan->biaya_admin, 0, ',', '.') }}
+                                                </td>
                                                 <td>{!! $tagihan->status_bayar
                                                     ? '<span class="badge rounded-pill bg-success">Sudah dibayar</span>'
                                                     : '<span class="badge rounded-pill bg-danger">Belum dibayar</span>' !!}

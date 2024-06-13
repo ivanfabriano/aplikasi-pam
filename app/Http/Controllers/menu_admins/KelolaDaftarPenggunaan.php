@@ -33,7 +33,7 @@ class KelolaDaftarPenggunaan extends Controller
 
             if ($info_pelanggan) {
                 $list_tagihan = CekTagihan::join('penggunaans', 'cek_tagihans.id_pembayaran', '=', 'penggunaans.id_pembayaran')
-                    ->where('id_pelanggan', $info_pelanggan->id_pelanggan)
+                    ->where('penggunaans.id_pelanggan', $info_pelanggan->id_pelanggan)
                     ->where('status_bayar', false)
                     ->select('cek_tagihans.*', 'penggunaans.tanggal_pengecekan')
                     ->get();

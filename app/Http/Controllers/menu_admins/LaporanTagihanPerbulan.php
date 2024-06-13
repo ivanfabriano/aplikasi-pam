@@ -19,17 +19,20 @@ class LaporanTagihanPerbulan extends Controller
         $list_tagihan = null;
         $no_meter = null;
         $nama_pelanggan = null;
+        $alamat_pelanggan = null;
 
         $pelanggans = Pelanggan::all();
 
         if ($filter_pelanggan) {
             $no_meter = explode('-', $filter_pelanggan)[0];
             $nama_pelanggan = explode('-', $filter_pelanggan)[1];
+            $alamat_pelanggan = explode('-', $filter_pelanggan)[2];
         }
 
         if ($no_meter && $nama_pelanggan) {
             $info_pelanggan = Pelanggan::where('no_meter', $no_meter)
                 ->where('nama_pelanggan', $nama_pelanggan)
+                ->where('alamat_pelanggan', $alamat_pelanggan)
                 ->first();
 
             if ($info_pelanggan) {

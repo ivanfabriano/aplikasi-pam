@@ -15,7 +15,7 @@
                 <div class="col mt-3">
                     <div class="card">
                         <h5 class="card-header">Daftar Tagihan Perbulan</h5>
-                        <form action="{{ route('pengelolaan-daftar-tagihan') }}" method="GET">
+                        <form action="{{ route('pengelolaan-daftar-penggunaan') }}" method="GET">
                             <div class="d-flex card-body align-items-center gap-3">
                                 <div>
                                     <div class="form-floating form-floating-outline">
@@ -27,7 +27,8 @@
                                                 $no = 1;
                                             @endphp
                                             @foreach ($pelanggans as $pelanggan)
-                                                <option value="{{ $pelanggan->no_meter }}-{{ $pelanggan->nama_pelanggan }}">
+                                                <option
+                                                    value="{{ $pelanggan->no_meter }}-{{ $pelanggan->nama_pelanggan }}-{{ $pelanggan->alamat_pelanggan }}">
                                                 </option>
                                                 @php
                                                     $no++;
@@ -40,7 +41,7 @@
                                 <div>
                                     <button type="submit" class="btn btn-primary">Cari</button>
                                     <button type="button" class="btn btn-warning"
-                                        onclick="location.href='{{ route('pengelolaan-daftar-tagihan') }}'">Reset</button>
+                                        onclick="location.href='{{ route('pengelolaan-daftar-penggunaan') }}'">Reset</button>
                                 </div>
                             </div>
                         </form>
@@ -67,7 +68,8 @@
                                             $no = 1;
                                         @endphp
                                         @foreach ($list_tagihan as $tagihan)
-                                            <tr>
+                                            <tr
+                                                class="{{ $tagihan->meter_awal == $tagihan->meter_akhir ? 'table-danger' : '' }}"">
                                                 <td>{{ $no }}</td>
                                                 <td>{{ $tagihan->id_pelanggan }}</td>
                                                 <td>{{ $tagihan->nama_pelanggan }}</td>

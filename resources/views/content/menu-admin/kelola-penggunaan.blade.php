@@ -24,8 +24,8 @@
                                 <div class="form-floating form-floating-outline" style="width: 100%">
                                     <input class="form-control" list="datalistOptions" id="exampleDataList" required
                                         {{ $pelanggan ? 'readonly' : '' }}
-                                        value="{{ $edit_data ? $edit_data->id_pelanggan : '' }}" name="id_pelanggan"
-                                        placeholder="Type to search...">
+                                        value="{{ $edit_data ? $edit_data->no_meter . '-' . $edit_data->nama_pelanggan . '-' . $edit_data->alamat_pelanggan : '' }}"
+                                        name="id_pelanggan" placeholder="Type to search...">
                                     <datalist id="datalistOptions">
                                         @foreach ($list_pelanggans as $list_pelanggan)
                                             <option
@@ -145,8 +145,8 @@
                                 <div class="form-floating form-floating-outline" style="width: 100%">
                                     <input class="form-control" list="datalistOptions" id="exampleDataList" required
                                         {{ $pelanggan ? 'readonly' : '' }}
-                                        value="{{ $pelanggan ? $pelanggan->id_pelanggan : '' }}" name="id_pelanggan"
-                                        placeholder="Type to search...">
+                                        value="{{ $pelanggan ? $pelanggan->no_meter . '-' . $pelanggan->nama_pelanggan . '-' . $pelanggan->alamat_pelanggan : '' }}"
+                                        name="id_pelanggan" placeholder="Type to search...">
                                     <datalist id="datalistOptions">
                                         @foreach ($list_pelanggans as $list_pelanggan)
                                             <option
