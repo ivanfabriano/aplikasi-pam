@@ -14,13 +14,27 @@
             <div class="row">
                 <div class="col mt-3">
                     <div class="card">
+                        @php
+                            $total = 0;
+                        @endphp
                         <h5 class="card-header">Riwayat Transaksi Pelanggan <span
                                 class="text-muted">[{{ $info_pelanggan ? $info_pelanggan->id_pelanggan . '-' . $info_pelanggan->nama_pelanggan : 'Semua Pelanggan' }}]</span>
                         </h5>
                         <div class="card-body">
                             <div class="d-flex gap-2">
                                 <form class="d-flex gap-2" action="{{ route('pengelolaan-riwayat-transaksi') }}"
-                                    method="GET" style="width: 40%">
+                                    method="GET" style="width: 100%">
+                                    <div class="form-floating form-floating-outline">
+                                        <input class="form-control" type="date" id="tanggal_awal" name="tanggal_awal"
+                                            value="{{ request()->get('tanggal_awal') ? request()->get('tanggal_awal') : $tanggal_awal }}" />
+                                        <label for="tanggal_awal">Tanggal Awal</label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline ">
+                                        <input class="form-control" type="date" id="tanggal_akhir"
+                                            value="{{ request()->get('tanggal_akhir') ? request()->get('tanggal_akhir') : $tanggal_akhir }}"
+                                            name="tanggal_akhir" />
+                                        <label for="tanggal_akhir">Tanggal Akhir</label>
+                                    </div>
                                     <div class="form-floating form-floating-outline" style="width: 100%">
                                         <input class="form-control" list="identitaspelanggan" id="exampleDataList"
                                             value="{{ request()->get('id_name_filter') }}" name="id_name_filter"
@@ -92,9 +106,24 @@
                                         </tr>
                                         @php
                                             $no++;
+                                            $total += $tagihan->total_akhir;
                                         @endphp
                                     @endforeach
                                 </tbody>
+                                <tfoot class="table-border-bottom-0">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Total</th>
+                                        <th>Rp. {{ number_format($total, 0, ',', '.') }}</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

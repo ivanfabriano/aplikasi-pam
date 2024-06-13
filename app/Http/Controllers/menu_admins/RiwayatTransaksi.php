@@ -5,6 +5,7 @@ namespace App\Http\Controllers\menu_admins;
 use App\Http\Controllers\Controller;
 use App\Models\CekTagihan;
 use App\Models\Pelanggan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RiwayatTransaksi extends Controller
@@ -13,10 +14,16 @@ class RiwayatTransaksi extends Controller
     {
         $list_tagihan = CekTagihan::where('status_bayar', true)->get();
         $id_name_filter = $request->input('id_name_filter');
+        $tanggal_awal = $request->input('tanggal_awal');
+        $tanggal_akhir = $request->input('tanggal_akhir');
 
         if ($id_name_filter && substr_count($id_name_filter, '-') != 2) {
             return redirect()->route('pengelolaan-riwayat-transaksi')->with('error', 'Mohon masukan informasi pelanggan lagi.');
         }
+
+        $tanggal_awal = $tanggal_awal ? Carbon::createFromFormat('Y-m-d', $tanggal_awal) : Carbon::now()->startOfMonth()->toDateString();
+        $tanggal_akhir = $tanggal_akhir ? Carbon::createFromFormat('Y-m-d', $tanggal_akhir) : Carbon::now()->endOfMonth()->toDateString();
+
 
         $id_filter = null;
         $nama_pelanggan = null;
@@ -48,14 +55,21 @@ class RiwayatTransaksi extends Controller
             if ($pelanggan_data) {
                 $list_tagihan = CekTagihan::where('id_pelanggan', $pelanggan_data->id_pelanggan)
                     ->where('status_bayar', true)
+                    ->whereBetween('waktu_bayar', [$tanggal_awal, $tanggal_akhir])
                     ->get();
             }
 
             $info_pelanggan = Pelanggan::firstWhere('id_pelanggan', $id_pelanggan);
         }
 
+        if ($tanggal_awal && $tanggal_akhir) {
+            $list_tagihan = CekTagihan::where('status_bayar', true)
+                ->whereBetween('waktu_bayar', [$tanggal_awal, $tanggal_akhir])
+                ->get();
+        }
 
-        return view('content.menu-admin.riwayat-transaksi', compact('list_tagihan', 'info_pelanggan', 'list_pelanggans'));
+
+        return view('content.menu-admin.riwayat-transaksi', compact('list_tagihan', 'info_pelanggan', 'list_pelanggans', 'tanggal_awal', 'tanggal_akhir'));
     }
 
     public function rollback($id)
