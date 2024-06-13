@@ -1,6 +1,6 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Login Basic - Pages')
+@section('title', 'Halaman Login')
 
 @section('page-style')
     <!-- Page -->
@@ -17,9 +17,7 @@
                     <!-- Logo -->
                     <div class="app-brand justify-content-center mt-5">
                         <a href="{{ url('/') }}" class="app-brand-link gap-2">
-                            <span class="app-brand-logo demo">@include('_partials.macros', ['height' => 20, 'withbg' => 'fill: #fff;'])</span>
-                            <span
-                                class="app-brand-text demo text-heading fw-semibold">{{ config('variables.templateName') }}</span>
+                            <img src="{{ asset('assets/img/logos/logo.png') }}" alt="Logo">
                         </a>
                     </div>
                     <!-- /Logo -->
@@ -29,11 +27,17 @@
                         <p class="mb-4">Di Aplikasi Pembayaran Pengelolaan Air Bersih, Mohon isikan data login anda di
                             bawah ini
                         </p>
-                        <form id="formAuthentication" class="mb-3" action="{{ url('/') }}" method="GET">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
+                            @csrf
                             <div class="form-floating form-floating-outline mb-3">
-                                <input type="text" class="form-control" id="email" name="email-username"
+                                <input type="text" class="form-control" id="email" name="username"
                                     placeholder="Masukan username anda" autofocus>
                                 <label for="email">Username</label>
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <div class="form-password-toggle">
@@ -47,6 +51,12 @@
                                         <span class="input-group-text cursor-pointer"><i
                                                 class="mdi mdi-eye-off-outline"></i></span>
                                     </div>
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+
                                 </div>
                             </div>
                             <div class="mb-3 d-flex justify-content-between">
@@ -62,12 +72,8 @@
                     </div>
                 </div>
                 <!-- /Login -->
-                <img src="{{ asset('assets/img/illustrations/tree-3.png') }}" alt="auth-tree"
-                    class="authentication-image-object-left d-none d-lg-block">
                 <img src="{{ asset('assets/img/illustrations/auth-basic-mask-light.png') }}"
                     class="authentication-image d-none d-lg-block" alt="triangle-bg">
-                <img src="{{ asset('assets/img/illustrations/tree.png') }}" alt="auth-tree"
-                    class="authentication-image-object-right d-none d-lg-block">
             </div>
         </div>
     </div>
