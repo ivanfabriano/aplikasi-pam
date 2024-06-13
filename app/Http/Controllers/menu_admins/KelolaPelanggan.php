@@ -15,6 +15,8 @@ class KelolaPelanggan extends Controller
         $id_name_filter = $request->input('id_name_filter');
         $telat_bayar = $request->input('telat_bayar');
         $telat_bayar = $telat_bayar == 'on' ? true : false;
+        $meter_rusak = $request->input('meter_rusak');
+        $meter_rusak = $meter_rusak == 'on' ? true : false;
         $id_filter = null;
         $nama_pelanggan = null;
         $alamat_pelanggan = null;
@@ -46,6 +48,7 @@ class KelolaPelanggan extends Controller
         p.alamat_pelanggan ,
         p.jenis_tarif ,
         p.tenggang ,
+        p.meteran_rusak,
         jct.tertunggak
         FROM pelanggans p 
         left join (
@@ -76,6 +79,11 @@ class KelolaPelanggan extends Controller
         if ($telat_bayar) {
             $query .= " AND tertunggak = :telat_bayar";
             $bindings['telat_bayar'] = $telat_bayar;
+        }
+
+        if ($meter_rusak) {
+            $query .= " AND meteran_rusak = :meter_rusak";
+            $bindings['meter_rusak'] = $meter_rusak;
         }
 
         if ($id_filter) {

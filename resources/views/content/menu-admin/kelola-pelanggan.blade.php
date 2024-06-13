@@ -137,15 +137,23 @@
                         <div>
                             <div class="card-body">
                                 <div class="d-flex gap-2">
-                                    <form class="d-flex gap-2" action="{{ route('datamaster-kelola-pelanggan') }}"
-                                        method="GET" style="width: 100%">
-                                        <div>
+                                    <form class="d-flex gap-2 align-items-center"
+                                        action="{{ route('datamaster-kelola-pelanggan') }}" method="GET"
+                                        style="width: 100%">
+                                        <div class="d-flex gap-3" style="width: 460px">
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" name="telat_bayar"
                                                     {{ request()->get('telat_bayar') == 'on' ? 'checked' : '' }}
                                                     id="flexSwitchCheckDefault">
                                                 <label class="form-check-label" for="flexSwitchCheckDefault"> Telat
                                                     Bayar</label>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" name="meter_rusak"
+                                                    {{ request()->get('meter_rusak') == 'on' ? 'checked' : '' }}
+                                                    id="flexSwitchCheckDefault">
+                                                <label class="form-check-label" for="flexSwitchCheckDefault"> Meter
+                                                    Rusak</label>
                                             </div>
                                         </div>
 
@@ -188,7 +196,8 @@
                                         $no = 1;
                                     @endphp
                                     @foreach ($pelanggans as $pelanggan)
-                                        <tr class="{{ $pelanggan->tertunggak ? 'table-danger' : '' }}">
+                                        <tr
+                                            class="{{ ($pelanggan->tertunggak ? 'table-danger' : $pelanggan->meteran_rusak) ? 'table-warning' : '' }}">
                                             <td>{{ $no }}</td>
                                             <td>{{ $pelanggan->id_pelanggan }}</td>
                                             <td>{{ $pelanggan->no_meter }}</td>

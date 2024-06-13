@@ -189,6 +189,13 @@
                                 <label for="meter_akhir">Meter Akhir<span style="color: red;">*</span></label>
                                 <div id="error-message" style="color: red; display: none;">Meter Akhir tidak boleh lebih
                                     kecil</div>
+                                <div class=" d-none mt-3" id="cek_meteran">
+                                    <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1"
+                                        name="meteran_rusak" />
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Meteran Rusak
+                                    </label>
+                                </div>
                             </div>
                             <div class="form-floating form-floating-outline mb-4">
                                 <input class="form-control" type="date" id="html5-date-input" required readonly
@@ -221,6 +228,7 @@
             var meterAkhirInput = document.getElementById('meter_akhir');
             var errorMessage = document.getElementById('error-message');
             var simpanButton = document.getElementById('simpanbutton');
+            var checkMeteran = document.getElementById('cek_meteran');
 
             meterAkhirInput.addEventListener('input', function() {
                 var meterAwal = parseFloat(meterAwalInput.value);
@@ -229,11 +237,21 @@
                 if (meterAkhir < meterAwal) {
                     errorMessage.style.display = 'block';
                     simpanButton.classList.add('d-none');
-                    simpanButton.classList.removw('d-block');
+                    simpanButton.classList.remove('d-block');
+                    checkMeteran.classList.add('d-none');
+                    checkMeteran.classList.remove('d-block');
+                } else if (meterAkhir == meterAwal) {
+                    errorMessage.style.display = 'none';
+                    checkMeteran.classList.add('d-block');
+                    checkMeteran.classList.remove('d-none');
+                    simpanButton.classList.add('d-block');
+                    simpanButton.classList.remove('d-none');
                 } else {
                     errorMessage.style.display = 'none';
                     simpanButton.classList.add('d-block');
                     simpanButton.classList.remove('d-none');
+                    checkMeteran.classList.remove('d-block');
+                    checkMeteran.classList.add('d-none');
                 }
             });
         });

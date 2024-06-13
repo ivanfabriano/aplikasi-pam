@@ -99,6 +99,7 @@ class KelolaPenggunaan extends Controller
         $meter_awal = $request->input('meter_awal');
         $meter_akhir = $request->input('meter_akhir');
         $tanggal_pengecekan = $request->input('tanggal_pengecekan');
+        $meteran_rusak = $request->has('meteran_rusak') ? true : false;
 
         $pelanggan = Pelanggan::where('no_meter', $id_filter)
             ->where('nama_pelanggan', $nama_pelanggan)
@@ -138,6 +139,11 @@ class KelolaPenggunaan extends Controller
         $penggunaan_data->tanggal_pengecekan = $tanggal_pengecekan;
         $penggunaan_data->petugas = 'Ivan Fabriano';
         $penggunaan_data->save();
+
+        if ($meteran_rusak) {
+            $pelanggan->meteran_rusak = true;
+            $pelanggan->save();
+        }
 
         return redirect()->route('pengelolaan-input-penggunaan')->with('success', 'Data penggunaan berhasil disimpan.');
     }
@@ -188,6 +194,9 @@ class KelolaPenggunaan extends Controller
 
         $now = Carbon::now();
         $monthName = $now->translatedFormat('F');
+
+        $pelanggan->meteran_rusak = false;
+        $pelanggan->save();
 
         $penggunaan_data = new Penggunaan();
         $penggunaan_data->id_pelanggan = $pelanggan->id_pelanggan;
