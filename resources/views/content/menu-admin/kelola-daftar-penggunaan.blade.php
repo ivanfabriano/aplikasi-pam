@@ -78,11 +78,18 @@
                                                 <td>{{ $tagihan->meter_akhir }}</td>
                                                 <td>{{ $tagihan->tanggal_pengecekan }}</td>
                                                 <td>{{ $tagihan->petugas }}</td>
-                                                <td>
+                                                <td class="d-flex gap-2">
                                                     <form
                                                         action="{{ route('pengelolaan-input-penggunaan', $tagihan->id_penggunaan) }}">
                                                         @method('GET')
                                                         <button type="sumbit" class="btn btn-warning">Edit</button>
+                                                    </form>
+                                                    <form method="POST"
+                                                        action="{{ route('pengelolaan-hapus-penggunaan', $tagihan->id_penggunaan) }}"
+                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="sumbit" class="btn btn-danger">Delete</button>
                                                     </form>
                                                 </td>
                                             </tr>

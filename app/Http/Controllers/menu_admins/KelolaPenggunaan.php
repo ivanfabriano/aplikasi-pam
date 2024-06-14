@@ -211,4 +211,19 @@ class KelolaPenggunaan extends Controller
 
         return redirect()->route('datamaster-kelola-pelanggan')->with('success', 'Data penggunaan berhasil disimpan.');
     }
+
+    public function destroy($id)
+    {
+        $penggunaan = Penggunaan::find($id);
+
+        if ($penggunaan) {
+            $penggunaan->delete();
+            $cek_tagihan = CekTagihan::firstWhere('id_pembayaran', $penggunaan->id_pembayaran);
+            $cek_tagihan->delete();
+
+            return redirect()->route('pengelolaan-daftar-penggunaan')->with('success', 'Data penggunaan berhasil dihapus.');
+        }
+
+        return redirect()->route('pengelolaan-daftar-penggunaan')->with('error', 'Data penggunaan tidak ditemukan.');
+    }
 }

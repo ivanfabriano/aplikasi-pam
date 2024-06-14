@@ -65,6 +65,7 @@ Route::get('/pengelolaan/input-penggunan/{id?}', [KelolaPenggunaan::class, 'inde
 Route::put('/pengelolaan/ubah-penggunan/{id}', [KelolaPenggunaan::class, 'update'])->name('pengelolaan-ubah-penggunaan')->middleware('auth');
 Route::post('/pengelolaan/tambah-penggunan', [KelolaPenggunaan::class, 'store'])->name('pengelolaan-tambah-penggunaan')->middleware('auth');
 Route::post('/pengelolaan/reset-penggunan/{id}', [KelolaPenggunaan::class, 'reset'])->name('pengelolaan-reset-penggunaan')->middleware('auth');
+Route::delete('/pengelolaan/hapus-penggunan/{id}', [KelolaPenggunaan::class, 'destroy'])->name('pengelolaan-hapus-penggunaan')->middleware('auth');
 
 Route::get('/pengelolaan/daftar-tagihan', [LaporanTagihanPerbulan::class, 'index'])->name('pengelolaan-daftar-tagihan')->middleware('auth');
 Route::get('/pengelolaan/daftar-penggunaan', [KelolaDaftarPenggunaan::class, 'index'])->name('pengelolaan-daftar-penggunaan')->middleware('auth');
