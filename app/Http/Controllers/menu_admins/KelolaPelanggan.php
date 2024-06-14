@@ -13,6 +13,11 @@ class KelolaPelanggan extends Controller
     public function index(Request $request, $id = null)
     {
         $id_name_filter = $request->input('id_name_filter');
+
+        if ($id_name_filter && substr_count($id_name_filter, '-') != 2) {
+            return redirect()->route('datamaster-kelola-pelanggan')->with('error', 'Data pelanggan tidak ditemukan');
+        }
+
         $telat_bayar = $request->input('telat_bayar');
         $telat_bayar = $telat_bayar == 'on' ? true : false;
         $meter_rusak = $request->input('meter_rusak');
@@ -102,6 +107,10 @@ class KelolaPelanggan extends Controller
         }
 
         $pelanggans = DB::select($query, $bindings);
+
+        if (!$pelanggans) {
+            return redirect()->route('datamaster-kelola-pelanggan')->with('error', 'Data pelanggan tidak ditemukan');
+        }
 
         $tarifs = Tarif::all();
         $initial_pelanggan = null;

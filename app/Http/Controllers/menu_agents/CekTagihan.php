@@ -14,7 +14,7 @@ class CekTagihan extends Controller
         $id_pelanggan = $request->input('id_pelanggan');
 
         if ($id_pelanggan && substr_count($id_pelanggan, '-') != 2) {
-            return redirect()->route('cek-tagihan')->with('error', 'Mohon masukan informasi pelanggan lagi.');
+            return redirect()->back()->with('error', 'Data pelanggan tidak ditemukan');
         }
 
         $no_meter = null;
@@ -43,6 +43,8 @@ class CekTagihan extends Controller
                 $list_tagihan = ModelsCekTagihan::where('status_bayar', false)
                     ->where('id_pelanggan', $info_pelanggan->id_pelanggan)
                     ->get();
+            } else {
+                return redirect()->back()->with('error', 'Data pelanggan tidak ditemukan');
             }
         }
 

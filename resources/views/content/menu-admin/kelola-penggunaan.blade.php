@@ -8,7 +8,6 @@
 @section('title', 'Input Penggunaan')
 
 @section('content')
-    <!-- Layout Demo -->
     <div class="layout-demo-wrapper">
         <div class="col-xl">
             <div class="card mb-4" style="width: 100%">
@@ -187,7 +186,8 @@
                                 <input class="form-control" type="number" placeholder="18" id="meter_akhir" required
                                     name="meter_akhir" />
                                 <label for="meter_akhir">Meter Akhir<span style="color: red;">*</span></label>
-                                <div id="error-message" style="color: red; display: none;">Meter Akhir tidak boleh lebih
+                                <div id="error-message" style="color: red; display: none;">Meter Akhir tidak boleh
+                                    lebih
                                     kecil</div>
                                 <div class=" d-none mt-3" id="cek_meteran">
                                     <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1"

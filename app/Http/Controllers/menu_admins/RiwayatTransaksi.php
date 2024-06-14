@@ -18,7 +18,7 @@ class RiwayatTransaksi extends Controller
         $tanggal_akhir = $request->input('tanggal_akhir');
 
         if ($id_name_filter && substr_count($id_name_filter, '-') != 2) {
-            return redirect()->route('pengelolaan-riwayat-transaksi')->with('error', 'Mohon masukan informasi pelanggan lagi.');
+            return redirect()->route('pengelolaan-riwayat-transaksi')->with('error', 'Data pelanggan tidak ditemukan');
         }
 
         $tanggal_awal = $tanggal_awal ? Carbon::createFromFormat('Y-m-d', $tanggal_awal) : Carbon::now()->startOfMonth()->toDateString();
@@ -57,6 +57,8 @@ class RiwayatTransaksi extends Controller
                     ->where('status_bayar', true)
                     ->whereBetween('waktu_bayar', [$tanggal_awal, $tanggal_akhir])
                     ->get();
+            } else {
+                return redirect()->route('pengelolaan-riwayat-transaksi')->with('error', 'Data pelanggan tidak ditemukan');
             }
 
             $info_pelanggan = Pelanggan::firstWhere('id_pelanggan', $id_pelanggan);

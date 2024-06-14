@@ -30,34 +30,6 @@
 </head>
 
 <body>
-    @if (session('success'))
-        <div class="bs-toast toast toast-placement-ex m-2 show top-0 end-0" role="alert" aria-live="assertive"
-            id="alert-success" aria-atomic="true" data-bs-delay="1000">
-            <div class="toast-header">
-                <i class="mdi mdi-check-circle text-success me-2"></i>
-                <div class="me-auto fw-medium">Berhasil</div>
-                <small class="text-muted">11 mins ago</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                {{ session('success') }}
-            </div>
-        </div>
-    @endif
-    @if (session('error'))
-        <div class="bs-toast toast toast-placement-ex m-2 top-0 end-0 show" role="alert" aria-live="assertive"
-            id="alert-error" aria-atomic="true" data-bs-delay="1000">
-            <div class="toast-header">
-                <i class="mdi mdi-alert-circle text-danger me-2"></i>
-                <div class="me-auto fw-medium">Gagal</div>
-                <small class="text-muted">11 mins ago</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                {{ session('error') }}
-            </div>
-        </div>
-    @endif
 
     <!-- Layout Content -->
     @yield('layoutContent')

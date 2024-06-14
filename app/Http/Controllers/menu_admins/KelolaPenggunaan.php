@@ -23,7 +23,7 @@ class KelolaPenggunaan extends Controller
         $id_pelanggan = $request->input('id_pelanggan');
 
         if ($id_pelanggan && substr_count($id_pelanggan, '-') != 2) {
-            return redirect()->route('pengelolaan-input-penggunaan')->with('error', 'Mohon masukan informasi pelanggan lagi.');
+            return redirect()->route('pengelolaan-input-penggunaan')->with('error', 'Data pelanggan tidak ditemukan');
         }
 
         $id_filter = null;
@@ -50,6 +50,10 @@ class KelolaPenggunaan extends Controller
                 ->where('nama_pelanggan', $nama_pelanggan)
                 ->where('alamat_pelanggan', $alamat_pelanggan)
                 ->first();
+
+            if (!$pelanggan) {
+                return redirect()->back()->with('error', 'Data pelanggan tidak ditemukan');
+            }
 
             $last_record_penggunaan = Penggunaan::where('id_pelanggan', $pelanggan->id_pelanggan)
                 ->orderBy('id', 'desc')
@@ -138,7 +142,7 @@ class KelolaPenggunaan extends Controller
             $pelanggan->save();
         }
 
-        return redirect()->route('pengelolaan-input-penggunaan')->with('success', 'Data penggunaan berhasil disimpan.');
+        return redirect()->route('pengelolaan-input-penggunaan')->with('success', 'Data penggunaan berhasil disimpan');
     }
 
     public function update(Request $request, $id)

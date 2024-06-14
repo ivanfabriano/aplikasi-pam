@@ -14,7 +14,7 @@ class KelolaDaftarPenggunaan extends Controller
         $filter_pelanggan = $request->input('filter_pelanggan');
 
         if ($filter_pelanggan && substr_count($filter_pelanggan, '-') != 2) {
-            return redirect()->route('pengelolaan-daftar-penggunaan')->with('error', 'Mohon masukan informasi pelanggan lagi.');
+            return redirect()->route('pengelolaan-daftar-penggunaan')->with('error', 'Data pelanggan tidak ditemukan');
         }
 
         $list_tagihan = null;
@@ -42,6 +42,8 @@ class KelolaDaftarPenggunaan extends Controller
                     ->where('status_bayar', false)
                     ->select('cek_tagihans.*', 'penggunaans.tanggal_pengecekan')
                     ->get();
+            } else {
+                return redirect()->route('pengelolaan-daftar-penggunaan')->with('error', 'Data pelanggan tidak ditemukan');
             }
         } else {
             $list_tagihan = CekTagihan::join('penggunaans', 'cek_tagihans.id_pembayaran', '=', 'penggunaans.id_pembayaran')

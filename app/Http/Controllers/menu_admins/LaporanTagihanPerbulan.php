@@ -18,7 +18,7 @@ class LaporanTagihanPerbulan extends Controller
         $filter_pelanggan = $request->input('filter_pelanggan');
 
         if ($filter_pelanggan && substr_count($filter_pelanggan, '-') != 2) {
-            return redirect()->route('pengelolaan-daftar-tagihan')->with('error', 'Mohon masukan informasi pelanggan lagi.');
+            return redirect()->route('pengelolaan-daftar-tagihan')->with('error', 'Data pelanggan tidak ditemukan');
         }
 
         $list_tagihan = null;
@@ -44,6 +44,8 @@ class LaporanTagihanPerbulan extends Controller
                 $list_tagihan = CekTagihan::where('id_pelanggan', $info_pelanggan->id_pelanggan)
                     ->where('status_bayar', $status_bayar)
                     ->get();
+            } else {
+                return redirect()->route('pengelolaan-daftar-tagihan')->with('error', 'Data pelanggan tidak ditemukan');
             }
         } else {
             $list_tagihan = CekTagihan::where('status_bayar', $status_bayar)

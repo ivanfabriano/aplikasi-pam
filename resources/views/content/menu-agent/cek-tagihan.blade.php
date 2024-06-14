@@ -7,8 +7,11 @@
 
 @section('title', 'Cek Tagihan')
 
+@section('page-script')
+    <script src="{{ asset('assets/js/ui-toasts.js') }}"></script>
+@endsection
+
 @section('content')
-    <!-- Layout Demo -->
     <div class="layout-demo-wrapper">
         <div clas="bg-white w-100" style="width: 100%">
             <div class="card h-100" style="width: 32%">
@@ -65,7 +68,8 @@
                                         <form
                                             action="{{ route('pengelolaan-riwayat-transaksi', $info_pelanggan->id_pelanggan) }}">
                                             @method('GET')
-                                            <button type="sumbit" class="btn btn-primary">Lihat Riwayat Transaksi</button>
+                                            <button type="sumbit" class="btn btn-primary">Lihat Riwayat
+                                                Transaksi</button>
                                         </form>
                                     </div>
                                 </div>
@@ -169,7 +173,8 @@
                                         <form
                                             action="{{ route('pengelolaan-riwayat-transaksi', $info_pelanggan->id_pelanggan) }}">
                                             @method('GET')
-                                            <button type="sumbit" class="btn btn-primary">Lihat Riwayat Transaksi</button>
+                                            <button type="sumbit" class="btn btn-primary">Lihat Riwayat
+                                                Transaksi</button>
                                         </form>
                                     </div>
                                 </div>

@@ -140,7 +140,7 @@
                                     <form class="d-flex gap-2 align-items-center"
                                         action="{{ route('datamaster-kelola-pelanggan') }}" method="GET"
                                         style="width: 100%">
-                                        <div class="d-flex gap-3" style="width: 460px">
+                                        <div class="d-flex gap-2" style="width: 460px">
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" name="telat_bayar"
                                                     {{ request()->get('telat_bayar') == 'on' ? 'checked' : '' }}

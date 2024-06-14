@@ -1,4 +1,4 @@
-@extends('layouts/blankLayout')
+@extends('layouts/printLayout')
 
 @section('title', 'Cetak Struk')
 

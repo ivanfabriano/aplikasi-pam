@@ -10,6 +10,17 @@
 <!-- BEGIN: Theme JS-->
 <script src="{{ asset(mix('assets/js/main.js')) }}"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var alertError = document.getElementById('alert-error');
+        var alertSuccess = document.getElementById('alert-success');
+        setTimeout(function() {
+            if (alertError) alertError.classList.remove('show')
+            if (alertSuccess) alertSuccess.classList.remove('show')
+        }, 2000);
+    });
+</script>
+
 <!-- END: Theme JS-->
 <!-- Pricing Modal JS-->
 @stack('pricing-script')
