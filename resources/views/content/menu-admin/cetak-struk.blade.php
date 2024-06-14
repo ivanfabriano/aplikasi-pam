@@ -3,10 +3,10 @@
 @section('title', 'Cetak Struk')
 
 @section('content')
-    <div style="width: 1000px; color:black; font-size: 20px;">
+    <div style="width: 1000px; color:black; font-size: 23px; font-weight:bold">
         <div class="row">
             <div class="col-12 text-center">
-                <h3>SUMBERTIRTA</h3>
+                <p style="font-size: 27px; font-weight:bolder">SUMBERTIRTA</p>
                 <p>Jl. Karanggawang Lama Kel.Sendangguwo, Kec. Tembalang, Semarang <br>
                     Telp. (024) 6723477; HP. 081 249 7777 22 <br>
                     STRUK PEMBAYARAN TAGIHAN AIR

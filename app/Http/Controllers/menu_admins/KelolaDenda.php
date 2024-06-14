@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\menu_admins;
 
 use App\Http\Controllers\Controller;
+use App\Models\CekTagihan;
 use App\Models\Denda;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KelolaDenda extends Controller
 {
@@ -54,16 +56,27 @@ class KelolaDenda extends Controller
         $hari_awal = $request->input('hari_awal');
         $hari_akhir = $request->input('hari_akhir');
         $denda = $request->input('denda');
+        $denda_lama = null;
 
         $denda_data = Denda::find($id);
 
         if ($denda_data) {
+            $denda_lama = $denda_data->denda;
+
             $denda_data->hari_awal = $hari_awal;
             $denda_data->hari_akhir = $hari_akhir;
             $denda_data->keterlambatan = $hari_awal . ' s/d ' . $hari_akhir . ' hari';
             $denda_data->denda = $denda;
 
             $denda_data->save();
+
+            DB::table('cek_tagihans')
+                ->where('status_bayar', false)
+                ->where('denda', $denda_lama)
+                ->update([
+                    'denda' => $denda,
+                    'total_akhir' => DB::raw('((meter_akhir - meter_awal) * tarif) + biaya_admin + ' . $denda)
+                ]);
 
             return redirect()->route('datamaster-kelola-denda')->with('success', 'Data berhasil diperbarui.');
         } else {

@@ -55,15 +55,8 @@ class KelolaPenggunaan extends Controller
                 ->orderBy('id', 'desc')
                 ->first();
 
-            if ($last_record_penggunaan) {
-                $currentMonthIndex = $months[ucfirst(strtolower($last_record_penggunaan->bulan_penggunaan))];
-                $current_date = Carbon::createFromDate(null, $currentMonthIndex, 1);
-                $nextMonthDate = $current_date->addMonth();
-                $nextMonth = $nextMonthDate->translatedFormat('F');
-            }
-
             $pelanggan->work_date = $current_date_now;
-            $pelanggan->bulan_penggunaan = $last_record_penggunaan ? $nextMonth : $currentMonth;
+            $pelanggan->bulan_penggunaan = $currentMonth;
             $pelanggan->meter_awal = $last_record_penggunaan ? $last_record_penggunaan->meter_akhir : 0;
         }
 

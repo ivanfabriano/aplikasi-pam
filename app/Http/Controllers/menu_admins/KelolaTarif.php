@@ -8,6 +8,7 @@ use App\Models\Pelanggan;
 use App\Models\Tarif;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KelolaTarif extends Controller
 {
@@ -56,12 +57,14 @@ class KelolaTarif extends Controller
         $abonemen = $request->input('abonemen');
         $tarif = $request->input('tarif');
         $tarif_lama = null;
+        $biaya_admin_lama = null;
 
         $tarif_data = Tarif::find($id);
 
         if ($tarif_data) {
             $tarif_lama = $tarif_data->kode_tarif;
             $nilai_tarif_lama = explode('/', $tarif_lama)[1];
+            $biaya_admin_lama = $tarif_data->abonemen;
 
             $tarif_data->kode_tarif = $golongan . '/' . $tarif;
             $tarif_data->golongan = $golongan;
@@ -76,6 +79,15 @@ class KelolaTarif extends Controller
             CekTagihan::where('status_bayar', false)
                 ->where('tarif', $nilai_tarif_lama)
                 ->update(['tarif' => $tarif]);
+
+            DB::table('cek_tagihans')
+                ->where('status_bayar', false)
+                ->where('biaya_admin', $biaya_admin_lama)
+                ->update([
+                    'biaya_admin' => $abonemen,
+                    'jumlah_bayar' => DB::raw('(meter_akhir - meter_awal) * tarif'),
+                    'total_akhir' => DB::raw('((meter_akhir - meter_awal) * tarif) + denda + ' . $abonemen)
+                ]);
 
             return redirect()->route('datamaster-kelola-tarif')->with('success', 'Data berhasil diperbarui.');
         } else {
