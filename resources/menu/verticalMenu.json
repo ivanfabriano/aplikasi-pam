@@ -79,6 +79,23 @@
           "slug": "datamaster-kelola-akun"
         }
       ]
+    },
+    {
+      "name": "Laporan",
+      "icon": "menu-icon tf-icons mdi mdi-cube-outline",
+      "slug": "laporan",
+      "submenu": [
+        {
+          "url": "laporan/pelanggan",
+          "name": "Cetak Pelanggan",
+          "slug": "laporan-pelanggan"
+        },
+        {
+          "url": "laporan/tunggakan",
+          "name": "Cetak Tunggakan",
+          "slug": "laporan-tunggakan"
+        }
+      ]
     }
   ]
 }

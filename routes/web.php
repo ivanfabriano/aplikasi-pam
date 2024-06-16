@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authentications\Login;
-
+use App\Http\Controllers\menu_admins\CetakPelanggan;
 use App\Http\Controllers\menu_agents\CekTagihan;
 use App\Http\Controllers\menu_agents\PembayaranTagihan;
 
@@ -17,6 +17,7 @@ use App\Http\Controllers\menu_admins\RiwayatTransaksi;
 use App\Http\Controllers\menu_admins\CetakStruk;
 use App\Http\Controllers\menu_admins\HomePage;
 use App\Http\Controllers\menu_admins\KelolaDaftarPenggunaan;
+use App\Http\Controllers\menu_admins\LaporanPelanggan;
 
 // Main Page Route
 Route::get('/', [HomePage::class, 'index'])->name('home-page')->middleware('auth');
@@ -34,6 +35,10 @@ Route::post('/logout', function () {
 //  Menu agen route
 Route::get('/menu-agent/cek-tagihan', [CekTagihan::class, 'index'])->name('cek-tagihan')->middleware('auth');
 Route::get('/menu-agent/cetak-struk', [CetakStruk::class, 'index'])->name('cetak-struk')->middleware('auth');
+Route::get('/menu-agent/cetak-pelanggan', [CetakPelanggan::class, 'index'])->name('cetak-pelanggan')->middleware('auth');
+
+Route::get('/laporan/pelanggan', [LaporanPelanggan::class, 'index'])->name('laporan-pelanggan')->middleware('auth');
+
 Route::get('/pembayaran-tagihan/{id_pembayaran}', [PembayaranTagihan::class, 'index'])->name('pembayaran-tagihan')->middleware('auth');
 Route::put('/update-tagihan/{id_pembayaran}', [PembayaranTagihan::class, 'update'])->name('update-tagihan')->middleware('auth');
 
