@@ -38,7 +38,7 @@ class PembayaranTagihan extends Controller
 
         $info_pelanggan = Pelanggan::firstWhere('id_pelanggan', $info_tagihan->id_pelanggan);
         $tanggal = $info_pelanggan->tenggang;
-        $bulan =  $bulanIndonesia[$info_tagihan->bulan_tagihan];;
+        $bulan =  $bulanIndonesia[$info_tagihan->bulan_tagihan];
         $tahun = Carbon::parse($info_tagihan->created_at)->year;
 
         $tenggang_pembayaran = "$tahun-$bulan-$tanggal";

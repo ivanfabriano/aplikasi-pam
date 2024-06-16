@@ -40,6 +40,78 @@
                 <div></div>
             @elseif (!is_null($list_tagihan) && !$list_tagihan->isEmpty())
                 <div class="row">
+                    <div class="col-12 mt-3">
+                        @if ($list_tagihan)
+                            <div class="card">
+                                <h5 class="card-header">Detail Tagihan <span class="text-muted">[Belum Terbayar]</span>
+                                </h5>
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Bulan Tagihan</th>
+                                                <th>Meter Awal</th>
+                                                <th>Meter Akhir</th>
+                                                <th>M<sup>3</sup></th>
+                                                <th>Tarif/M<sup>3</sup></th>
+                                                <th>Abonemen</th>
+                                                <th>Denda</th>
+                                                <th>Jumlah Bayar</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-border-bottom-0">
+                                            @php
+                                                $no = 1;
+                                                $total_bayar = 0;
+                                            @endphp
+                                            @foreach ($list_tagihan as $tagihan)
+                                                <tr>
+                                                    <td>{{ $no }}</td>
+                                                    <td>{{ $tagihan->bulan_tagihan }}
+                                                        {{ explode('-', $tagihan->created_at)[0] }}</td>
+                                                    <td>{{ $tagihan->meter_awal }}</td>
+                                                    <td>{{ $tagihan->meter_akhir }}</td>
+                                                    <td>{{ $tagihan->meter_akhir - $tagihan->meter_awal }}</td>
+                                                    <td>Rp. {{ number_format($tagihan->tarif, 0, ',', '.') }}</td>
+                                                    <td>Rp. {{ number_format($tagihan->biaya_admin, 0, ',', '.') }}</td>
+                                                    <td>Rp. {{ number_format($tagihan->denda, 0, ',', '.') }}</td>
+                                                    <td>Rp. {{ number_format($tagihan->total_akhir, 0, ',', '.') }}
+                                                    </td>
+                                                    <td>
+                                                        <form
+                                                            action="{{ route('pembayaran-tagihan', $tagihan->id_pembayaran) }}"
+                                                            target="_blank">
+                                                            @method('GET')
+                                                            <button type="sumbit" class="btn btn-primary">BAYAR</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                @php
+                                                    $no++;
+                                                    $total_bayar += $tagihan->total_akhir;
+                                                @endphp
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot class="table-border-bottom-0">
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>Total</th>
+                                                <th>Rp. {{ number_format($total_bayar, 0, ',', '.') }}</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                     <div class="col-3">
                         @if ($info_pelanggan)
                             <div class="card h-100 mt-3">
@@ -48,7 +120,7 @@
                                     <h6 class="card-subtitle text-muted">Informasi detail pelanggan</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="d-flex">
+                                    <div class="d-flex ">
                                         <p style="width: 150px">ID Pelanggan</p>
                                         <p>: {{ $info_pelanggan->id_pelanggan }}</p>
                                     </div>
@@ -76,72 +148,6 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-9 mt-3">
-                        @if ($list_tagihan)
-                            <div class="card">
-                                <h5 class="card-header">Detail Tagihan <span class="text-muted">[Belum Terbayar]</span>
-                                </h5>
-                                <div class="table-responsive text-nowrap">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Bulan Tagihan</th>
-                                                <th>Meter Awal</th>
-                                                <th>Meter Akhir</th>
-                                                <th>M<sup>3</sup></th>
-                                                <th>Tarif/M<sup>3</sup></th>
-                                                <th>Jumlah Bayar</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="table-border-bottom-0">
-                                            @php
-                                                $no = 1;
-                                                $total_bayar = 0;
-                                            @endphp
-                                            @foreach ($list_tagihan as $tagihan)
-                                                <tr>
-                                                    <td>{{ $no }}</td>
-                                                    <td>{{ $tagihan->bulan_tagihan }}
-                                                        {{ explode('-', $tagihan->created_at)[0] }}</td>
-                                                    <td>{{ $tagihan->meter_awal }}</td>
-                                                    <td>{{ $tagihan->meter_akhir }}</td>
-                                                    <td>{{ $tagihan->meter_akhir - $tagihan->meter_awal }}</td>
-                                                    <td>Rp. {{ number_format($tagihan->tarif, 0, ',', '.') }}</td>
-                                                    <td>Rp. {{ number_format($tagihan->jumlah_bayar, 0, ',', '.') }}
-                                                    </td>
-                                                    <td>
-                                                        <form
-                                                            action="{{ route('pembayaran-tagihan', $tagihan->id_pembayaran) }}"
-                                                            target="_blank">
-                                                            @method('GET')
-                                                            <button type="sumbit" class="btn btn-primary">BAYAR</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                @php
-                                                    $no++;
-                                                    $total_bayar += $tagihan->jumlah_bayar;
-                                                @endphp
-                                            @endforeach
-                                        </tbody>
-                                        <tfoot class="table-border-bottom-0">
-                                            <tr>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                                <th>Total</th>
-                                                <th>Rp. {{ number_format($total_bayar, 0, ',', '.') }}</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
                 </div>
             @else
                 <div class="row">
@@ -153,19 +159,19 @@
                                     <h6 class="card-subtitle text-muted">Informasi detail pelanggan</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="d-flex">
+                                    <div class="d-flex flex-wrap">
                                         <p style="width: 150px">ID Pelanggan</p>
                                         <p>: {{ $info_pelanggan->id_pelanggan }}</p>
                                     </div>
-                                    <div class="d-flex">
+                                    <div class="d-flex flex-wrap">
                                         <p style="width: 150px">Nama</p>
                                         <p>: {{ $info_pelanggan->nama_pelanggan }}</p>
                                     </div>
-                                    <div class="d-flex">
+                                    <div class="d-flex flex-wrap">
                                         <p style="width: 150px">No Meter</p>
                                         <p>: {{ $info_pelanggan->no_meter }}</p>
                                     </div>
-                                    <div class="d-flex">
+                                    <div class="d-flex flex-wrap">
                                         <p style="width: 150px">Tarif</p>
                                         <p>: {{ $info_pelanggan->jenis_tarif }}</p>
                                     </div>
