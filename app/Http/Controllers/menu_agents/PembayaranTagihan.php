@@ -71,8 +71,6 @@ class PembayaranTagihan extends Controller
     {
         $denda = $request->input('denda');
         $total_akhir = $request->input('total_akhir');
-        $bayar = $request->input('bayar');
-        $kembali = $request->input('kembali');
 
         $tagihan_data = CekTagihan::find($id);
         $pelanggan = Pelanggan::firstWhere('id_pelanggan', $tagihan_data->id_pelanggan);
@@ -80,8 +78,6 @@ class PembayaranTagihan extends Controller
         if ($tagihan_data) {
             $tagihan_data->denda = (int) str_replace('.', '', $denda);
             $tagihan_data->total_akhir = (int) str_replace('.', '', $total_akhir);
-            $tagihan_data->bayar = (int) str_replace('.', '', $bayar);
-            $tagihan_data->kembali = (int) str_replace('.', '', $kembali);
             $tagihan_data->status_bayar = true;
             $tagihan_data->waktu_bayar = Carbon::now('Asia/Jakarta');
 

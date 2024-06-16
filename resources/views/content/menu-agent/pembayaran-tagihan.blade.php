@@ -82,16 +82,6 @@
                                 value="{{ number_format($info_tagihan->total_akhir, 0, ',', '.') }}" />
                             <label for="total_akhir">Total Akhir<span style="color: red;">*</span></label>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            <input class="form-control" type="text" placeholder="18" id="bayar" required
-                                oninput="formatCurrency(this); hitungKembalian()" name="bayar" />
-                            <label for="bayar">Bayar<span style="color: red;">*</span></label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            <input class="form-control" type="text" placeholder="18" id="kembali" readonly
-                                name="kembali" />
-                            <label for="kembali">Kembalian<span style="color: red;">*</span></label>
-                        </div>
                         <button type="submit" class="btn btn-primary">Bayar</button>
                     </form>
                 </div>
