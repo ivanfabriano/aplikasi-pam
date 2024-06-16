@@ -16,6 +16,9 @@
                     <div class="card">
                         <h5 class="card-header">Daftar Tunggakan Pelanggan <span class="text-muted">[Lebih Dari 3
                                 Bulan]</span></h5>
+                        <div class="mx-3">
+                            <p style="color: red;">Jumlah bayar yang tertera sudah termasuk biaya admin dan denda</p>
+                        </div>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>
@@ -34,7 +37,6 @@
                                 <tbody class="table-border-bottom-0">
                                     @php
                                         $no = 1;
-                                        $total_bayar = 0;
                                     @endphp
                                     @foreach ($list_tagihan as $tagihan)
                                         <tr>
@@ -52,11 +54,10 @@
                                             </td>
                                             <td>{{ $tagihan->jumlah_meter }}</td>
                                             <td>Rp. {{ number_format($tagihan->tarif, 0, ',', '.') }}</td>
-                                            <td>Rp. {{ number_format($tagihan->jumlah_bayar, 0, ',', '.') }}</td>
+                                            <td>Rp. {{ number_format($tagihan->total_akhir, 0, ',', '.') }}</td>
                                         </tr>
                                         @php
                                             $no++;
-                                            $total_bayar += $tagihan->jumlah_bayar;
                                         @endphp
                                     @endforeach
                                 </tbody>
