@@ -46,6 +46,12 @@ class RiwayatTransaksi extends Controller
             $info_pelanggan = Pelanggan::firstWhere('id_pelanggan', $id_pelanggan);
         }
 
+        if ($tanggal_awal && $tanggal_akhir) {
+            $list_tagihan = CekTagihan::where('status_bayar', true)
+                ->whereBetween('waktu_bayar', [$tanggal_awal, $tanggal_akhir])
+                ->get();
+        }
+
         if ($id_name_filter) {
             $pelanggan_data = Pelanggan::where('no_meter', $id_filter)
                 ->where('nama_pelanggan', $nama_pelanggan)
@@ -62,12 +68,6 @@ class RiwayatTransaksi extends Controller
             }
 
             $info_pelanggan = Pelanggan::firstWhere('id_pelanggan', $id_pelanggan);
-        }
-
-        if ($tanggal_awal && $tanggal_akhir) {
-            $list_tagihan = CekTagihan::where('status_bayar', true)
-                ->whereBetween('waktu_bayar', [$tanggal_awal, $tanggal_akhir])
-                ->get();
         }
 
 
