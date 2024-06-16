@@ -54,6 +54,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>ID Pelanggan</th>
+                                            <th>No Meter</th>
                                             <th>Nama Pelanggan</th>
                                             <th>Bulan Tagihan</th>
                                             <th>Meter Awal</th>
@@ -72,6 +73,7 @@
                                                 class="{{ $tagihan->meter_awal == $tagihan->meter_akhir ? 'table-danger' : '' }}">
                                                 <td>{{ $no }}</td>
                                                 <td>{{ $tagihan->id_pelanggan }}</td>
+                                                <td>{{ $tagihan->no_meter }}</td>
                                                 <td>{{ $tagihan->nama_pelanggan }}</td>
                                                 <td>{{ $tagihan->bulan_tagihan }}</td>
                                                 <td>{{ $tagihan->meter_awal }}</td>

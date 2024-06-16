@@ -40,7 +40,7 @@ class KelolaDaftarPenggunaan extends Controller
                 $list_tagihan = CekTagihan::join('penggunaans', 'cek_tagihans.id_pembayaran', '=', 'penggunaans.id_pembayaran')
                     ->where('penggunaans.id_pelanggan', $info_pelanggan->id_pelanggan)
                     ->where('status_bayar', false)
-                    ->select('cek_tagihans.*', 'penggunaans.tanggal_pengecekan')
+                    ->select('cek_tagihans.*', 'penggunaans.tanggal_pengecekan', 'penggunaans.id as id_penggunaan', 'penggunaans.no_meter')
                     ->get();
             } else {
                 return redirect()->route('pengelolaan-daftar-penggunaan')->with('error', 'Data pelanggan tidak ditemukan');
@@ -48,7 +48,7 @@ class KelolaDaftarPenggunaan extends Controller
         } else {
             $list_tagihan = CekTagihan::join('penggunaans', 'cek_tagihans.id_pembayaran', '=', 'penggunaans.id_pembayaran')
                 ->where('status_bayar', false)
-                ->select('cek_tagihans.*', 'penggunaans.tanggal_pengecekan', 'penggunaans.id as id_penggunaan')
+                ->select('cek_tagihans.*', 'penggunaans.tanggal_pengecekan', 'penggunaans.id as id_penggunaan', 'penggunaans.no_meter')
                 ->get();
         }
 
