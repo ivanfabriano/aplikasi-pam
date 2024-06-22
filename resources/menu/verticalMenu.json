@@ -10,6 +10,12 @@
       "url": "pengelolaan/input-penggunan"
     },
     {
+      "url": "pengelolaan/daftar-penggunaan",
+      "icon": "menu-icon tf-icons mdi mdi-form-select",
+      "name": "List Penggunaan",
+      "slug": "pengelolaan-daftar-penggunaan"
+    },
+    {
       "menuHeader": "Menu Agen"
     },
     {
@@ -82,7 +88,7 @@
     },
     {
       "name": "Laporan",
-      "icon": "menu-icon tf-icons mdi mdi-cube-outline",
+      "icon": "menu-icon tf-icons mdi mdi-flip-to-front",
       "slug": "laporan",
       "submenu": [
         {

@@ -240,10 +240,12 @@
                     simpanButton.classList.remove('d-block');
                     checkMeteran.classList.add('d-none');
                     checkMeteran.classList.remove('d-block');
+                    meterAkhirInput.classList.remove('bg-danger')
                 } else if (meterAkhir == meterAwal) {
                     errorMessage.style.display = 'none';
                     checkMeteran.classList.add('d-block');
                     checkMeteran.classList.remove('d-none');
+                    meterAkhirInput.classList.add('bg-danger')
                     simpanButton.classList.add('d-block');
                     simpanButton.classList.remove('d-none');
                 } else {
@@ -252,6 +254,7 @@
                     simpanButton.classList.remove('d-none');
                     checkMeteran.classList.remove('d-block');
                     checkMeteran.classList.add('d-none');
+                    meterAkhirInput.classList.remove('bg-danger')
                 }
             });
         });

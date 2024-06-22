@@ -15,6 +15,7 @@ use App\Http\Controllers\menu_admins\LaporanTagihanPerbulan;
 use App\Http\Controllers\menu_admins\LaporanTunggakan;
 use App\Http\Controllers\menu_admins\RiwayatTransaksi;
 use App\Http\Controllers\menu_admins\CetakStruk;
+use App\Http\Controllers\menu_admins\CetakTunggakan;
 use App\Http\Controllers\menu_admins\HomePage;
 use App\Http\Controllers\menu_admins\KelolaDaftarPenggunaan;
 use App\Http\Controllers\menu_admins\LaporanPelanggan;
@@ -37,6 +38,7 @@ Route::get('/menu-agent/cek-tagihan', [CekTagihan::class, 'index'])->name('cek-t
 Route::get('/menu-agent/cetak-struk', [CetakStruk::class, 'index'])->name('cetak-struk')->middleware('auth');
 Route::get('/menu-agent/cetak-pelanggan', [CetakPelanggan::class, 'index'])->name('cetak-pelanggan')->middleware('auth');
 
+Route::get('/laporan/tunggakan', [CetakTunggakan::class, 'index'])->name('laporan-tunggakan')->middleware('auth');
 Route::get('/laporan/pelanggan', [LaporanPelanggan::class, 'index'])->name('laporan-pelanggan')->middleware('auth');
 
 Route::get('/pembayaran-tagihan/{id_pembayaran}', [PembayaranTagihan::class, 'index'])->name('pembayaran-tagihan')->middleware('auth');

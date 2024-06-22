@@ -182,9 +182,9 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>ID Pelanggan</th>
+                                        <th style="width: 80px;">ID Pelanggan</th>
                                         <th>No Meter</th>
-                                        <th>Nama</th>
+                                        <th style="width: 120px;">Nama</th>
                                         <th>Alamat</th>
                                         <th>Tenggang</th>
                                         <th>Kode Tarif</th>
@@ -197,7 +197,7 @@
                                     @endphp
                                     @foreach ($pelanggans as $pelanggan)
                                         <tr
-                                            class="{{ ($pelanggan->tertunggak ? 'table-danger' : $pelanggan->meteran_rusak) ? 'table-warning' : '' }}">
+                                            class="{{ $pelanggan->tertunggak ? 'table-danger' : '' }} {{ $pelanggan->meteran_rusak ? 'table-warning' : '' }} ">
                                             <td>{{ $no }}</td>
                                             <td>{{ $pelanggan->id_pelanggan }}</td>
                                             <td>{{ $pelanggan->no_meter }}</td>

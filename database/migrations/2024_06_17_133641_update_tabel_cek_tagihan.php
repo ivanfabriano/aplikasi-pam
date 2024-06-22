@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pelanggans', function (Blueprint $table) {
-            $table->boolean('meteran_rusak')->default(false);
+        Schema::table('cek_tagihans', function (Blueprint $table) {
+            $table->string('tahun_tagihan')->nullable();
         });
     }
 
@@ -21,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('cek_tagihans', function (Blueprint $table) {
+            $table->dropColumn('tahun_tagihan')->nullable(false)->change();
+        });
     }
 };
