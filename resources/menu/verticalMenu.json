@@ -99,7 +99,8 @@
         {
           "url": "laporan/tunggakan",
           "name": "Cetak Tunggakan",
-          "slug": "laporan-tunggakan"
+          "slug": "laporan-tunggakan",
+          "target": "_blank"
         }
       ]
     }

@@ -63,8 +63,6 @@ class KelolaTarif extends Controller
 
         if ($tarif_data) {
             $tarif_lama = $tarif_data->kode_tarif;
-            $nilai_tarif_lama = explode('/', $tarif_lama)[1];
-            $biaya_admin_lama = $tarif_data->abonemen;
 
             $tarif_data->kode_tarif = $golongan . '/' . $tarif;
             $tarif_data->golongan = $golongan;
@@ -77,12 +75,12 @@ class KelolaTarif extends Controller
             Pelanggan::where('jenis_tarif', '=', $tarif_lama)->update(['jenis_tarif' => $tarif_data->kode_tarif]);
 
             CekTagihan::where('status_bayar', false)
-                ->where('tarif', $nilai_tarif_lama)
+                ->where('kode_tarif', $tarif_lama)
                 ->update(['tarif' => $tarif]);
 
             DB::table('cek_tagihans')
                 ->where('status_bayar', false)
-                ->where('biaya_admin', $biaya_admin_lama)
+                ->where('kode_tarif', $tarif_lama)
                 ->update([
                     'biaya_admin' => $abonemen,
                     'jumlah_bayar' => DB::raw('(meter_akhir - meter_awal) * tarif'),

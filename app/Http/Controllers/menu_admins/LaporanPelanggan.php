@@ -41,7 +41,7 @@ class LaporanPelanggan extends Controller
             $endOfMonth = $carbonDate->endOfMonth()->format('Y-m-d');
 
             $penggunaan = Penggunaan::whereBetween('tanggal_pengecekan', [$startOfMonth, $endOfMonth])
-                ->orderBy('no_meter', 'asc')
+                ->orderByRaw('CAST(no_meter AS UNSIGNED) ASC')
                 ->get();
 
             return redirect()->route('cetak-pelanggan')->with(['penggunaan' => $penggunaan, 'bulan' => $bulan, 'tahun' => $tahun]);

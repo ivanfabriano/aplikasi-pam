@@ -63,11 +63,11 @@
         </div>
     </div>
 
-    {{-- <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 window.print();
             }, 1500);
         });
-    </script> --}}
+    </script>
 @endsection

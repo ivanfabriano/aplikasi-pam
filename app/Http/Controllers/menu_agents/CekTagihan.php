@@ -68,7 +68,7 @@ class CekTagihan extends Controller
                 if ($list_tagihan) {
                     foreach ($list_tagihan as $tagihan) {
                         $bulan =  $bulanIndonesia[$tagihan->bulan_tagihan];
-                        $tahun = Carbon::parse($tagihan->created_at)->year;
+                        $tahun = $tagihan->tahun_tagihan;
                         $tenggang_pembayaran = "$tahun-$bulan-$tanggal";
                         $tenggang_date = Carbon::createFromFormat('Y-m-d', $tenggang_pembayaran);
 

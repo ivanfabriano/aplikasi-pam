@@ -9,6 +9,8 @@ use App\Models\Penggunaan;
 use App\Models\Tarif;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class KelolaPenggunaan extends Controller
 {
@@ -77,6 +79,8 @@ class KelolaPenggunaan extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+
         $namaBulanIndonesia = [
             'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
             'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
@@ -106,6 +110,7 @@ class KelolaPenggunaan extends Controller
         $tarif = Tarif::firstWhere('kode_tarif', $pelanggan->jenis_tarif);
 
         $current_date = Carbon::parse($tanggal_pengecekan);
+        $current_year = $current_date->format('Y');
         $next_month_date = $current_date->addMonth();
         $nama_bulan_berikutnya = $namaBulanIndonesia[$next_month_date->month - 1];
 
@@ -114,6 +119,8 @@ class KelolaPenggunaan extends Controller
         $cek_tagihan_data->id_pelanggan = $pelanggan->id_pelanggan;
         $cek_tagihan_data->nama_pelanggan = $pelanggan->nama_pelanggan;
         $cek_tagihan_data->bulan_tagihan = $nama_bulan_berikutnya;
+        $cek_tagihan_data->tahun_tagihan = $current_year;
+        $cek_tagihan_data->kode_tarif = $pelanggan->jenis_tarif;
         $cek_tagihan_data->meter_awal = $meter_awal;
         $cek_tagihan_data->meter_akhir = $meter_akhir;
         $cek_tagihan_data->tarif = $tarif->tarif;
@@ -121,7 +128,7 @@ class KelolaPenggunaan extends Controller
         $cek_tagihan_data->biaya_admin = $tarif->abonemen;
         $cek_tagihan_data->bayar = 0;
         $cek_tagihan_data->kembali = 0;
-        $cek_tagihan_data->petugas = 'Ivan Fabriano';
+        $cek_tagihan_data->petugas = $user->username;
         $cek_tagihan_data->total_akhir = (($meter_akhir - $meter_awal) * $tarif->tarif) + $tarif->abonemen;
         $cek_tagihan_data->save();
 
@@ -134,7 +141,7 @@ class KelolaPenggunaan extends Controller
         $penggunaan_data->meter_awal = $meter_awal;
         $penggunaan_data->meter_akhir = $meter_akhir;
         $penggunaan_data->tanggal_pengecekan = $tanggal_pengecekan;
-        $penggunaan_data->petugas = 'Ivan Fabriano';
+        $penggunaan_data->petugas = $user->username;
         $penggunaan_data->save();
 
         if ($meteran_rusak) {
@@ -147,6 +154,7 @@ class KelolaPenggunaan extends Controller
 
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
 
         $id_pelanggan = $request->input('id_pelanggan');
 
@@ -171,14 +179,14 @@ class KelolaPenggunaan extends Controller
         $penggunaan_data->meter_awal = $meter_awal;
         $penggunaan_data->meter_akhir = $meter_akhir;
         $penggunaan_data->tanggal_pengecekan = $tanggal_pengecekan;
-        $penggunaan_data->petugas = 'Ivan Fabriano';
+        $penggunaan_data->petugas = $user->username;
         $penggunaan_data->save();
 
         $cek_tagihan_data = CekTagihan::firstWhere('id_pembayaran', $penggunaan_data->id_pembayaran);
         $cek_tagihan_data->meter_awal = $meter_awal;
         $cek_tagihan_data->meter_akhir = $meter_akhir;
         $cek_tagihan_data->jumlah_bayar = ($meter_akhir - $meter_awal) * $tarif->tarif;
-        $cek_tagihan_data->petugas = 'Ivan Fabriano';
+        $cek_tagihan_data->petugas = $user->username;
         $cek_tagihan_data->total_akhir = (($meter_akhir - $meter_awal) * $tarif->tarif) + $tarif->abonemen;
         $cek_tagihan_data->save();
 
