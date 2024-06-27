@@ -107,10 +107,21 @@ class KelolaPenggunaan extends Controller
             ->where('alamat_pelanggan', $alamat_pelanggan)
             ->first();
 
-        $tarif = Tarif::firstWhere('kode_tarif', $pelanggan->jenis_tarif);
-
         $current_date = Carbon::parse($tanggal_pengecekan);
         $current_year = $current_date->format('Y');
+
+        $cek_penggunaan = Penggunaan::where('no_meter', $no_meter)
+            ->where('nama_pelanggan', $nama_pelanggan)
+            ->where('bulan_penggunaan', $bulan_penggunaan)
+            ->where('tahun_penggunaan', $current_year)
+            ->first();
+
+        if ($cek_penggunaan) {
+            return redirect()->back()->with('error', 'Maaf data bulan ini sudah terdaftar');
+        }
+
+        $tarif = Tarif::firstWhere('kode_tarif', $pelanggan->jenis_tarif);
+
         $next_month_date = $current_date->addMonth();
         $nama_bulan_berikutnya = $namaBulanIndonesia[$next_month_date->month - 1];
 
@@ -138,6 +149,7 @@ class KelolaPenggunaan extends Controller
         $penggunaan_data->no_meter = $pelanggan->no_meter;
         $penggunaan_data->nama_pelanggan = $pelanggan->nama_pelanggan;
         $penggunaan_data->bulan_penggunaan = $bulan_penggunaan;
+        $penggunaan_data->tahun_penggunaan = $current_year;
         $penggunaan_data->meter_awal = $meter_awal;
         $penggunaan_data->meter_akhir = $meter_akhir;
         $penggunaan_data->tanggal_pengecekan = $tanggal_pengecekan;
