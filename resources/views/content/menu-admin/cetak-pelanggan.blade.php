@@ -36,19 +36,19 @@
                                 @if ($index < 50)
                                     <tr>
                                         <td class="text-dark" style="border: 1px solid #000; padding: 0;">
-                                            {{ $row['no_meter'] }}
+                                            {{ $row->no_meter }}
                                         </td>
                                         <td class="text-dark" style="border: 1px solid #000; padding: 0;">
-                                            {{ $row['nama_pelanggan'] }}
+                                            {{ $row->nama_pelanggan }}
                                         </td>
                                         <td class="text-dark" style="border: 1px solid #000; padding: 0;">
-                                            {{ $row['meter_awal'] }}
+                                            {{ $row->meter_awal }}
                                         </td>
                                         <td class="text-dark" style="border: 1px solid #000; padding: 0;">
-                                            {{ $row['meter_akhir'] }}
+                                            {{ $row->meter_akhir }}
                                         </td>
                                         <td class="text-dark" style="border: 1px solid #000; padding: 0;">
-                                            {{ $row['meter_akhir'] - $row['meter_awal'] }}
+                                            {{ $row->meter_akhir - $row->meter_awal == 0 ? '' : $row->meter_akhir - $row->meter_awal }}
                                         </td>
                                     </tr>
                                 @endif
@@ -79,19 +79,19 @@
                                 @if ($index >= 50)
                                     <tr>
                                         <td class="text-dark" style="border: 1px solid #000; padding: 0;">
-                                            {{ $row['no_meter'] }}
+                                            {{ $row->no_meter }}
                                         </td>
                                         <td class="text-dark" style="border: 1px solid #000; padding: 0;">
-                                            {{ $row['nama_pelanggan'] }}
+                                            {{ $row->nama_pelanggan }}
                                         </td>
                                         <td class="text-dark" style="border: 1px solid #000; padding: 0;">
-                                            {{ $row['meter_awal'] }}
+                                            {{ $row->meter_awal }}
                                         </td>
                                         <td class="text-dark" style="border: 1px solid #000; padding: 0;">
-                                            {{ $row['meter_akhir'] }}
+                                            {{ $row->meter_akhir }}
                                         </td>
                                         <td class="text-dark" style="border: 1px solid #000; padding: 0;">
-                                            {{ $row['meter_akhir'] - $row['meter_awal'] }}
+                                            {{ $row->meter_akhir - $row->meter_awal == 0 ? '' : $row->meter_akhir - $row->meter_awal }}
                                         </td>
                                     </tr>
                                 @endif
