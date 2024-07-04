@@ -43,6 +43,28 @@ class KelolaPenggunaan extends Controller
             $nama_pelanggan = explode('-', $id_pelanggan)[1];
             $alamat_pelanggan = explode('-', $id_pelanggan)[2];
         }
+
+        if ($id_pelanggan) {
+            $pelanggan_data = Pelanggan::where('no_meter', $id_filter)
+                ->where('nama_pelanggan', $nama_pelanggan)
+                ->where('alamat_pelanggan', $alamat_pelanggan)
+                ->first();
+
+            $last_penggunaan = Penggunaan::where('no_meter', $id_filter)
+                ->where('nama_pelanggan', $nama_pelanggan)
+                ->where('id_pelanggan', $pelanggan_data->id_pelanggan)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            $currentMonthNumber = $months[$last_penggunaan->bulan_penggunaan];
+            $date = Carbon::create(null, $currentMonthNumber);
+            $date->addMonth();
+            $nextMonthNumber = $date->month;
+            $nextMonthName = array_search($nextMonthNumber, $months);
+
+            $currentMonth = $nextMonthName;
+        }
+
         $current_date_now = Carbon::now()->toDateString();
 
         $list_pelanggans = Pelanggan::all();
@@ -86,6 +108,12 @@ class KelolaPenggunaan extends Controller
             'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
         ];
 
+        $months = [
+            'Januari' => 1, 'Februari' => 2, 'Maret' => 3, 'April' => 4,
+            'Mei' => 5, 'Juni' => 6, 'Juli' => 7, 'Agustus' => 8,
+            'September' => 9, 'Oktober' => 10, 'November' => 11, 'Desember' => 12
+        ];
+
         $id_pelanggan = $request->input('id_pelanggan');
 
         if ($id_pelanggan) {
@@ -122,8 +150,11 @@ class KelolaPenggunaan extends Controller
 
         $tarif = Tarif::firstWhere('kode_tarif', $pelanggan->jenis_tarif);
 
-        $next_month_date = $current_date->addMonth();
-        $nama_bulan_berikutnya = $namaBulanIndonesia[$next_month_date->month - 1];
+        $currentMonthNumber = $months[$bulan_penggunaan];
+        $date = Carbon::create(null, $currentMonthNumber);
+        $date->addMonth();
+        $nextMonthNumber = $date->month;
+        $nama_bulan_berikutnya = array_search($nextMonthNumber, $months);
 
         $cek_tagihan_data = new CekTagihan();
         $cek_tagihan_data->id_pembayaran = str_pad(mt_rand(0, 999999999), 9, '0', STR_PAD_LEFT);;
