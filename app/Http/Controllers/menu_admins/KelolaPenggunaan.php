@@ -37,6 +37,10 @@ class KelolaPenggunaan extends Controller
 
         Carbon::setLocale('id');
         $currentMonth = Carbon::now()->translatedFormat('F');
+        $actualCurrentMonth = Carbon::now()->translatedFormat('F');
+        $currentDate = Carbon::now();
+        $currentDateMonthYear = Carbon::create($currentDate->year, $currentDate->month, 1);
+
 
         if ($id_pelanggan) {
             $id_filter = explode('-', $id_pelanggan)[0];
@@ -56,13 +60,18 @@ class KelolaPenggunaan extends Controller
                 ->orderBy('id', 'desc')
                 ->first();
 
+
             $currentMonthNumber = $months[$last_penggunaan->bulan_penggunaan];
             $date = Carbon::create(null, $currentMonthNumber);
+            $givenDate = Carbon::create($last_penggunaan->tahun_penggunaan, $currentMonthNumber, 1);
             $date->addMonth();
             $nextMonthNumber = $date->month;
             $nextMonthName = array_search($nextMonthNumber, $months);
-
             $currentMonth = $nextMonthName;
+            // dd($givenDate->gte($currentDateMonthYear));
+            if ($givenDate->gte($currentDateMonthYear)) {
+                $currentMonth = $actualCurrentMonth;
+            }
         }
 
         $current_date_now = Carbon::now()->toDateString();
@@ -242,6 +251,7 @@ class KelolaPenggunaan extends Controller
 
         $now = Carbon::now();
         $monthName = $now->translatedFormat('F');
+        $current_year = $now->format('Y');
 
         $pelanggan->meteran_rusak = false;
         $pelanggan->save();
@@ -251,6 +261,7 @@ class KelolaPenggunaan extends Controller
         $penggunaan_data->no_meter = $pelanggan->no_meter;
         $penggunaan_data->nama_pelanggan = $pelanggan->nama_pelanggan;
         $penggunaan_data->bulan_penggunaan = $monthName;
+        $penggunaan_data->tahun_penggunaan = $current_year;
         $penggunaan_data->meter_awal = 0;
         $penggunaan_data->meter_akhir = 0;
         $penggunaan_data->tanggal_pengecekan = Carbon::now();
