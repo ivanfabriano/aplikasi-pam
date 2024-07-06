@@ -49,16 +49,16 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th>Bulan Tagihan</th>
-                                                <th>Meter Awal</th>
-                                                <th>Meter Akhir</th>
-                                                <th>M<sup>3</sup></th>
-                                                <th>Tarif/M<sup>3</sup></th>
-                                                <th>Abonemen</th>
-                                                <th>Denda</th>
-                                                <th>Jumlah Bayar</th>
-                                                <th>Actions</th>
+                                                <th style="font-size: 11px">No</th>
+                                                <th style="font-size: 11px">Bulan Tagihan</th>
+                                                <th style="font-size: 11px">M.Awal</th>
+                                                <th style="font-size: 11px">M.Akhir</th>
+                                                <th style="font-size: 11px">M<sup>3</sup></th>
+                                                <th style="font-size: 11px">Tarif/M<sup>3</sup></th>
+                                                <th style="font-size: 11px">Abonemen</th>
+                                                <th style="font-size: 11px">Denda</th>
+                                                <th style="font-size: 11px">Jumlah Bayar</th>
+                                                <th style="font-size: 11px">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
@@ -68,23 +68,29 @@
                                             @endphp
                                             @foreach ($list_tagihan as $tagihan)
                                                 <tr>
-                                                    <td>{{ $no }}</td>
-                                                    <td>{{ $tagihan->bulan_tagihan }}
+                                                    <td style="font-size: 14px">{{ $no }}</td>
+                                                    <td style="font-size: 14px">{{ $tagihan->bulan_tagihan }}
                                                         {{ explode('-', $tagihan->created_at)[0] }}</td>
-                                                    <td>{{ $tagihan->meter_awal }}</td>
-                                                    <td>{{ $tagihan->meter_akhir }}</td>
-                                                    <td>{{ $tagihan->meter_akhir - $tagihan->meter_awal }}</td>
-                                                    <td>Rp. {{ number_format($tagihan->tarif, 0, ',', '.') }}</td>
-                                                    <td>Rp. {{ number_format($tagihan->biaya_admin, 0, ',', '.') }}</td>
-                                                    <td>Rp. {{ number_format($tagihan->denda, 0, ',', '.') }}</td>
-                                                    <td>Rp. {{ number_format($tagihan->total_akhir, 0, ',', '.') }}
+                                                    <td style="font-size: 14px">{{ $tagihan->meter_awal }}</td>
+                                                    <td style="font-size: 14px">{{ $tagihan->meter_akhir }}</td>
+                                                    <td style="font-size: 14px">
+                                                        {{ $tagihan->meter_akhir - $tagihan->meter_awal }}</td>
+                                                    <td style="font-size: 14px">Rp.
+                                                        {{ number_format($tagihan->tarif, 0, ',', '.') }}</td>
+                                                    <td style="font-size: 14px">Rp.
+                                                        {{ number_format($tagihan->biaya_admin, 0, ',', '.') }}</td>
+                                                    <td style="font-size: 14px">Rp.
+                                                        {{ number_format($tagihan->denda, 0, ',', '.') }}</td>
+                                                    <td style="font-size: 14px">Rp.
+                                                        {{ number_format($tagihan->total_akhir, 0, ',', '.') }}
                                                     </td>
-                                                    <td>
+                                                    <td style="font-size: 14px">
                                                         <form
                                                             action="{{ route('pembayaran-tagihan', $tagihan->id_pembayaran) }}"
                                                             target="_blank">
                                                             @method('GET')
-                                                            <button type="sumbit" class="btn btn-primary">BAYAR</button>
+                                                            <button type="sumbit" class="btn btn-primary"
+                                                                style="font-size: 12px; width: 60px">BAYAR</button>
                                                         </form>
                                                     </td>
                                                 </tr>
