@@ -8,7 +8,7 @@
             @foreach (array_chunk(session('penggunaan')->toArray(), 100) as $batch)
                 <div style="text-align:center">
                     <h4>Sumber Tirta Sendangguwo</h4>
-                    <p>Bulan Tagihan : {{ session('bulan') . ' ' . session('tahun') }}</p>
+                    <p>Bulan Tagihan : {{ session('bulan') . ' ' . session('tahun') }} [ {{ session('wilayah') }} ]</p>
                 </div>
                 <div class="d-flex">
                     <table class="table table-bordered">

@@ -16,6 +16,7 @@ class LaporanPelanggan extends Controller
     {
         $bulan = $request->input('bulan');
         $tahun = $request->input('tahun');
+        $wilayah = $request->input('wilayah');
 
         $bulanIndonesiaKeInggris = [
             'Januari' => 'January',
@@ -38,16 +39,16 @@ class LaporanPelanggan extends Controller
         ];
 
         Carbon::setLocale('id');
-
         $currentMonthIndex = array_search($bulan, $list_bulan);
 
         if ($bulan && $tahun) {
-            $nextMonthIndex = ($currentMonthIndex + 1) % 12;
+            $bulanPenggunaan = ($currentMonthIndex - 1) % 12;
+            $bulanPenggunaan = $list_bulan[$bulanPenggunaan];
 
             $subQuery = DB::table('penggunaans as p2')
                 ->select('p2.id_pelanggan', 'p2.meter_awal', 'p2.meter_akhir')
                 ->join('pelanggans as p3', 'p3.id_pelanggan', '=', 'p2.id_pelanggan')
-                ->whereRaw('LOWER(p2.bulan_penggunaan) LIKE ?', ['%' . $bulan . '%'])
+                ->whereRaw('LOWER(p2.bulan_penggunaan) LIKE ?', ['%' . $bulanPenggunaan . '%'])
                 ->whereRaw('LOWER(p2.tahun_penggunaan) LIKE ?', ['%' . $tahun . '%'])
                 ->groupBy('p2.id_pelanggan', 'p2.meter_awal', 'p2.meter_akhir');
 
@@ -56,12 +57,11 @@ class LaporanPelanggan extends Controller
                 ->leftJoinSub($subQuery, 'sub1', function ($join) {
                     $join->on('sub1.id_pelanggan', '=', 'p.id_pelanggan');
                 })
+                ->whereRaw('p.alamat_pelanggan LIKE ?', ['%' . $wilayah . '%'])
                 ->orderByRaw('CAST(p.no_meter AS UNSIGNED) ASC')
                 ->get();
 
-            $bulan = $list_bulan[$nextMonthIndex];
-
-            return redirect()->route('cetak-pelanggan')->with(['penggunaan' => $penggunaan, 'bulan' => $bulan, 'tahun' => $tahun]);
+            return redirect()->route('cetak-pelanggan')->with(['penggunaan' => $penggunaan, 'bulan' => $bulan, 'tahun' => $tahun, 'wilayah' => $wilayah]);
         }
 
         return view('content.menu-admin.laporan-pelanggan');

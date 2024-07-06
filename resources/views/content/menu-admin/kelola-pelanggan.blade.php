@@ -94,10 +94,10 @@
                                             <option selected>Pilih alamat</option>
                                             <option
                                                 {{ $initial_pelanggan->alamat_pelanggan == 'kedungmundu' ? 'selected' : '' }}
-                                                value="kedungmundu">kedungmundu</option>
+                                                value="kedungmundu">KEDUNGMUNDU</option>
                                             <option
                                                 {{ $initial_pelanggan->alamat_pelanggan == 'sendangguwo' ? 'selected' : '' }}
-                                                value="sendangguwo">sendangguwo</option>
+                                                value="sendangguwo">SENDANGGUWO</option>
                                         </select>
                                         <label for="exampleFormControlSelect1">Pilih Alamat</label>
                                     </div>

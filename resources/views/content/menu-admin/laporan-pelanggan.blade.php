@@ -52,6 +52,15 @@
                                         </select>
                                         <label for="exampleFormControlSelect1">Pilih Tahun</label>
                                     </div>
+                                    <div class="form-floating form-floating-outline">
+                                        <select class="form-select" id="exampleFormControlSelect1" name="wilayah"
+                                            aria-label="Pilih wilayah">
+                                            <option selected>Pilih wilayah</option>
+                                            <option value="kedungmundu">KEDUNGMUNDU</option>
+                                            <option value="sendangguwo">SENDANGGUWO</option>
+                                        </select>
+                                        <label for="exampleFormControlSelect1">Pilih Wilayah</label>
+                                    </div>
                                     <button type="submit" class="btn btn-primary">Cari</button>
                                     <button type="button" class="btn btn-warning"
                                         onclick="location.href='{{ route('pengelolaan-riwayat-transaksi') }}'">Reset</button>
