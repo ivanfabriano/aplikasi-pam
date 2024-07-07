@@ -53,7 +53,8 @@
                     }
                 @endphp
 
-                @if (auth()->user()->role == 'Petugas' && ($menu->name == 'Form Penggunaan' || $menu->name == 'List Penggunaan'))
+                @if (auth()->user()->role == 'Petugas' &&
+                        ($menu->name == 'Form Penggunaan' || $menu->name == 'List Penggunaan' || $menu->name == 'Cetak Pelanggan'))
                     <li class="menu-item {{ $activeClass }}">
                         <a href="{{ isset($menu->url) ? url($menu->url) : 'javascript:void(0);' }}"
                             class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}"
@@ -73,7 +74,9 @@
                             @include('layouts.sections.menu.submenu', ['menu' => $menu->submenu])
                         @endisset
                     </li>
-                @elseif (auth()->user()->role == 'Admin' && $menu->name != 'Form Penggunaan' && $menu->name != 'List Penggunaan')
+                @elseif (
+                    (auth()->user()->role == 'Admin' && $menu->name != 'Form Penggunaan' && $menu->name != 'List Penggunaan') ||
+                        $menu->name == 'Cetak Pelanggan')
                     <li class="menu-item {{ $activeClass }}">
                         <a href="{{ isset($menu->url) ? url($menu->url) : 'javascript:void(0);' }}"
                             class="{{ isset($menu->submenu) ? 'menu-link menu-toggle' : 'menu-link' }}"

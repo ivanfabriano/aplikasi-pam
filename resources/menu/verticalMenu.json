@@ -16,6 +16,12 @@
       "slug": "pengelolaan-daftar-penggunaan"
     },
     {
+      "url": "laporan/pelanggan",
+      "icon": "menu-icon tf-icons mdi mdi-flip-to-front",
+      "name": "Cetak Pelanggan",
+      "slug": "laporan-pelanggan"
+    },
+    {
       "menuHeader": "Menu Agen"
     },
     {
