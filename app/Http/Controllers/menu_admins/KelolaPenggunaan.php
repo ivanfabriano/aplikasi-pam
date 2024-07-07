@@ -249,8 +249,11 @@ class KelolaPenggunaan extends Controller
     {
         $pelanggan = Pelanggan::find($id);
 
+        $last_penggunaan = Penggunaan::where('id_pelanggan', $pelanggan->id_pelanggan)
+            ->orderBy('id', 'desc')
+            ->first();
+
         $now = Carbon::now();
-        $monthName = $now->translatedFormat('F');
         $current_year = $now->format('Y');
 
         $pelanggan->meteran_rusak = false;
@@ -260,7 +263,7 @@ class KelolaPenggunaan extends Controller
         $penggunaan_data->id_pelanggan = $pelanggan->id_pelanggan;
         $penggunaan_data->no_meter = $pelanggan->no_meter;
         $penggunaan_data->nama_pelanggan = $pelanggan->nama_pelanggan;
-        $penggunaan_data->bulan_penggunaan = $monthName;
+        $penggunaan_data->bulan_penggunaan = $last_penggunaan->bulan_penggunaan;
         $penggunaan_data->tahun_penggunaan = $current_year;
         $penggunaan_data->meter_awal = 0;
         $penggunaan_data->meter_akhir = 0;
