@@ -18,7 +18,7 @@
     {
       "url": "laporan/pelanggan",
       "icon": "menu-icon tf-icons mdi mdi-flip-to-front",
-      "name": "Cetak Pelanggan",
+      "name": "Cetak Penggunaan",
       "slug": "laporan-pelanggan"
     },
     {

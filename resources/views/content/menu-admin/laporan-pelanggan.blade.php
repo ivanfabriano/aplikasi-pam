@@ -56,14 +56,16 @@
                                         <select class="form-select" id="exampleFormControlSelect1" name="wilayah"
                                             aria-label="Pilih wilayah">
                                             <option selected>Pilih wilayah</option>
-                                            <option value="kedungmundu">KEDUNGMUNDU</option>
-                                            <option value="sendangguwo">SENDANGGUWO</option>
+                                            <option value="KEDUNGMUNDU">KEDUNGMUNDU</option>
+                                            <option value="SENDANGGUWO">SENDANGGUWO</option>
+                                            <option value="SAMBIROTO">SAMBIROTO</option>
+                                            <option value="KARANGGAWANG">KARANGGAWANG</option>
                                         </select>
                                         <label for="exampleFormControlSelect1">Pilih Wilayah</label>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Cari</button>
                                     <button type="button" class="btn btn-warning"
-                                        onclick="location.href='{{ route('pengelolaan-riwayat-transaksi') }}'">Reset</button>
+                                        onclick="location.href='{{ route('laporan-pelanggan') }}'">Reset</button>
                                 </form>
                             </div>
                         </div>

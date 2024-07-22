@@ -48,6 +48,7 @@ class CetakTunggakan extends Controller
         $tagihans = CekTagihan::join('pelanggans', 'pelanggans.id_pelanggan', '=', 'cek_tagihans.id_pelanggan')
             ->whereIn(DB::raw("CONCAT(bulan_tagihan, ' ', tahun_tagihan)"), $fourMonthsAgo)
             ->select('pelanggans.id_pelanggan', 'pelanggans.nama_pelanggan', 'pelanggans.no_meter', 'pelanggans.tenggang', 'cek_tagihans.bulan_tagihan', 'cek_tagihans.tahun_tagihan', 'cek_tagihans.total_akhir')
+            ->orderByRaw('CAST(pelanggans.no_meter AS UNSIGNED) ASC')
             ->get();
 
 

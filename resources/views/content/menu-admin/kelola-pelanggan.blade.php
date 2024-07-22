@@ -44,9 +44,8 @@
                                     <div class="form-floating form-floating-outline mb-4">
                                         <select class="form-select" id="exampleFormControlSelect1" name="alamat_pelanggan"
                                             aria-label="Pilih alamat pelanggan">
-                                            <option selected>Pilih alamat</option>
-                                            <option value="kedungmundu">kedungmundu</option>
-                                            <option value="sendangguwo">sendangguwo</option>
+                                            <option selected value="KEDUNGMUNDU">KEDUNGMUNDU</option>
+                                            <option value="SENDANGGUWO">SENDANGGUWO</option>
                                         </select>
                                         <label for="exampleFormControlSelect1">Pilih Alamat</label>
                                     </div>

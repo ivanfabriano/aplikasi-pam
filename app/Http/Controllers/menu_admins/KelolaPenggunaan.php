@@ -60,19 +60,25 @@ class KelolaPenggunaan extends Controller
                 ->orderBy('id', 'desc')
                 ->first();
 
+            if ($last_penggunaan) {
+                $currentMonthNumber = $months[$last_penggunaan->bulan_penggunaan];
+                $date = Carbon::create(null, $currentMonthNumber);
+                $givenDate = Carbon::create($last_penggunaan->tahun_penggunaan, $currentMonthNumber, 1);
+                $date->addMonth();
+                $nextMonthNumber = $date->month;
+                $nextMonthName = array_search($nextMonthNumber, $months);
+                $currentMonth = $nextMonthName;
+                // dd($givenDate->gte($currentDateMonthYear));
+                if ($givenDate->gte($currentDateMonthYear)) {
+                    $currentMonth = $actualCurrentMonth;
+                }
+            }
 
-            $currentMonthNumber = $months[$last_penggunaan->bulan_penggunaan];
-            $date = Carbon::create(null, $currentMonthNumber);
-            $givenDate = Carbon::create($last_penggunaan->tahun_penggunaan, $currentMonthNumber, 1);
-            $date->addMonth();
-            $nextMonthNumber = $date->month;
-            $nextMonthName = array_search($nextMonthNumber, $months);
-            $currentMonth = $nextMonthName;
-            // dd($givenDate->gte($currentDateMonthYear));
-            if ($givenDate->gte($currentDateMonthYear)) {
+            if (!$last_penggunaan) {
                 $currentMonth = $actualCurrentMonth;
             }
         }
+
 
         $current_date_now = Carbon::now()->toDateString();
 
