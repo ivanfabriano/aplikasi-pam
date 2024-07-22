@@ -70,13 +70,13 @@ class KelolaDenda extends Controller
 
             $denda_data->save();
 
-            DB::table('cek_tagihans')
-                ->where('status_bayar', false)
-                ->where('denda', $denda_lama)
-                ->update([
-                    'denda' => $denda,
-                    'total_akhir' => DB::raw('((meter_akhir - meter_awal) * tarif) + biaya_admin + ' . $denda)
-                ]);
+            // DB::table('cek_tagihans')
+            //     ->where('status_bayar', false)
+            //     ->where('denda', $denda_lama)
+            //     ->update([
+            //         'denda' => $denda,
+            //         'total_akhir' => DB::raw('((meter_akhir - meter_awal) * tarif) + biaya_admin + ' . $denda)
+            //     ]);
 
             return redirect()->route('datamaster-kelola-denda')->with('success', 'Data berhasil diperbarui.');
         } else {

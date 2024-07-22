@@ -74,18 +74,18 @@ class KelolaTarif extends Controller
 
             Pelanggan::where('jenis_tarif', '=', $tarif_lama)->update(['jenis_tarif' => $tarif_data->kode_tarif]);
 
-            CekTagihan::where('status_bayar', false)
-                ->where('kode_tarif', $tarif_lama)
-                ->update(['tarif' => $tarif]);
+            // CekTagihan::where('status_bayar', false)
+            //     ->where('kode_tarif', $tarif_lama)
+            //     ->update(['tarif' => $tarif]);
 
-            DB::table('cek_tagihans')
-                ->where('status_bayar', false)
-                ->where('kode_tarif', $tarif_lama)
-                ->update([
-                    'biaya_admin' => $abonemen,
-                    'jumlah_bayar' => DB::raw('(meter_akhir - meter_awal) * tarif'),
-                    'total_akhir' => DB::raw('((meter_akhir - meter_awal) * tarif) + denda + ' . $abonemen)
-                ]);
+            // DB::table('cek_tagihans')
+            //     ->where('status_bayar', false)
+            //     ->where('kode_tarif', $tarif_lama)
+            //     ->update([
+            //         'biaya_admin' => $abonemen,
+            //         'jumlah_bayar' => DB::raw('(meter_akhir - meter_awal) * tarif'),
+            //         'total_akhir' => DB::raw('((meter_akhir - meter_awal) * tarif) + denda + ' . $abonemen)
+            //     ]);
 
             return redirect()->route('datamaster-kelola-tarif')->with('success', 'Data berhasil diperbarui.');
         } else {
