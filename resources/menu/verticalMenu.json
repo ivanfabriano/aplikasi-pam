@@ -105,8 +105,7 @@
         {
           "url": "laporan/tunggakan",
           "name": "Cetak Tunggakan",
-          "slug": "laporan-tunggakan",
-          "target": "_blank"
+          "slug": "laporan-tunggakan"
         }
       ]
     }

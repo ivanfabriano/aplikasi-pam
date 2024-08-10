@@ -19,6 +19,7 @@ use App\Http\Controllers\menu_admins\CetakTunggakan;
 use App\Http\Controllers\menu_admins\HomePage;
 use App\Http\Controllers\menu_admins\KelolaDaftarPenggunaan;
 use App\Http\Controllers\menu_admins\LaporanPelanggan;
+use App\Http\Controllers\menu_admins\MenuCetakTunggakan;
 
 // Main Page Route
 Route::get('/', [HomePage::class, 'index'])->name('home-page')->middleware('auth');
@@ -37,8 +38,10 @@ Route::post('/logout', function () {
 Route::get('/menu-agent/cek-tagihan', [CekTagihan::class, 'index'])->name('cek-tagihan')->middleware('auth');
 Route::get('/menu-agent/cetak-struk', [CetakStruk::class, 'index'])->name('cetak-struk')->middleware('auth');
 Route::get('/menu-agent/cetak-pelanggan', [CetakPelanggan::class, 'index'])->name('cetak-pelanggan')->middleware('auth');
+Route::get('/menu-agent/cetak-tunggakan', [CetakTunggakan::class, 'index'])->name('cetak-tunggakan')->middleware('auth');
 
-Route::get('/laporan/tunggakan', [CetakTunggakan::class, 'index'])->name('laporan-tunggakan')->middleware('auth');
+
+Route::get('/laporan/tunggakan', [MenuCetakTunggakan::class, 'index'])->name('laporan-tunggakan')->middleware('auth');
 Route::get('/laporan/pelanggan', [LaporanPelanggan::class, 'index'])->name('laporan-pelanggan')->middleware('auth');
 
 Route::get('/pembayaran-tagihan/{id_pembayaran}', [PembayaranTagihan::class, 'index'])->name('pembayaran-tagihan')->middleware('auth');
