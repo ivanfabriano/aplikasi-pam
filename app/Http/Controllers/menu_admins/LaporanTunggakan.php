@@ -47,7 +47,7 @@ class LaporanTunggakan extends Controller
             SUM(ct.total_akhir) total_akhir
             from pelanggans p 
             join cek_tagihans ct on ct.id_pelanggan = p.id_pelanggan
-            where ct.status_bayar = FALSE 
+            where ct.status_bayar = 0 
             group by p.id_pelanggan 
             )sub1
             WHERE banyak_tunggakan >= 3
@@ -59,7 +59,7 @@ class LaporanTunggakan extends Controller
             $tanggal = $tagihan->tenggang;
             $total_denda = 0;
 
-            $list_tagihan_per_user = CekTagihan::where('status_bayar', false)
+            $list_tagihan_per_user = CekTagihan::where('status_bayar', 0)
                 ->where('id_pelanggan', $tagihan->id_pelanggan)
                 ->get();
 
