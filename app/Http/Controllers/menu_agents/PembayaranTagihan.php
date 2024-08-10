@@ -57,8 +57,13 @@ class PembayaranTagihan extends Controller
                 ->first();
 
             if ($info_denda) {
-                $info_tagihan->denda = $info_denda->denda;
-                $info_tagihan->total_akhir = $info_denda->denda + $info_tagihan->total_akhir;
+                if ($info_tagihan->meter_awal - $info_tagihan->meter_akhir != 0) {
+                    $info_tagihan->denda = $info_denda->denda;
+                    $info_tagihan->total_akhir = $info_denda->denda + $info_tagihan->total_akhir;
+                } else {
+                    $info_tagihan->denda = 0;
+                    $info_tagihan->total_akhir = $info_tagihan->jumlah_bayar + $info_tagihan->biaya_admin;
+                }
             } else {
                 $info_tagihan->denda = 0;
             }

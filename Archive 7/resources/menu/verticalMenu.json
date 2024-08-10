@@ -1,0 +1,114 @@
+{
+  "menu": [
+    {
+      "menuHeader": "Menu Petugas"
+    },
+    {
+      "name": "Form Penggunaan",
+      "icon": "menu-icon tf-icons mdi mdi-checkbox-marked-circle-outline",
+      "slug": "pengelolaan-input-penggunaan",
+      "url": "pengelolaan/input-penggunan"
+    },
+    {
+      "url": "pengelolaan/daftar-penggunaan",
+      "icon": "menu-icon tf-icons mdi mdi-form-select",
+      "name": "List Penggunaan",
+      "slug": "pengelolaan-daftar-penggunaan"
+    },
+    {
+      "url": "laporan/pelanggan",
+      "icon": "menu-icon tf-icons mdi mdi-flip-to-front",
+      "name": "Cetak Penggunaan",
+      "slug": "laporan-pelanggan"
+    },
+    {
+      "menuHeader": "Menu Agen"
+    },
+    {
+      "name": "Cek Tagihan",
+      "icon": "menu-icon tf-icons mdi mdi-table",
+      "slug": "cek-tagihan",
+      "url": "menu-agent/cek-tagihan"
+    },
+    {
+      "menuHeader": "Menu Admin"
+    },
+    {
+      "name": "Pengelolaan",
+      "icon": "menu-icon tf-icons mdi mdi-form-select",
+      "slug": "pengelolaan",
+      "submenu": [
+        {
+          "url": "pengelolaan/input-penggunan",
+          "name": "Input Penggunaan",
+          "slug": "pengelolaan-input-penggunaan"
+        },
+        {
+          "url": "pengelolaan/daftar-penggunaan",
+          "name": "Daftar Penggunaan",
+          "slug": "pengelolaan-daftar-penggunaan"
+        },
+        {
+          "url": "pengelolaan/daftar-tagihan",
+          "name": "Daftar Tagihan",
+          "slug": "pengelolaan-daftar-tagihan"
+        },
+        {
+          "url": "pengelolaan/daftar-tunggakan",
+          "name": "Daftar Tunggakan",
+          "slug": "pengelolaan-daftar-tunggakan"
+        },
+        {
+          "url": "pengelolaan/riwayat-transaksi",
+          "name": "Riwayat Transaksi",
+          "slug": "pengelolaan-riwayat-transaksi"
+        }
+      ]
+    },
+    {
+      "name": "Data Dasar",
+      "icon": "menu-icon tf-icons mdi mdi-cube-outline",
+      "slug": "datamaster",
+      "submenu": [
+        {
+          "url": "datamaster/kelola-tarif",
+          "name": "Kelola Tarif",
+          "slug": "datamaster-kelola-tarif"
+        },
+        {
+          "url": "datamaster/kelola-denda",
+          "name": "Kelola Denda",
+          "slug": "datamaster-kelola-denda"
+        },
+        {
+          "url": "datamaster/kelola-pelanggan",
+          "name": "Kelola Pelanggan",
+          "slug": "datamaster-kelola-pelanggan"
+        },
+        {
+          "url": "datamaster/kelola-akun",
+          "name": "Kelola Akun",
+          "slug": "datamaster-kelola-akun"
+        }
+      ]
+    },
+    {
+      "name": "Laporan",
+      "icon": "menu-icon tf-icons mdi mdi-flip-to-front",
+      "slug": "laporan",
+      "submenu": [
+        {
+          "url": "laporan/pelanggan",
+          "name": "Cetak Pelanggan",
+          "slug": "laporan-pelanggan"
+        },
+        {
+          "url": "laporan/tunggakan",
+          "name": "Cetak Tunggakan",
+          "slug": "laporan-tunggakan",
+          "target": "_blank"
+        }
+      ]
+    }
+  ]
+}

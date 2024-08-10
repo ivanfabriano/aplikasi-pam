@@ -70,18 +70,23 @@ class CekTagihan extends Controller
                         $bulan =  $bulanIndonesia[$tagihan->bulan_tagihan];
                         $tahun = $tagihan->tahun_tagihan;
                         $tenggang_pembayaran = "$tahun-$bulan-$tanggal";
+                        $tanggal_tagihan_pelanggan = Carbon::createFromFormat('Y-m-d', "$tahun-$bulan-01");;
                         $tenggang_date = Carbon::createFromFormat('Y-m-d', $tenggang_pembayaran);
 
                         if ($current_date->isBefore($tenggang_date) || $current_date->equalTo($tenggang_date)) {
                             $tagihan->denda = 0;
                         } else {
                             $differenceInDays = $tenggang_date->diffInDays($current_date);
-                            $info_denda = Denda::where('hari_awal', '<', $differenceInDays)
-                                ->where('hari_akhir', '>', $differenceInDays)
+                            $info_denda = Denda::where('hari_awal', '<=', $differenceInDays)
+                                ->where('hari_akhir', '>=', $differenceInDays)
+                                ->where('created_at', '<=', $tanggal_tagihan_pelanggan)
+                                ->orderBy('created_at', 'desc')
                                 ->first();
                             if ($info_denda) {
-                                $tagihan->denda = $info_denda->denda;
-                                $tagihan->total_akhir = $info_denda->denda + $tagihan->total_akhir;
+                                if (($tagihan->meter_awal - $tagihan->meter_akhir) != 0) {
+                                    $tagihan->denda = $info_denda->denda;
+                                    $tagihan->total_akhir = $info_denda->denda + $tagihan->total_akhir;
+                                }
                             } else {
                                 $tagihan->denda = 0;
                             }
