@@ -78,7 +78,11 @@ class LaporanTunggakan extends Controller
                             ->where('hari_akhir', '>', $differenceInDays)
                             ->first();
                         if ($info_denda) {
-                            $total_denda += $info_denda->denda;
+                            if ($tagihan_user->meter_awal - $tagihan_user->meter_akhir != 0) {
+                                $total_denda += $info_denda->denda;
+                            } else {
+                                $total_denda += 0;
+                            }
                         } else {
                             $total_denda += 0;
                         }

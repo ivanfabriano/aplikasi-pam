@@ -17,7 +17,7 @@
             <div class="col">
                 IDPEL
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 : {{ session('tagihan_data')->id_pelanggan }}
             </div>
             <div class="col">
@@ -31,7 +31,7 @@
             <div class="col">
                 NAMA
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 : {{ session('tagihan_data')->no_meter }} | {{ session('tagihan_data')->nama_pelanggan }}
             </div>
             <div class="col">
@@ -45,7 +45,7 @@
             <div class="col">
                 TARIF
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 : {{ session('tagihan_data')->jenis_tarif }}
             </div>
             <div class="col">
@@ -59,7 +59,7 @@
             <div class="col">
                 RP.TAG AIR
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 : Rp. {{ number_format(session('tagihan_data')->jumlah_bayar, 0, ',', '.') }},-
             </div>
             <div class="col">
@@ -73,7 +73,7 @@
             <div class="col">
                 DENDA
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 : Rp. {{ number_format(session('tagihan_data')->denda, 0, ',', '.') }},-
             </div>
             <div class="col">
@@ -87,7 +87,7 @@
             <div class="col">
                 ABONEMEN
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 : Rp. {{ number_format(session('tagihan_data')->biaya_admin, 0, ',', '.') }},-
             </div>
             <div class="col">
@@ -101,7 +101,7 @@
             <div class="col">
                 TOTAL BAYAR
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 : Rp. {{ number_format(session('tagihan_data')->total_akhir, 0, ',', '.') }},-
             </div>
             <div class="col">
