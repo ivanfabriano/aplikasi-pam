@@ -85,7 +85,7 @@ class CekTagihan extends Controller
                             if ($info_denda) {
                                 if (($tagihan->meter_awal - $tagihan->meter_akhir) != 0) {
                                     $tagihan->denda = $info_denda->denda;
-                                    $tagihan->total_akhir = $info_denda->denda + $tagihan->total_akhir;
+                                    $tagihan->total_akhir = $info_denda->denda + $tagihan->jumlah_bayar + $tagihan->biaya_admin;
                                 }
                             } else {
                                 $tagihan->denda = 0;
